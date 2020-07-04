@@ -6,10 +6,11 @@ import com.mpholo.project.grocery.repositories.MonthlyGroceryRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class MonthlyGroceryServiceImpl implements  MonthlyGroceryService {
+public class MonthlyGroceryServiceImpl  implements  MonthlyGroceryService {
 
     private final MonthlyGroceryRepository monthlyGroceryRepository;
     private MonthlyGroceryMapper monthlyGroceryMapper;
@@ -20,8 +21,10 @@ public class MonthlyGroceryServiceImpl implements  MonthlyGroceryService {
     }
 
     @Override
-    public MonthlyGroceryDTO findById(Integer id) {
-        return monthlyGroceryMapper.monthlyGroceryToMonthlyGroceryDTO(monthlyGroceryRepository.findById(id).orElse(null));
+    public Optional<MonthlyGroceryDTO> findById(Integer id) {
+        return Optional.of(monthlyGroceryRepository.findById(id)
+                .map(monthlyGroceryMapper::monthlyGroceryToMonthlyGroceryDTO)
+                .orElseThrow(RuntimeException::new));
     }
 
     @Override

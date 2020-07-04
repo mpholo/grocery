@@ -6,10 +6,11 @@ import com.mpholo.project.grocery.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class ProductServiceImpl implements ProductService {
+public class ProductServiceImpl  implements ProductService {
 
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
@@ -20,9 +21,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDTO findById(Integer id) {
+    public Optional<ProductDTO> findById(Integer id) {
 
-        return productMapper.ProductToProductDTO(productRepository.findById(id).orElse(null));
+        return Optional.of(productMapper.ProductToProductDTO(productRepository.findById(id).orElse(null)));
     }
 
     @Override
