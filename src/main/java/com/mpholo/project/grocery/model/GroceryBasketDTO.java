@@ -17,5 +17,5 @@ public class GroceryBasketDTO {
     private int quantity;
     private double actualPrice;
     private List<Product> products;
-    private List<MonthlyGrocery> grocery;
+    private MonthlyGrocery monthlyGrocery;
 }

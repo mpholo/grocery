@@ -54,7 +54,22 @@ public class GroceryBasketServiceImpl implements  GroceryBasketService   {
     }
 
     @Override
-    public void save(GroceryBasketDTO groceryBasketDTO) {
-        groceryBasketRepository.save(groceryBasketMapper.groceryBasketDTOToGroceryBasket(groceryBasketDTO));
+    public GroceryBasketDTO save(GroceryBasketDTO groceryBasketDTO) {
+
+        GroceryBasket groceryBasket=groceryBasketMapper.groceryBasketDTOToGroceryBasket(groceryBasketDTO) ;
+        return saveAndReturnDTO(groceryBasket);
+    }
+
+
+    @Override
+    public GroceryBasketDTO edit(Integer id, GroceryBasketDTO groceryBasketDTO) {
+        GroceryBasket groceryBasket = groceryBasketMapper.groceryBasketDTOToGroceryBasket(groceryBasketDTO);
+        groceryBasket.setGroceryBasketId(id);
+        return saveAndReturnDTO(groceryBasket);
+    }
+
+    private GroceryBasketDTO saveAndReturnDTO(GroceryBasket groceryBasket) {
+        GroceryBasket savedGroceryBasket= groceryBasketRepository.save(groceryBasket);
+        return  groceryBasketMapper.groceryBasketToGroceryBasketDTO(savedGroceryBasket);
     }
 }

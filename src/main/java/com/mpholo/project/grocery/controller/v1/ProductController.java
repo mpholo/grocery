@@ -6,12 +6,12 @@ import com.mpholo.project.grocery.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import static com.mpholo.project.grocery.util.ProductMappings.PRODUCTURL;
 
 @Controller
-@RequestMapping("/api/v1/products/")
+@RequestMapping(PRODUCTURL)
 public class ProductController {
 
     private  final ProductService productService;
@@ -27,7 +27,7 @@ public class ProductController {
 
     }
 
-    @GetMapping("{productName}")
+    @GetMapping("/{productName}")
     public ResponseEntity<ProductDTO> getProductByMame(@PathVariable String productName) {
 
         ProductDTO productDTO =productService.findByProductName(productName);
@@ -36,5 +36,17 @@ public class ProductController {
         return new ResponseEntity<ProductDTO>(
                 productService.findByProductName(productName),HttpStatus.OK);
 
+    }
+
+    @PostMapping
+    public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO productDTO) {
+        return new ResponseEntity<ProductDTO>(productService.save(productDTO),HttpStatus.CREATED);
+    }
+
+
+    @PutMapping("/{productId}")
+    public ResponseEntity<ProductDTO> editProduct(@PathVariable Integer productId,@RequestBody ProductDTO productDTO) {
+        return  new ResponseEntity<ProductDTO>(
+                productService.edit(Integer.valueOf(productId),productDTO),HttpStatus.OK);
     }
 }

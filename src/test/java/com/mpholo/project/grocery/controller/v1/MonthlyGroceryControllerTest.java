@@ -63,7 +63,7 @@ class MonthlyGroceryControllerTest {
 
         //given
         MonthlyGroceryDTO monthlyGroceryDTO =new MonthlyGroceryDTO();
-        monthlyGroceryDTO.setGroceryId(1);
+        monthlyGroceryDTO.setMonthlyGroceryId(1);
         monthlyGroceryDTO.setBudgetAmount(5000.00);
         monthlyGroceryDTO.setPeriod(JULY_2020);
 

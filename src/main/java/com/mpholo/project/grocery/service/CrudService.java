@@ -9,6 +9,7 @@ public interface CrudService<T,ID> {
     List<T> findAll();
     void deleteById(ID id);
     void delete(T object);
-    void save(T object);
+    T save(T object);
+    T edit(Integer id,T object);
 
 }

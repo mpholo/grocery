@@ -1,5 +1,6 @@
 package com.mpholo.project.grocery.service;
 
+import com.mpholo.project.grocery.domain.MonthlyGrocery;
 import com.mpholo.project.grocery.mapper.MonthlyGroceryMapper;
 import com.mpholo.project.grocery.model.MonthlyGroceryDTO;
 import com.mpholo.project.grocery.repositories.MonthlyGroceryRepository;
@@ -47,14 +48,29 @@ public class MonthlyGroceryServiceImpl  implements  MonthlyGroceryService {
     }
 
     @Override
-    public void save(MonthlyGroceryDTO monthlyGroceryDTO) {
+    public MonthlyGroceryDTO save(MonthlyGroceryDTO monthlyGroceryDTO) {
 
-        monthlyGroceryRepository.save(monthlyGroceryMapper.monthlyGroceryDTOToMonthlyGrocery(monthlyGroceryDTO));
+        MonthlyGrocery monthlyGrocery = monthlyGroceryMapper.monthlyGroceryDTOToMonthlyGrocery(monthlyGroceryDTO);
+        return  saveAndReturn(monthlyGrocery);
+
+    }
+
+    @Override
+    public MonthlyGroceryDTO edit(Integer id, MonthlyGroceryDTO monthlyGroceryDTO) {
+        MonthlyGrocery monthlyGrocery = monthlyGroceryMapper.monthlyGroceryDTOToMonthlyGrocery(monthlyGroceryDTO);
+        return saveAndReturn(monthlyGrocery);
     }
 
     @Override
     public MonthlyGroceryDTO findByPeriod(String period) {
         return monthlyGroceryMapper.monthlyGroceryToMonthlyGroceryDTO(monthlyGroceryRepository.findByPeriod(period));
     }
+
+    private MonthlyGroceryDTO saveAndReturn(MonthlyGrocery monthlyGrocery) {
+        MonthlyGrocery savedMonthlyGrocery =monthlyGroceryRepository.save(monthlyGrocery);
+        return monthlyGroceryMapper.monthlyGroceryToMonthlyGroceryDTO(savedMonthlyGrocery);
+    }
+
+
 }
 

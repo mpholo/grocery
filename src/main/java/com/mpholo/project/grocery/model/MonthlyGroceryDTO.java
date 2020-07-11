@@ -6,19 +6,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class MonthlyGroceryDTO {
 
-
-    private int groceryId;
+    private int monthlyGroceryId;
     private double budgetAmount;
     private String period;
     private LocalDate startDate;
     private  LocalDate endDate;
-    private GroceryBasket groceryBasket;
+    private List<GroceryBasket> groceryBasket;
 
 
 }

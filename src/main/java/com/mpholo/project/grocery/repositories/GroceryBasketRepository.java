@@ -1,11 +1,10 @@
 package com.mpholo.project.grocery.repositories;
 
 import com.mpholo.project.grocery.domain.GroceryBasket;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
-public interface GroceryBasketRepository extends GenericRepository<GroceryBasket,Integer> {
+public interface GroceryBasketRepository extends JpaRepository<GroceryBasket,Integer> {
 
 
-    List<GroceryBasket> findByPeriod(String period);
+
 }

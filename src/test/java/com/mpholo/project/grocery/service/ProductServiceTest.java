@@ -12,7 +12,9 @@ import org.mockito.MockitoAnnotations;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static com.mpholo.project.grocery.util.ProductMappings.PRODUCTURL;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -62,5 +64,77 @@ class ProductServiceTest {
         //then
         assertEquals(ID,productDTO.getProductId());
         assertEquals(NAME,productDTO.getProductName());
+    }
+
+    @Test
+    void createNewProduct() {
+
+        //given
+        ProductDTO productDto = new ProductDTO();
+        productDto.setProductId(ID);
+        productDto.setProductName(NAME);
+
+        Product saveProduct = new Product();
+        saveProduct.setProductId(productDto.getProductId());
+        saveProduct.setProductName(productDto.getProductName());
+
+
+        when(productRepository.save(any(Product.class))).thenReturn(saveProduct);
+
+        //when
+        ProductDTO saveDTo = productService.save(productDto);
+
+        //then
+        assertEquals(productDto.getProductName(),saveDTo.getProductName());
+        assertEquals(PRODUCTURL+ID,saveDTo.getProductUrl());
+    }
+
+    @Test
+    void editProduct() throws  Exception {
+
+        //given
+        ProductDTO productDto = new ProductDTO();
+        productDto.setProductId(ID);
+        productDto.setProductName(NAME);
+
+        Product saveProduct = new Product();
+        saveProduct.setProductId(productDto.getProductId());
+        saveProduct.setProductName(productDto.getProductName());
+
+
+        when(productRepository.save(any(Product.class))).thenReturn(saveProduct);
+
+        //when
+        ProductDTO productDTO = productService.edit(ID,productDto);
+
+        //then
+        assertEquals(productDto.getProductName(),productDTO.getProductName());
+        assertEquals(PRODUCTURL+ID,productDTO.getProductUrl());
+    }
+
+    @Test
+    void patchProduct()  throws Exception {
+        //given
+        String productUrl = PRODUCTURL+"/"+ID;
+        ProductDTO productDto = new ProductDTO();
+        productDto.setProductId(ID);
+        productDto.setProductName(NAME);
+        productDto.setProductUrl(productUrl);
+        productDto.setProductDescription("Product Descrition");
+
+        Product saveProduct = new Product();
+        saveProduct.setProductId(productDto.getProductId());
+        saveProduct.setProductName(productDto.getProductName());
+
+
+        when(productRepository.save(any(Product.class))).thenReturn(saveProduct);
+
+        //when
+        ProductDTO productDTO = productService.patchProduct(ID,productDto);
+
+        //then
+        assertEquals(productDto.getProductName(),productDTO.getProductName());
+        assertEquals(productUrl,productDto.getProductUrl());
+        assertNull(saveProduct.getProductDescription());
     }
 }

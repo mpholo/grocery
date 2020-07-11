@@ -14,11 +14,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.mpholo.project.grocery.controller.v1.AbstractRestController.asJsonString;
+import static com.mpholo.project.grocery.util.ProductMappings.PRODUCTURL;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -69,7 +71,7 @@ class ProductControllerTest {
 
         when(productService.findAll()).thenReturn(productList);
 
-        mockMvc.perform(get("/api/v1/products/")
+        mockMvc.perform(get(PRODUCTURL)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.products", hasSize(5)));
@@ -86,9 +88,82 @@ class ProductControllerTest {
         when(productService.findByProductName(anyString())).thenReturn(product1);
 
 
-        mockMvc.perform(get("/api/v1/products/milk")
+        mockMvc.perform(get(PRODUCTURL+"/milk")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.productName", equalTo(NAME)));
+    }
+
+    @Test
+    void createNewProduct() throws  Exception {
+
+        //given
+        ProductDTO product1 = new ProductDTO();
+        product1.setProductId(1);
+        product1.setProductName(NAME);
+
+        ProductDTO returnDTO = new ProductDTO();
+        returnDTO.setProductId(product1.getProductId());
+        returnDTO.setProductName(product1.getProductName());
+        returnDTO.setProductUrl(PRODUCTURL+1);
+
+        when(productService.save(product1)).thenReturn(returnDTO);
+
+        //FOR DEBUGGIN
+//       String response= mockMvc.perform(post(PRODUCTURL)
+//       .contentType(MediaType.APPLICATION_JSON)
+//       .content(asJsonString(product1)))
+//               .andReturn().getResponse().getContentAsString();
+
+//        System.out.println(response);
+
+        mockMvc.perform(post(PRODUCTURL)
+                .contentType(MediaType.APPLICATION_JSON)
+        .content(asJsonString(product1)))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.productName",equalTo(NAME)))
+                .andExpect(jsonPath("$.product_url",equalTo(PRODUCTURL+product1.getProductId())));
+    }
+
+
+    @Test
+    void editProductController()  throws Exception{
+
+        //given
+        ProductDTO product1 = new ProductDTO();
+        product1.setProductId(1);
+        product1.setProductName(NAME);
+
+        String productUrl= PRODUCTURL+"/1";
+        ProductDTO returnDTO = new ProductDTO();
+        returnDTO.setProductId(product1.getProductId());
+        returnDTO.setProductName(product1.getProductName());
+        returnDTO.setProductUrl(productUrl);
+
+        when(productService.edit(anyInt(),any(ProductDTO.class))).thenReturn(returnDTO);
+
+        //FOR DEBUGGIN
+//       String response= mockMvc.perform(put(productUrl)
+//       .contentType(MediaType.APPLICATION_JSON)
+//       .content(asJsonString(product1)))
+//               .andReturn().getResponse().getContentAsString();
+//
+//        System.out.println(response);
+
+
+        //when/then
+
+        mockMvc.perform(put(productUrl)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(product1)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.productName",equalTo(NAME)))
+                .andExpect(jsonPath("$.product_url",equalTo(productUrl)));
+
+    }
+
+    @Test
+    void patchProductController() {
+
     }
 }

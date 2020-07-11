@@ -19,13 +19,13 @@ class MonthlyGroceryMapperTest {
         //given
         MonthlyGrocery monthlyGrocery = new MonthlyGrocery();
         monthlyGrocery.setBudgetAmount(AMOUNT);
-        monthlyGrocery.setGroceryId(ID);
+        monthlyGrocery.setMonthlyGroceryId(ID);
 
         //when
         MonthlyGroceryDTO monthlyGroceryDTO=monthlyGroceryMapper.monthlyGroceryToMonthlyGroceryDTO(monthlyGrocery);
 
         //then
-        assertEquals(Integer.valueOf(ID),monthlyGroceryDTO.getGroceryId());
+        assertEquals(Integer.valueOf(ID),monthlyGroceryDTO.getMonthlyGroceryId());
         assertEquals(AMOUNT,monthlyGrocery.getBudgetAmount());
     }
 
@@ -36,13 +36,13 @@ class MonthlyGroceryMapperTest {
         //given
         MonthlyGroceryDTO monthlyGroceryDTO = new MonthlyGroceryDTO();
         monthlyGroceryDTO.setBudgetAmount(AMOUNT);
-        monthlyGroceryDTO.setGroceryId(ID);
+        monthlyGroceryDTO.setMonthlyGroceryId(ID);
 
         //when
         MonthlyGrocery monthlyGrocery=monthlyGroceryMapper.monthlyGroceryDTOToMonthlyGrocery(monthlyGroceryDTO);
 
         //then
-        assertEquals(Integer.valueOf(ID),monthlyGrocery.getGroceryId());
+        assertEquals(Integer.valueOf(ID),monthlyGrocery.getMonthlyGroceryId());
         assertEquals(AMOUNT,monthlyGrocery.getBudgetAmount());
     }
 }

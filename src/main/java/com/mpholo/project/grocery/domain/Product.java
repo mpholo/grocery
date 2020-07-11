@@ -2,10 +2,7 @@ package com.mpholo.project.grocery.domain;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -16,6 +13,10 @@ public class Product {
     private int productId;
     private String productName;
     private String productDescription;
+    @ManyToOne
+    private GroceryBasket groceryBasket;
+
+
 
 
 }

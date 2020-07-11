@@ -1,26 +1,26 @@
 package com.mpholo.project.grocery.domain;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
+@EqualsAndHashCode(exclude = {"groceryBasket"})
 public class MonthlyGrocery {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int groceryId;
+    private int monthlyGroceryId;
     private double budgetAmount;
     private String period;
     private LocalDate startDate;
     private  LocalDate endDate;
 
-
-    private GroceryBasket groceryBasket;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "monthlyGrocery")
+    private List<GroceryBasket> groceryBasket;
 
 }

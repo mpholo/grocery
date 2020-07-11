@@ -41,7 +41,7 @@ class MonthlyGroceryServiceImplTest {
 
         //given
         MonthlyGrocery monthlyGrocery = new MonthlyGrocery();
-        monthlyGrocery.setGroceryId(ID);
+        monthlyGrocery.setMonthlyGroceryId(ID);
         monthlyGrocery.setBudgetAmount(AMOUNT);
         monthlyGrocery.setPeriod(PERIOD);
         when(monthlyGroceryRepository.findByPeriod(PERIOD)).thenReturn(monthlyGrocery);
