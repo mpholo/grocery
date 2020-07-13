@@ -2,6 +2,7 @@ package com.mpholo.project.grocery.controller.v1;
 
 import com.mpholo.project.grocery.model.ProductDTO;
 import com.mpholo.project.grocery.service.ProductService;
+import com.mpholo.project.grocery.service.ResourceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -16,10 +17,11 @@ import java.util.List;
 
 import static com.mpholo.project.grocery.controller.v1.AbstractRestController.asJsonString;
 import static com.mpholo.project.grocery.util.ProductMappings.PRODUCTURL;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -27,6 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class ProductControllerTest {
 
     private static final String NAME ="milk";
+
 
     @InjectMocks
     ProductController productController;
@@ -40,7 +43,9 @@ class ProductControllerTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        mockMvc = MockMvcBuilders.standaloneSetup(productController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(productController)
+                .setControllerAdvice(new RestResponseEntityExceptionHandler())
+                .build();
     }
 
     @Test
@@ -92,6 +97,17 @@ class ProductControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.productName", equalTo(NAME)));
+    }
+
+    @Test
+    void testFindByProductNameNotFound() throws  Exception {
+
+        when(productService.findByProductName(anyString())).thenThrow(ResourceNotFoundException.class);
+
+        mockMvc.perform(get(PRODUCTURL+"/unknown")
+        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+
     }
 
     @Test
@@ -163,7 +179,39 @@ class ProductControllerTest {
     }
 
     @Test
-    void patchProductController() {
+    void patchProductController() throws  Exception {
+        //given
+        ProductDTO product1 = new ProductDTO();
+        product1.setProductId(1);
+        product1.setProductName(NAME);
+        product1.setProductDescription("Old description");
 
+        String productUrl= PRODUCTURL+"/1";
+        ProductDTO returnDTO = new ProductDTO();
+        returnDTO.setProductId(product1.getProductId());
+        returnDTO.setProductName(product1.getProductName());
+        returnDTO.setProductUrl(productUrl);
+
+        when(productService.patchProduct(anyInt(), any(ProductDTO.class))).thenReturn(returnDTO);
+
+        //when/then
+        mockMvc.perform(patch(productUrl)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(product1)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.productName",equalTo(NAME)))
+                .andExpect(jsonPath("$.productDescription",nullValue()))
+                .andExpect(jsonPath("$.product_url",equalTo(productUrl)));
+
+
+    }
+
+    @Test
+    void testDeleteCustomer() throws  Exception {
+        mockMvc.perform(delete(PRODUCTURL+"/1")
+        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        verify(productService,times(1)).deleteById(anyInt());
     }
 }

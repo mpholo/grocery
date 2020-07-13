@@ -11,6 +11,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static com.mpholo.project.grocery.util.ProductMappings.PRODUCTURL;
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,6 +23,7 @@ class ProductServiceTest {
 
     private static final int ID=1;
     private static final String NAME="milk";
+    private static final String SPECIFIC_PRODUCT_URL=PRODUCTURL+"/1";
     ProductService productService;
 
     @Mock
@@ -55,7 +57,7 @@ class ProductServiceTest {
         Product product = new Product();
         product.setProductId(ID);
         product.setProductName(NAME);
-        when(productRepository.findByProductName(anyString())).thenReturn(product);
+        when(productRepository.findByProductName(anyString())).thenReturn(Optional.of(product));
 
         //when
         ProductDTO productDTO = productService.findByProductName(NAME);
@@ -86,7 +88,7 @@ class ProductServiceTest {
 
         //then
         assertEquals(productDto.getProductName(),saveDTo.getProductName());
-        assertEquals(PRODUCTURL+ID,saveDTo.getProductUrl());
+        assertEquals(SPECIFIC_PRODUCT_URL,saveDTo.getProductUrl());
     }
 
     @Test
@@ -109,17 +111,16 @@ class ProductServiceTest {
 
         //then
         assertEquals(productDto.getProductName(),productDTO.getProductName());
-        assertEquals(PRODUCTURL+ID,productDTO.getProductUrl());
+        assertEquals(SPECIFIC_PRODUCT_URL,productDTO.getProductUrl());
     }
 
     @Test
     void patchProduct()  throws Exception {
         //given
-        String productUrl = PRODUCTURL+"/"+ID;
         ProductDTO productDto = new ProductDTO();
         productDto.setProductId(ID);
         productDto.setProductName(NAME);
-        productDto.setProductUrl(productUrl);
+        productDto.setProductUrl(SPECIFIC_PRODUCT_URL);
         productDto.setProductDescription("Product Descrition");
 
         Product saveProduct = new Product();
@@ -134,7 +135,9 @@ class ProductServiceTest {
 
         //then
         assertEquals(productDto.getProductName(),productDTO.getProductName());
-        assertEquals(productUrl,productDto.getProductUrl());
+        assertEquals(SPECIFIC_PRODUCT_URL,productDto.getProductUrl());
         assertNull(saveProduct.getProductDescription());
     }
+
+
 }

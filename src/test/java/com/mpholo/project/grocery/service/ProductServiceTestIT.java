@@ -71,6 +71,18 @@ class ProductServiceTestIT {
 
     }
 
+    @Test
+    void deleteProductById() throws  Exception {
+      Integer id = getProductIDValue();
+
+      int originalRecords = productRepository.findAll().size();
+      productRepository.deleteById(id);
+      int afterDeleteRecords = productRepository.findAll().size();
+
+      assertThat(originalRecords-1,equalTo(afterDeleteRecords));
+
+    }
+
 
 
 

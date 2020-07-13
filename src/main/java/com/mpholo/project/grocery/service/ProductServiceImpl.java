@@ -28,7 +28,7 @@ public class ProductServiceImpl  implements ProductService {
 
         return Optional.of(productMapper.ProductToProductDTO(
                 productRepository.findById(id)
-                        .orElseThrow(RuntimeException::new))); //todo implement better exception handling
+                        .orElseThrow(ResourceNotFoundException::new)));
     }
 
     @Override
@@ -38,7 +38,7 @@ public class ProductServiceImpl  implements ProductService {
                 .stream()
                 .map(p ->{
                     ProductDTO productDto = productMapper.ProductToProductDTO(p);
-                    productDto.setProductUrl(PRODUCTURL+"/"+p.getProductId());
+                    productDto.setProductUrl(getProductUrl(p.getProductId()));
                     return  productDto;
                    }
 
@@ -66,15 +66,20 @@ public class ProductServiceImpl  implements ProductService {
     @Override
     public ProductDTO findByProductName(String name) {
 
-        ProductDTO productDTO= productMapper.ProductToProductDTO(productRepository.findByProductName(name));
-        productDTO.setProductUrl(PRODUCTURL+"/"+productDTO.getProductId());
-        return  productDTO;
+        return  productRepository.findByProductName(name)
+                .map(productMapper::ProductToProductDTO)
+                .map(productDTO-> {
+                    productDTO.setProductUrl(getProductUrl(productDTO.getProductId()));
+                    return productDTO;
+                })
+                .orElseThrow(ResourceNotFoundException::new);
+
     }
 
     private ProductDTO saveAndReturnDTO(Product product) {
         Product saveProduct = productRepository.save(product);
         ProductDTO returnDTo=  productMapper.ProductToProductDTO(saveProduct);
-        returnDTo.setProductUrl(PRODUCTURL+product.getProductId());
+        returnDTo.setProductUrl(getProductUrl(product.getProductId()));
 
         return returnDTo;
     }
@@ -109,5 +114,9 @@ public class ProductServiceImpl  implements ProductService {
 
         return  productDTO;
 
+    }
+
+    private String getProductUrl(Integer productID) {
+        return PRODUCTURL+"/"+productID;
     }
 }

@@ -4,13 +4,11 @@ import com.mpholo.project.grocery.model.ProductDTO;
 import com.mpholo.project.grocery.model.ProductListDTO;
 import com.mpholo.project.grocery.service.ProductService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import static com.mpholo.project.grocery.util.ProductMappings.PRODUCTURL;
 
-@Controller
+@RestController
 @RequestMapping(PRODUCTURL)
 public class ProductController {
 
@@ -21,32 +19,46 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<ProductListDTO> getAllProducts() {
-        return new ResponseEntity<ProductListDTO>(
-                new ProductListDTO(productService.findAll()),HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public ProductListDTO getAllProducts() {
+        return  new ProductListDTO(productService.findAll());
 
     }
 
     @GetMapping("/{productName}")
-    public ResponseEntity<ProductDTO> getProductByMame(@PathVariable String productName) {
+    @ResponseStatus(HttpStatus.OK)
+    public ProductDTO getProductByMame(@PathVariable String productName) {
 
         ProductDTO productDTO =productService.findByProductName(productName);
         System.out.println(productName);
         System.out.println("proudct found "+productDTO.getProductName());
-        return new ResponseEntity<ProductDTO>(
-                productService.findByProductName(productName),HttpStatus.OK);
+        return  productService.findByProductName(productName);
 
     }
 
     @PostMapping
-    public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO productDTO) {
-        return new ResponseEntity<ProductDTO>(productService.save(productDTO),HttpStatus.CREATED);
+    @ResponseStatus(HttpStatus.CREATED)
+    public ProductDTO createProduct(@RequestBody ProductDTO productDTO) {
+        return productService.save(productDTO);
     }
 
 
     @PutMapping("/{productId}")
-    public ResponseEntity<ProductDTO> editProduct(@PathVariable Integer productId,@RequestBody ProductDTO productDTO) {
-        return  new ResponseEntity<ProductDTO>(
-                productService.edit(Integer.valueOf(productId),productDTO),HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public ProductDTO editProduct(@PathVariable Integer productId,@RequestBody ProductDTO productDTO) {
+        return  productService.edit(Integer.valueOf(productId),productDTO);
+    }
+
+    @PatchMapping("/{productId}")
+    @ResponseStatus(HttpStatus.OK)
+    public ProductDTO patchProduct(@PathVariable Integer productId,@RequestBody ProductDTO productDTO ) {
+        return  productService.patchProduct(Integer.valueOf(productId),productDTO);
+    }
+
+    @DeleteMapping("/{productId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void  deleteProduct(@PathVariable Integer productId) {
+        productService.deleteById(Integer.valueOf(productId));
+
     }
 }
