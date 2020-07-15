@@ -1,8 +1,9 @@
 package com.mpholo.project.grocery.domain;
 
-import lombok.*;
+import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Entity
@@ -13,8 +14,9 @@ public class Product {
     private int productId;
     private String productName;
     private String productDescription;
-    @ManyToOne
-    private GroceryBasket groceryBasket;
+    @OneToMany
+    @JoinColumn(name="product_id")
+    private Set<GroceryBasket> groceryBasket;
 
 
 

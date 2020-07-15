@@ -6,7 +6,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Data
@@ -21,9 +20,11 @@ public class GroceryBasket {
     private int quantity;
     private double actualPrice;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "groceryBasket",fetch = FetchType.LAZY)
-    private List<Product> products;
     @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="product_id")
+    private Product product;
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="monthly_grocery_id")
     private MonthlyGrocery monthlyGrocery;
 
 }

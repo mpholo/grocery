@@ -5,7 +5,8 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -20,7 +21,8 @@ public class MonthlyGrocery {
     private LocalDate startDate;
     private  LocalDate endDate;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "monthlyGrocery")
-    private List<GroceryBasket> groceryBasket;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="monthly_grocery_id")
+    private Set<GroceryBasket> groceryBasket = new HashSet<>();
 
 }
