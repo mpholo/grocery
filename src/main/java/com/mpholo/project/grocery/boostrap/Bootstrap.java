@@ -84,6 +84,10 @@ public class Bootstrap implements CommandLineRunner {
         month3.setStartDate(LocalDate.of(2020,03,01));
         month3.setEndDate(LocalDate.of(2020,03,29));
 
+        monthlyGroceryRepository.save(month1);
+        monthlyGroceryRepository.save(month2);
+        monthlyGroceryRepository.save(month3);
+
 
 
     }

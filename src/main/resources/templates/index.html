@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{fragments/template::head('Home')}" >
+    <meta charset="UTF-8">
+    <title>Home</title>
+
+</head>
+<body class="sb-nav-fixed">
+<h2>Welcome to grocery app</h2>
+
+<nav th:replace="~{fragments/template::top-nav}">
+</nav>
+<div id="layoutSidenav" th:fragment="layoutSidenav">
+    <div th:replace="~{fragments/template::layoutSidenav_nav}"></div>
+
+<div id="layoutSidenav_content">
+    <main>
+       <div class="container-fluid">
+<h1 class="mt-4">Products</h1>
+           <div class="card mb-4">
+               <div class="card-header"></div>
+               <div class="card-body"></div>
+           </div>
+      </div>
+
+    </main>
+</div>
+</div>
+<footer th:replace="~{fragments/template::footer}"></footer>
+</body>
+</html>
