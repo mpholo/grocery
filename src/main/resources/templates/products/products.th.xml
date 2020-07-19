@@ -1,5 +1,6 @@
 <thlogic>
 
+    <!--table fields-->
     <attr sel="#top-nav"
           th:replace="~{fragments/template::top-nav}" />
     <attr sel="#head"
@@ -21,4 +22,22 @@
           th:text="${product.productDescription}" />
     <attr sel="#productPrice"
           th:text="${product.productPrice}" />
+
+    <!--form fields-->
+    <attr sel="#saveProduct"
+          th:action="@{__${T(com.mpholo.project.grocery.util.ProductMappings).PRODUCT_SAVE}__}"
+          th:object="${product}" />
+
+    <attr sel="#formProductId"
+          th:field="${product.productID}" />
+
+    <attr sel="#formProductName"
+          th:field="${product.productName}" />
+
+    <attr sel="#formProductDescription"
+          th:field="${product.productDescription}" />
+
+    <attr sel="#formProductPrice"
+          th:field="${product.productPrice}" />
+
 </thlogic>

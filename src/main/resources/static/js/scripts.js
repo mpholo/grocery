@@ -19,4 +19,14 @@
         e.preventDefault();
         $("body").toggleClass("sb-sidenav-toggled");
     });
+
+    //show modal window
+    $('#myModal').on('shown.bs.modal', function () {
+      $('#myInput').trigger('focus')
+    })
+
+    $('#submitButton').on('click',function(){
+      $("form").submit();
+    });
+
 })(jQuery);
