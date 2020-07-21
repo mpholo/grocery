@@ -1,4 +1,4 @@
-package com.mpholo.project.grocery.controller.v2;
+package com.mpholo.project.grocery.controller;
 
 import com.mpholo.project.grocery.model.ProductDTO;
 import com.mpholo.project.grocery.service.ProductService;
@@ -18,13 +18,13 @@ import java.util.List;
 @Slf4j
 @Controller
 @RequestMapping("/product")
-public class ProductController2 {
+public class ProductController {
 
     //==field variables==
     private final ProductService productService;
 
     //==constructor==
-    public ProductController2(ProductService productService) {
+    public ProductController(ProductService productService) {
         this.productService = productService;
     }
 

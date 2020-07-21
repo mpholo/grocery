@@ -1,4 +1,4 @@
-package com.mpholo.project.grocery.controller.v1;
+package com.mpholo.project.grocery.controller.api.v1;
 
 import com.mpholo.project.grocery.model.ProductDTO;
 import com.mpholo.project.grocery.service.ProductService;
@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.mpholo.project.grocery.controller.v1.AbstractRestController.asJsonString;
+import static com.mpholo.project.grocery.controller.api.v1.AbstractRestController.asJsonString;
 import static com.mpholo.project.grocery.util.ProductMappings.PRODUCTURL;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.equalTo;

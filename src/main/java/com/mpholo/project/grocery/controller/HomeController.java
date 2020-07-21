@@ -1,4 +1,4 @@
-package com.mpholo.project.grocery.controller.v2;
+package com.mpholo.project.grocery.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

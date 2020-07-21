@@ -1,4 +1,4 @@
-package com.mpholo.project.grocery.controller.v1;
+package com.mpholo.project.grocery.controller.api.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
