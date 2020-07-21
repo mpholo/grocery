@@ -8,10 +8,7 @@ import com.mpholo.project.grocery.util.ProductViewNames;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -47,5 +44,26 @@ public class ProductController {
         log.info("Product from form = {} saved successfully",productDTO);
         return "redirect:/product/"+ProductMappings.PRODUCT_LIST;
     }
+
+    @GetMapping(ProductMappings.PRODUCT_DELETE)
+    public String deleteProduct(@RequestParam(name="productId") int productId) {
+        log.info("Deleting product with productId {}",productId);
+        productService.deleteById(productId);
+
+        return "redirect:/product/"+ProductMappings.PRODUCT_LIST;
+
+    }
+
+//    @GetMapping(ProductMappings.PRODUCT_EDIT)
+//    public String editProduct(@RequestParam(name="productId") int productId,
+//                                Model model) {
+//        log.info("Editing product with productId {}",productId);
+//        Optional<ProductDTO> productDTO= productService.findById(productId);
+//
+//        model.addAttribute(ProductAttributeNames.PRODUCT,productDTO.get());
+//
+//        return "redirect:/product/"+ProductMappings.PRODUCT_LIST;
+//
+//    }
 
 }

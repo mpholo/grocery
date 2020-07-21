@@ -1,16 +1,15 @@
-package com.mpholo.project.grocery.controller.v1;
+package com.mpholo.project.grocery.api.v1;
 
 import com.mpholo.project.grocery.model.ProductDTO;
 import com.mpholo.project.grocery.model.ProductListDTO;
 import com.mpholo.project.grocery.service.ProductService;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import static com.mpholo.project.grocery.util.ProductMappings.PRODUCTURL;
 
 
-@Controller("ProductApi")
+@RestController("ProductApi")
 @RequestMapping(PRODUCTURL)
 public class ProductController {
 

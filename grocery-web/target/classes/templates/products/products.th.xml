@@ -23,13 +23,20 @@
     <attr sel="#productPrice"
           th:text="${product.productPrice}" />
 
+    <attr sel="#deleteProduct"
+          th:href="@{__${T(com.mpholo.project.grocery.util.ProductMappings).PRODUCT_DELETE}__(productId=${product.productId})}" />
+
+<!--    <attr sel="#editProduct"-->
+<!--          th:href="@{__${T(com.mpholo.project.grocery.util.ProductMappings).PRODUCT_EDIT}__(productId=${product.productId})}" />-->
+
+
     <!--form fields-->
     <attr sel="#saveProduct"
           th:action="@{__${T(com.mpholo.project.grocery.util.ProductMappings).PRODUCT_SAVE}__}"
           th:object="${product}" />
 
     <attr sel="#formProductId"
-          th:field="${product.productID}" />
+          th:field="${product.productId}" />
 
     <attr sel="#formProductName"
           th:field="${product.productName}" />

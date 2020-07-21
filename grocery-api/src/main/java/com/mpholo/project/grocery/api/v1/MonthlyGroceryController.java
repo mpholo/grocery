@@ -1,16 +1,16 @@
-package com.mpholo.project.grocery.controller.v1;
+package com.mpholo.project.grocery.api.v1;
 
 import com.mpholo.project.grocery.model.MonthlyGroceryDTO;
 import com.mpholo.project.grocery.model.MonthlyGroceryListDTO;
 import com.mpholo.project.grocery.service.MonthlyGroceryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller("MonthlyGroceryApi")
+@RestController("MonthlyGroceryApi")
 @RequestMapping("/api/v1/monthlygroceries/")
 public class MonthlyGroceryController {
 

@@ -1,6 +1,6 @@
 package com.mpholo.project.grocery.v1;
 
-import com.mpholo.project.grocery.controller.v1.MonthlyGroceryController;
+import com.mpholo.project.grocery.api.v1.MonthlyGroceryController;
 import com.mpholo.project.grocery.model.MonthlyGroceryDTO;
 import com.mpholo.project.grocery.service.MonthlyGroceryService;
 import org.junit.jupiter.api.BeforeEach;
