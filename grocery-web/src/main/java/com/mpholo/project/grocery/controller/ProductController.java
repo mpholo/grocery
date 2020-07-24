@@ -14,7 +14,6 @@ import java.util.List;
 
 @Slf4j
 @Controller
-@RequestMapping("/product")
 public class ProductController {
 
     //==field variables==

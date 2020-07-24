@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"products"})
+@EqualsAndHashCode(exclude = {"product","monthlyGrocery"})
 public class GroceryBasket {
 
     @Id
