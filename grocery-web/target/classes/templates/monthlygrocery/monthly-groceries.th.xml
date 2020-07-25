@@ -1,0 +1,34 @@
+<thlogic>
+
+    <attr sel="#top-nav"
+          th:replace="~{fragments/template::top-nav}" />
+
+    <attr sel="#head"
+          th:replace="~{fragments/template::head('Monthly groceries')}" />
+
+    <attr sel="#layoutSidenav_nav"
+          th:replace="~{fragments/template::layoutSidenav_nav}" />
+
+    <attr sel=".monthlyGroceryList"
+          th:each="monthlyGrocery:${__${T(com.mpholo.project.grocery.util.MonthlyGroceryAttributeNames).MONTHLY_GROCERY_LIST}__}" />
+
+    <attr sel="#monthlyGroceryMonth"
+          th:text="${monthlyGrocery.period}" />
+
+    <attr sel="#card-header-id"
+          th:id="${'heading'+monthlyGroceryStat.count}" />
+
+    <attr sel="#collapse-id"
+          th:id="${'collapse'+monthlyGroceryStat.count}"
+          th:attr="aria-labelledby=${'heading'+monthlyGroceryStat.count}"
+          th:classappend="${monthlyGroceryStat.count == 1} ? 'show' : '' "      />
+
+    <attr sel=".collapse-attr"
+          th:attr="data-target=${'#collapse'+monthlyGroceryStat.count},aria-controls=${'collapse'+monthlyGroceryStat.count}" />
+
+
+    <attr sel="#footer"
+          data-th-data-target="~{fragments/template::footer}" />
+
+
+</thlogic>

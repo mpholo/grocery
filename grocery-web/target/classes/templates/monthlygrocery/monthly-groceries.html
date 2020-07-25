@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head id="head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body class="sb-nav-fixed">
+<h2>Monthly groceries</h2>
+
+<nav id="top-nav">
+</nav>
+<div id="layoutSidenav">
+    <div id="layoutSidenav_nav"></div>
+
+    <div id="layoutSidenav_content">
+        <div>
+            <div class="container-fluid">
+                <h1 class="mt-4">Monthly groceries</h1>
+
+                <div class="accordion" id="accordionGroceries">
+                    <div class="card monthlyGroceryList" >
+                        <div class="card-header" id="card-header-id">
+                            <div class="row">
+                             <div class="col-md-6">
+                                 <h2 class="mb-0">
+                                     <button class="btn btn-link btn-block text-left collapse-attr" type="button" data-toggle="collapse"  aria-expanded="true" aria-controls="collapseOne">
+                                         <label id="monthlyGroceryMonth">label text</label>
+                                     </button>
+                                 </h2>
+                             </div>
+                                <div class="col-md-6 pull-right">
+                                    <button class="btn btn-outline-primary btn-sm float-right" data-toggle="modal" data-target="#accordionGroceries"><i class="fas fa-plus-circle" ></i> Add Item</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="collapse-id" class="collapse" aria-labelledby="headingOne" data-parent="#accordionGroceries">
+                            <div class="card-body">
+                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        !-- Modal -->
+
+        <div class="modal fade" id="formModalCenter" tabindex="-1" role="dialog" aria-labelledby="formModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="formModalCenterTitle">New Product</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post"  id="saveProduct" action="#">
+                            <input type="hidden" id="formProductId">
+                            <div class="form-group">
+                                <input type="hidden" id="fromProductId">
+                                <label for="formProductName">Product Name</label>
+                                <input type="text" class="form-control formProductName" id="formProductName"  placeholder="Enter Product Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="formProductDescription">Product Description</label>
+                                <input type="text" class="form-control" id="formProductDescription"  placeholder="Enter Product Description">
+                            </div>
+                            <div class="form-group">
+                                <label for="formProductPrice">Price</label>
+                                <input type="text" class="form-control" id="formProductPrice"  placeholder="Enter Product Price">
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="submitButton">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </main>
+    </div>
+</div>
+<footer id="footer"></footer>
+
+</body>
+</html>

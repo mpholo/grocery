@@ -4,12 +4,16 @@ import com.mpholo.project.grocery.domain.MonthlyGrocery;
 import com.mpholo.project.grocery.mapper.MonthlyGroceryMapper;
 import com.mpholo.project.grocery.model.MonthlyGroceryDTO;
 import com.mpholo.project.grocery.repositories.MonthlyGroceryRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.BiPredicate;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class MonthlyGroceryServiceImpl  implements  MonthlyGroceryService {
 
@@ -64,6 +68,28 @@ public class MonthlyGroceryServiceImpl  implements  MonthlyGroceryService {
     @Override
     public MonthlyGroceryDTO findByPeriod(String period) {
         return monthlyGroceryMapper.monthlyGroceryToMonthlyGroceryDTO(monthlyGroceryRepository.findByPeriod(period));
+    }
+
+    @Override
+    public  List<MonthlyGroceryDTO> findByYear(Integer year) {
+
+        int searchYear = year==null?LocalDate.now().getYear():year.intValue();
+
+        log.info("getting monthly groceries for year {}",searchYear);
+        BiPredicate<LocalDate, LocalDate> match =
+                (startDate,endDate)-> startDate.getYear()==searchYear && endDate.getYear()==searchYear;
+
+        List<MonthlyGroceryDTO> monthlyGroceryDTOList =  monthlyGroceryRepository.findAll()
+                .stream()
+                .filter(record -> match.test(record.getStartDate(),record.getEndDate()))
+                .map(monthlyGroceryMapper::monthlyGroceryToMonthlyGroceryDTO)
+                .collect(Collectors.toList());
+
+
+        log.info("monthly groceries {}",monthlyGroceryDTOList.size());
+        return monthlyGroceryDTOList;
+
+
     }
 
     private MonthlyGroceryDTO saveAndReturn(MonthlyGrocery monthlyGrocery) {

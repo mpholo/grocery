@@ -6,12 +6,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GroceryBasketDTO {
+public class GroceryBasketDTO implements Serializable {
 
     private int groceryBasketId;
     private int quantity;

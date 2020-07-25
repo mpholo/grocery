@@ -1,0 +1,4 @@
+<thlogic>
+    <attr sel="#productLink"
+          th:href="@{__${T(com.mpholo.project.grocery.util.ProductMappings).PRODUCT_LIST}__}" />
+</thlogic>

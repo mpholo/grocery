@@ -11,6 +11,10 @@
 
     <artifactId>grocery-data</artifactId>
     <packaging>jar</packaging>
+
+    <properties>
+        <spring-boot.repackage.skip>true</spring-boot.repackage.skip>
+    </properties>
 <dependencies>
     <dependency>
         <groupId>org.springframework.boot</groupId>
@@ -20,6 +24,11 @@
     <dependency>
         <groupId>com.h2database</groupId>
         <artifactId>h2</artifactId>
+        <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
         <scope>runtime</scope>
     </dependency>
 </dependencies>

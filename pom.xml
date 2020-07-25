@@ -43,17 +43,7 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger2</artifactId>
-			<version>${springfox-swagger-version}</version>
-		</dependency>
 
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger-ui</artifactId>
-			<version>${springfox-swagger-version}</version>
-		</dependency>
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct-jdk8</artifactId>
@@ -73,31 +63,6 @@
 			<version>${junit-jupiter.version}</version>
 			<scope>runtime</scope>
 		</dependency>
-
-		<!--webjars-->
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>jquery</artifactId>
-			<version>${webjars-jquery.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>bootstrap</artifactId>
-			<version>${webjars-bootstrap.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>font-awesome</artifactId>
-			<version>${font-awesome.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.webjars.npm</groupId>
-			<artifactId>bootstrap-confirmation2</artifactId>
-			<version>${bootstrap-confirmation.version}</version>
-		</dependency>
 		<dependency>
 			<groupId>org.xmlunit</groupId>
 			<artifactId>xmlunit-core</artifactId>
@@ -111,12 +76,6 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
-
-
-		<!--		<dependency>-->
-<!--			<groupId>postgres</groupId>-->
-<!--			<artifactId>postgres-connector-java</artifactId>-->
-<!--		</dependency>-->
 	</dependencies>
 	<build>
 		<plugins>

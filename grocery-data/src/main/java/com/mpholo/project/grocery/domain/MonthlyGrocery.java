@@ -11,7 +11,7 @@ import java.util.Set;
 @Entity
 @Data
 @EqualsAndHashCode(exclude = {"groceryBasket"})
-public class MonthlyGrocery {
+public class MonthlyGrocery  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
