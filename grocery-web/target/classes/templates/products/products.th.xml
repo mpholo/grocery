@@ -26,10 +26,6 @@
     <attr sel="#deleteProduct"
           th:href="@{__${T(com.mpholo.project.grocery.util.ProductMappings).PRODUCT_DELETE}__(productId=${product.productId})}" />
 
-<!--    <attr sel="#editProduct"-->
-<!--          th:href="@{__${T(com.mpholo.project.grocery.util.ProductMappings).PRODUCT_EDIT}__(productId=${product.productId})}" />-->
-
-
     <!--form fields-->
     <attr sel="#saveProduct"
           th:action="@{__${T(com.mpholo.project.grocery.util.ProductMappings).PRODUCT_SAVE}__}"

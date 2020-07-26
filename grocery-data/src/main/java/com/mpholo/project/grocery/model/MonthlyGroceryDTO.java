@@ -4,6 +4,7 @@ import com.mpholo.project.grocery.domain.GroceryBasket;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -18,7 +19,9 @@ public class MonthlyGroceryDTO implements Serializable  {
     private int monthlyGroceryId;
     private double budgetAmount;
     private String period;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private  LocalDate endDate;
     private Set<GroceryBasket> groceryBasket = new HashSet<>();
 

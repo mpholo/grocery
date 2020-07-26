@@ -73,5 +73,10 @@
         <artifactId>bootstrap-confirmation2</artifactId>
         <version>${bootstrap-confirmation.version}</version>
     </dependency>
+
+<!--    <dependency>-->
+<!--        <groupId>joda-time</groupId>-->
+<!--        <artifactId>joda-time</artifactId>-->
+<!--    </dependency>-->
 </dependencies>
 </project>

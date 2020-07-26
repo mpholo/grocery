@@ -2,6 +2,7 @@ package com.mpholo.project.grocery.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -18,7 +19,9 @@ public class MonthlyGrocery  {
     private int monthlyGroceryId;
     private double budgetAmount;
     private String period;
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
     private LocalDate startDate;
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
     private  LocalDate endDate;
 
     @OneToMany(cascade = CascadeType.ALL)

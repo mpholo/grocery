@@ -26,7 +26,7 @@
     })
 
     $('#submitButton').on('click',function(){
-      $("form").submit();
+       $("form").submit();
     });
 
 

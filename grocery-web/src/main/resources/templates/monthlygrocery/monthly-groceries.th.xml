@@ -26,9 +26,29 @@
     <attr sel=".collapse-attr"
           th:attr="data-target=${'#collapse'+monthlyGroceryStat.count},aria-controls=${'collapse'+monthlyGroceryStat.count}" />
 
-
     <attr sel="#footer"
-          data-th-data-target="~{fragments/template::footer}" />
+          th:replace="~{fragments/template::footer}" />
+
+
+    <!--form fields-->
+    <attr sel="#saveMonthlyGrocery"
+          th:action="@{__${T(com.mpholo.project.grocery.util.MonthylGroceryMappings).MONTHLY_GROCERY_SAVE}__}"
+          th:object="${monthlyGrocery}" />
+
+    <attr sel="#formMonmthlyGroceryId"
+          th:field="${monthlyGrocery.monthlyGroceryId}" />
+
+    <attr sel="#formperiod"
+          th:field="${monthlyGrocery.period}" />
+
+    <attr sel="#formStartDate"
+          th:field="${monthlyGrocery.startDate}" />
+
+    <attr sel="#formEndDate"
+          th:field="${monthlyGrocery.endDate}" />
+
+    <attr sel="#formbudget"
+          th:field="${monthlyGrocery.budgetAmount}" />
 
 
 </thlogic>

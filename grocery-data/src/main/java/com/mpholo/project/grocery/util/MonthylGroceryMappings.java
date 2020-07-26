@@ -7,5 +7,6 @@ package com.mpholo.project.grocery.util;
 
 public final class MonthylGroceryMappings {
 
-    public final static String MONTHLY_GROCERY_LIST= "monthly-grocery/list";
+    public final static String MONTHLY_GROCERY_LIST= "/monthly-grocery/list";
+    public final static String MONTHLY_GROCERY_SAVE= "/monthly-grocery/save";
 }

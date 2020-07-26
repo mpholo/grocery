@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -33,21 +35,23 @@ public class MothlyGroceryController {
     public String displayMonthlyGroceries(Model model, @RequestParam(name="year",required = false) Integer year ) {
 
         log.info("getting monthly groceries");
-        List<MonthlyGroceryDTO> MonthlyGroceryDTOs= monthlyGroceryService.findByYear(year);
-        model.addAttribute(MonthlyGroceryAttributeNames.MONTHLY_GROCERY_LIST,MonthlyGroceryDTOs);
+        List<MonthlyGroceryDTO> monthlyGroceryDTOs= monthlyGroceryService.findByYear(year);
+        model.addAttribute(MonthlyGroceryAttributeNames.MONTHLY_GROCERY_LIST,monthlyGroceryDTOs);
+
+        //create new monthly grocery and set period
+        MonthlyGroceryDTO newMonthlyGrocery = new MonthlyGroceryDTO();
+        newMonthlyGrocery.setPeriod(monthlyGroceryDTOs.get(0).getPeriod());
+
+        model.addAttribute(MonthlyGroceryAttributeNames.MONTHLY_GROCERY,newMonthlyGrocery);
 
         return MonthylGroceryViewNames.MONTHLY_GROCERIES;
 
     }
 
-    @GetMapping("monthly-grocery/testing")
-    public String testingBoostrap(Model model, @RequestParam(name="year",required = false) Integer year ) {
-
-        log.info("getting monthly groceries");
-        List<MonthlyGroceryDTO> MonthlyGroceryDTOs= monthlyGroceryService.findByYear(year);
-        model.addAttribute(MonthlyGroceryAttributeNames.MONTHLY_GROCERY_LIST,MonthlyGroceryDTOs);
-
-        return "monthlygrocery/testing-bootstrap";
-
+    @PostMapping(MonthylGroceryMappings.MONTHLY_GROCERY_SAVE)
+    public String saveMonthlyGrocery(@ModelAttribute MonthlyGroceryDTO monthlyGroceryDTO) {
+        monthlyGroceryService.save(monthlyGroceryDTO);
+        return "redirect:"+MonthylGroceryMappings.MONTHLY_GROCERY_LIST;
     }
+
 }
