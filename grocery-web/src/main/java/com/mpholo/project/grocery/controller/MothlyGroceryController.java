@@ -31,7 +31,7 @@ public class MothlyGroceryController {
     }
 
 
-    @GetMapping(MonthylGroceryMappings.MONTHLY_GROCERY_LIST)
+    @GetMapping({MonthylGroceryMappings.MONTHLY_GROCERY_LIST})
     public String displayMonthlyGroceries(Model model, @RequestParam(name="year",required = false) Integer year ) {
 
         log.info("getting monthly groceries");
@@ -40,8 +40,9 @@ public class MothlyGroceryController {
 
         //create new monthly grocery and set period
         MonthlyGroceryDTO newMonthlyGrocery = new MonthlyGroceryDTO();
-        newMonthlyGrocery.setPeriod(monthlyGroceryDTOs.get(0).getPeriod());
 
+        int grocery_year = monthlyGroceryDTOs.get(0).getEndDate().getYear();
+        model.addAttribute("year",grocery_year);
         model.addAttribute(MonthlyGroceryAttributeNames.MONTHLY_GROCERY,newMonthlyGrocery);
 
         return MonthylGroceryViewNames.MONTHLY_GROCERIES;

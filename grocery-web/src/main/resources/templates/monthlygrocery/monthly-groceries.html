@@ -14,52 +14,80 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid">
-                <h1 class="mt-4">Monthly groceries</h1>
-
-                <div class="card">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h2>Monthly Groceries</h2>
-                            </div>
-                            <div class="col-md-6 pull-right">
-                                <button class="btn btn-outline-primary btn-sm float-right" data-toggle="modal" data-target="#formModalCenter"><i class="fas fa-plus-circle" ></i> Add Monthly Grocery</button>
-                            </div>
-                        </div>
-
-
+                <h1 class="m-4" id="groceryYear">Monthly Grocery- 1999</h1>
+                <div class="row">
+                    <div class="col-md-12 mb-4">
+                        <button class="btn btn-outline-primary btn-sm float-right" data-toggle="modal" data-target="#formModalCenter"><i class="fas fa-plus-circle" ></i> Add Monthly Grocery</button>
                     </div>
-                    <div class="card-body">
-                        <div class="accordion" id="accordionGroceries">
-                            <div class="card monthlyGroceryList" >
-                                <div class="card-header" id="card-header-id">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <h2 class="mb-0">
-                                                <button class="btn btn-link btn-block text-left collapse-attr" type="button" data-toggle="collapse"  aria-expanded="true" aria-controls="collapseOne">
-                                                    <label id="monthlyGroceryMonth">label text</label>
-                                                </button>
-                                            </h2>
-                                        </div>
-                                        <div class="col-md-6 pull-right">
-                                            <button class="btn btn-outline-primary btn-sm float-right" data-toggle="modal" data-target="#accordionGroceries"><i class="fas fa-plus-circle" ></i> Add Item</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="collapse-id" class="collapse" aria-labelledby="headingOne" data-parent="#accordionGroceries">
-                                    <div class="card-body">
-                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+
+                </div>
+                <div class="row">
+
+                    <div class="col-sm-2 mx-2 monthlyGroceryList">
+                        <div class="card  " style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title" id="monthlyGroceryMonth" >Card title</h5>
+                                <h6 class="card-subtitle mb-2 text-muted" id="dates">Card subtitle</h6>
+                                <p class="card-text" id="totalItems">Total Items 12</p>
+                                <p class="card-text" id="budget">Some quick example text to build on the card title and make up the
+                                    bulk of the card's content.</p>
+                                <div class="row">
+                                    <div class="col ">
+                                        <button class="btn btn-info btn-sm mr-2" data-toggle="modal"
+                                                data-target="#accordionGroceries"><i class="fas fa-shopping-cart"></i> View Groceries items
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <!--                <div class="card">-->
+                <!--                    <div class="card-header">-->
+                <!--                        <div class="row">-->
+                <!--                            <div class="col-md-6">-->
+                <!--                                <h2>Monthly Groceries</h2>-->
+                <!--                            </div>-->
+                <!--                            <div class="col-md-6 pull-right">-->
+                <!--                                <button class="btn btn-outline-primary btn-sm float-right" data-toggle="modal" data-target="#formModalCenter"><i class="fas fa-plus-circle" ></i> Add Monthly Grocery</button>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+
+
+                <!--                    </div>-->
+                <!--                    <div class="card-body">-->
+                <!--                        <div class="accordion" id="accordionGroceries">-->
+                <!--                            <div class="card monthlyGroceryList" >-->
+                <!--                                <div class="card-header" id="card-header-id">-->
+                <!--                                    <div class="row">-->
+                <!--                                        <div class="col-md-6">-->
+                <!--                                            <h2 class="mb-0">-->
+                <!--                                                <button class="btn btn-link btn-block text-left collapse-attr" type="button" data-toggle="collapse"  aria-expanded="true" aria-controls="collapseOne">-->
+                <!--                                                    <label id="monthlyGroceryMonth">label text</label>-->
+                <!--                                                </button>-->
+                <!--                                            </h2>-->
+                <!--                                        </div>-->
+                <!--                                        <div class="col-md-6 pull-right">-->
+                <!--                                            <button class="btn btn-outline-primary btn-sm float-right" data-toggle="modal" data-target="#accordionGroceries"><i class="fas fa-plus-circle" ></i> Add Item</button>-->
+                <!--                                        </div>-->
+                <!--                                    </div>-->
+                <!--                                </div>-->
+                <!--                                <div id="collapse-id" class="collapse" aria-labelledby="headingOne" data-parent="#accordionGroceries">-->
+                <!--                                    <div class="card-body">-->
+                <!--                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.-->
+                <!--                                    </div>-->
+                <!--                                </div>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
             </div>
         </main>
-        !-- Modal -->
+        <!-- Modal -->
 
-        <div class="modal fade" id="formModalCenter" tabindex="-1" role="dialog" aria-labelledby="formModalCenterTitle" aria-hidden="true">
+        <div class="modal fade" id="formModalCenter" tabindex="-1" role="dialog" aria-labelledby="formModalCenterTitle"
+             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -69,7 +97,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form method="post"  id="saveMonthlyGrocery" action="#">
+                        <form method="post" id="saveMonthlyGrocery" action="#">
                             <input type="hidden" id="formMonmthlyGroceryId">
                             <div class="form-group">
                                 <label for="formperiod">Period</label>
@@ -77,15 +105,17 @@
                             </div>
                             <div class="form-group">
                                 <label for="formStartDate">Start Date</label>
-                                <input type="date" class="form-control formStartDate" id="formStartDate"  placeholder="Enter Start Date">
+                                <input type="date" class="form-control formStartDate" id="formStartDate"
+                                       placeholder="Enter Start Date">
                             </div>
                             <div class="form-group">
                                 <label for="formEndDate">End Date</label>
-                                <input type="date" class="form-control" id="formEndDate"  placeholder="Enter End Date">
+                                <input type="date" class="form-control" id="formEndDate" placeholder="Enter End Date">
                             </div>
                             <div class="form-group">
                                 <label for="formbudget">Budget</label>
-                                <input type="number" class="form-control" id="formbudget"  placeholder="Enter Monthly Budget">
+                                <input type="number" class="form-control" id="formbudget"
+                                       placeholder="Enter Monthly Budget">
                             </div>
 
                         </form>

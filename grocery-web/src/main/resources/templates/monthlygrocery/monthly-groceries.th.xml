@@ -15,6 +15,15 @@
     <attr sel="#monthlyGroceryMonth"
           th:text="${monthlyGrocery.period}" />
 
+    <attr sel="#dates"
+          th:text="${monthlyGrocery.startDate+' - '+monthlyGrocery.endDate}" />
+
+    <attr sel="#budget"
+          th:text="${'Budget R '+#numbers.formatDecimal(monthlyGrocery.budgetAmount,3,2)}" />
+
+    <attr sel="#groceryYear"
+          th:text="${'Monthly Grocery- '+year}" />
+
     <attr sel="#card-header-id"
           th:id="${'heading'+monthlyGroceryStat.count}" />
 
