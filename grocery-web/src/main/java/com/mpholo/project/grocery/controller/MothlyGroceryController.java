@@ -8,12 +8,11 @@ import com.mpholo.project.grocery.util.MonthylGroceryViewNames;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static com.mpholo.project.grocery.util.MonthylGroceryMappings.MONTHLY_GROCERY_REDIRECT_LIST;
 
 /*******************************************************************
  Created By Mpholo Leboea-(mpholo.leboea@gmail.com) on 2020/07/24 
@@ -22,6 +21,7 @@ import java.util.List;
 
 @Slf4j
 @Controller
+@RequestMapping(MonthylGroceryMappings.MONTHLY_GROCERY_ROOT)
 public class MothlyGroceryController {
 
     private final MonthlyGroceryService monthlyGroceryService;
@@ -52,7 +52,16 @@ public class MothlyGroceryController {
     @PostMapping(MonthylGroceryMappings.MONTHLY_GROCERY_SAVE)
     public String saveMonthlyGrocery(@ModelAttribute MonthlyGroceryDTO monthlyGroceryDTO) {
         monthlyGroceryService.save(monthlyGroceryDTO);
-        return "redirect:"+MonthylGroceryMappings.MONTHLY_GROCERY_LIST;
+        return "redirect:"+MONTHLY_GROCERY_REDIRECT_LIST;
     }
+
+    @GetMapping(MonthylGroceryMappings.MONTHLY_GROCERY_DELETE)
+    public String deleteMonthlyGrocery(@RequestParam(name="monthlyGroceryId") int monthlyGroceryId) {
+        monthlyGroceryService.deleteById(monthlyGroceryId);
+        return "redirect:"+MONTHLY_GROCERY_REDIRECT_LIST;
+
+    }
+
+
 
 }

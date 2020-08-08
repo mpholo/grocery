@@ -23,7 +23,7 @@
                 </div>
                 <div class="row">
 
-                    <div class="col-sm-2 mx-2 monthlyGroceryList">
+                    <div class="col-sm-2 m-3 monthlyGroceryList">
                         <div class="card  " style="width: 18rem;">
                             <div class="card-body">
                                 <h5 class="card-title" id="monthlyGroceryMonth" >Card title</h5>
@@ -33,9 +33,18 @@
                                     bulk of the card's content.</p>
                                 <div class="row">
                                     <div class="col ">
-                                        <button class="btn btn-info btn-sm mr-2" data-toggle="modal"
-                                                data-target="#accordionGroceries"><i class="fas fa-shopping-cart"></i> View Groceries items
-                                        </button>
+
+                                        <div class="btn-group" role="group">
+                                            <button id="btnGroupDrop1" type="button" class="btn btn-outline-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-shopping-cart"></i> Groceries
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                                <a class="dropdown-item" href="#">View Items</a>
+                                                <a class="dropdown-item" href="#"  data-toggle="modal"  data-target="#formModalCenter">Update</a>
+                                                <a class="dropdown-item" href="#" id="deleteMonthlyGroceries">Delete</a>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>

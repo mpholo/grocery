@@ -118,15 +118,44 @@ public class Bootstrap implements CommandLineRunner {
         month4.setStartDate(LocalDate.of(2020,04,01));
         month4.setEndDate(LocalDate.of(2020,04,30));
 
-        monthlyGroceries.add(month1);
-        monthlyGroceries.add(month2);
-        monthlyGroceries.add(month3);
-        monthlyGroceries.add(month4);
+        MonthlyGrocery month5 = new MonthlyGrocery();
+        month5.setMonthlyGroceryId(5);
+        month5.setBudgetAmount(5500.00);
+        month5.setPeriod("May 2020");
+        month5.setStartDate(LocalDate.of(2020,05,01));
+        month5.setEndDate(LocalDate.of(2020,05,30));
 
-        monthlyGroceryRepository.save(month1);
-        monthlyGroceryRepository.save(month2);
-        monthlyGroceryRepository.save(month3);
-        monthlyGroceryRepository.save(month4);
+        MonthlyGrocery month6 = new MonthlyGrocery();
+        month6.setMonthlyGroceryId(6);
+        month6.setBudgetAmount(5500.00);
+        month6.setPeriod("June 2020");
+        month6.setStartDate(LocalDate.of(2020,06,01));
+        month6.setEndDate(LocalDate.of(2020,06,30));
+
+        MonthlyGrocery month7 = new MonthlyGrocery();
+        month7.setMonthlyGroceryId(7);
+        month7.setBudgetAmount(5500.00);
+        month7.setPeriod("July 2020");
+        month7.setStartDate(LocalDate.of(2020,07,01));
+        month7.setEndDate(LocalDate.of(2020,07,30));
+
+        MonthlyGrocery month8 = new MonthlyGrocery();
+        month8.setMonthlyGroceryId(8);
+        month8.setBudgetAmount(5500.00);
+        month8.setPeriod("August 2020");
+        month8.setStartDate(LocalDate.of(2020,8,01));
+        month8.setEndDate(LocalDate.of(2020,8,30));
+
+        MonthlyGrocery month9 = new MonthlyGrocery();
+        month9.setMonthlyGroceryId(9);
+        month9.setBudgetAmount(5500.00);
+        month9.setPeriod("September 2020");
+        month9.setStartDate(LocalDate.of(2020,9,01));
+        month9.setEndDate(LocalDate.of(2020,5,30));
+
+        monthlyGroceries = Arrays.asList(month1,month2,month3,month4,month5,month6,month7,month8,month9);
+        monthlyGroceryRepository.saveAll(monthlyGroceries);
+
         System.out.println("Monthly budgets"+monthlyGroceryRepository.count());
 
 

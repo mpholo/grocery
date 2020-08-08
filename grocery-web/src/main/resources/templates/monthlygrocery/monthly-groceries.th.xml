@@ -38,6 +38,8 @@
     <attr sel="#footer"
           th:replace="~{fragments/template::footer}" />
 
+    <attr sel="#deleteMonthlyGroceries"
+          th:href="@{__${T(com.mpholo.project.grocery.util.MonthylGroceryMappings).MONTHLY_GROCERY_DELETE}__(monthlyGroceryId=${monthlyGrocery.monthlyGroceryId})}" />
 
     <!--form fields-->
     <attr sel="#saveMonthlyGrocery"
