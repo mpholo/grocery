@@ -9,7 +9,7 @@
     <attr sel="#layoutSidenav_nav"
           th:replace="~{fragments/template::layoutSidenav_nav}" />
     <attr sel="#footer"
-          th:replace="~{fragments/template::footer}" />
+          th:replace="~{fragments/template::footer('product')}" />
 
     <attr sel="#productList"
           th:each="product:${__${T(com.mpholo.project.grocery.util.ProductAttributeNames).PRODUCT_LIST}__}" />

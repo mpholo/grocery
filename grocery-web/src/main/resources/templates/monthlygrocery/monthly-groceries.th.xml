@@ -12,16 +12,16 @@
     <attr sel=".monthlyGroceryList"
           th:each="monthlyGrocery:${__${T(com.mpholo.project.grocery.util.MonthlyGroceryAttributeNames).MONTHLY_GROCERY_LIST}__}" />
 
-    <attr sel="#monthlyGroceryMonth"
+    <attr sel=".monthlyGroceryMonth"
           th:text="${monthlyGrocery.period}" />
 
-    <attr sel="#dates"
+    <attr sel=".dates"
           th:text="${monthlyGrocery.startDate+' - '+monthlyGrocery.endDate}" />
 
-    <attr sel="#budget"
+    <attr sel=".budget"
           th:text="${'Budget R '+#numbers.formatDecimal(monthlyGrocery.budgetAmount,3,2)}" />
 
-    <attr sel="#groceryYear"
+    <attr sel=".groceryYear"
           th:text="${'Monthly Grocery- '+year}" />
 
     <attr sel="#card-header-id"
@@ -36,10 +36,16 @@
           th:attr="data-target=${'#collapse'+monthlyGroceryStat.count},aria-controls=${'collapse'+monthlyGroceryStat.count}" />
 
     <attr sel="#footer"
-          th:replace="~{fragments/template::footer}" />
+          th:replace="~{fragments/template::footer('monthlyGroceries')}" />
 
-    <attr sel="#deleteMonthlyGroceries"
+    <attr sel=".deleteMonthlyGroceries"
           th:href="@{__${T(com.mpholo.project.grocery.util.MonthylGroceryMappings).MONTHLY_GROCERY_DELETE}__(monthlyGroceryId=${monthlyGrocery.monthlyGroceryId})}" />
+
+    <attr sel=".data"
+          th:text="${monthlyGrocery.monthlyGroceryId +','+monthlyGrocery.period+','
+                   +monthlyGrocery.startDate+','+monthlyGrocery.endDate+','
+                   +monthlyGrocery.budgetAmount}" />
+
 
     <!--form fields-->
     <attr sel="#saveMonthlyGrocery"

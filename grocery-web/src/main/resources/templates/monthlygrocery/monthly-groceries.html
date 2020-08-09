@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" >
 <head id="head">
     <meta charset="UTF-8">
     <title>Title</title>
+
 </head>
 <body class="sb-nav-fixed">
+
 <h2>Monthly groceries</h2>
 
 <nav id="top-nav"></nav>
@@ -26,10 +29,11 @@
                     <div class="col-sm-2 m-3 monthlyGroceryList">
                         <div class="card  " style="width: 18rem;">
                             <div class="card-body">
-                                <h5 class="card-title" id="monthlyGroceryMonth" >Card title</h5>
-                                <h6 class="card-subtitle mb-2 text-muted" id="dates">Card subtitle</h6>
-                                <p class="card-text" id="totalItems">Total Items 12</p>
-                                <p class="card-text" id="budget">Some quick example text to build on the card title and make up the
+                                <span class="data" style="display:none" />
+                                <h5 class="card-title monthlyGroceryMonth" >Card title</h5>
+                                <h6 class="card-subtitle mb-2 text-muted dates">Card subtitle</h6>
+                                <p class="card-text totalItems">Total Items 12</p>
+                                <p class="card-text budget">Some quick example text to build on the card title and make up the
                                     bulk of the card's content.</p>
                                 <div class="row">
                                     <div class="col ">
@@ -40,8 +44,8 @@
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                                 <a class="dropdown-item" href="#">View Items</a>
-                                                <a class="dropdown-item" href="#"  data-toggle="modal"  data-target="#formModalCenter">Update</a>
-                                                <a class="dropdown-item" href="#" id="deleteMonthlyGroceries">Delete</a>
+                                                <a class="dropdown-item editMonthlyGrocery" href="#"  data-toggle="modal"  data-target="#formModalCenter" >Update</a>
+                                                <a class="dropdown-item deleteMonthlyGroceries" href="#" >Delete</a>
                                             </div>
                                         </div>
 
@@ -52,45 +56,6 @@
                     </div>
                 </div>
 
-                <!--                <div class="card">-->
-                <!--                    <div class="card-header">-->
-                <!--                        <div class="row">-->
-                <!--                            <div class="col-md-6">-->
-                <!--                                <h2>Monthly Groceries</h2>-->
-                <!--                            </div>-->
-                <!--                            <div class="col-md-6 pull-right">-->
-                <!--                                <button class="btn btn-outline-primary btn-sm float-right" data-toggle="modal" data-target="#formModalCenter"><i class="fas fa-plus-circle" ></i> Add Monthly Grocery</button>-->
-                <!--                            </div>-->
-                <!--                        </div>-->
-
-
-                <!--                    </div>-->
-                <!--                    <div class="card-body">-->
-                <!--                        <div class="accordion" id="accordionGroceries">-->
-                <!--                            <div class="card monthlyGroceryList" >-->
-                <!--                                <div class="card-header" id="card-header-id">-->
-                <!--                                    <div class="row">-->
-                <!--                                        <div class="col-md-6">-->
-                <!--                                            <h2 class="mb-0">-->
-                <!--                                                <button class="btn btn-link btn-block text-left collapse-attr" type="button" data-toggle="collapse"  aria-expanded="true" aria-controls="collapseOne">-->
-                <!--                                                    <label id="monthlyGroceryMonth">label text</label>-->
-                <!--                                                </button>-->
-                <!--                                            </h2>-->
-                <!--                                        </div>-->
-                <!--                                        <div class="col-md-6 pull-right">-->
-                <!--                                            <button class="btn btn-outline-primary btn-sm float-right" data-toggle="modal" data-target="#accordionGroceries"><i class="fas fa-plus-circle" ></i> Add Item</button>-->
-                <!--                                        </div>-->
-                <!--                                    </div>-->
-                <!--                                </div>-->
-                <!--                                <div id="collapse-id" class="collapse" aria-labelledby="headingOne" data-parent="#accordionGroceries">-->
-                <!--                                    <div class="card-body">-->
-                <!--                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.-->
-                <!--                                    </div>-->
-                <!--                                </div>-->
-                <!--                            </div>-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-                <!--                </div>-->
             </div>
         </main>
         <!-- Modal -->
@@ -141,6 +106,5 @@
     </div>
 </div>
 <footer id="footer"></footer>
-
 </body>
 </html>

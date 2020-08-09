@@ -12,8 +12,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.mpholo.project.grocery.util.ProductMappings.PRODUCT_REDIRECT_LIST;
+import static com.mpholo.project.grocery.util.ProductMappings.PRODUCT_ROOT;
+
 @Slf4j
 @Controller
+@RequestMapping(PRODUCT_ROOT)
 public class ProductController {
 
     //==field variables==
@@ -41,7 +45,7 @@ public class ProductController {
 
         productService.save(productDTO);
         log.info("Product from form = {} saved successfully",productDTO);
-        return "redirect:/product/"+ProductMappings.PRODUCT_LIST;
+        return "redirect:"+PRODUCT_REDIRECT_LIST;
     }
 
     @GetMapping(ProductMappings.PRODUCT_DELETE)
@@ -49,7 +53,7 @@ public class ProductController {
         log.info("Deleting product with productId {}",productId);
         productService.deleteById(productId);
 
-        return "redirect:/product/"+ProductMappings.PRODUCT_LIST;
+        return "redirect:"+PRODUCT_REDIRECT_LIST;
 
     }
 
