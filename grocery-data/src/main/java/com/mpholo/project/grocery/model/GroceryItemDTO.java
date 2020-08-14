@@ -7,16 +7,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GroceryBasketDTO implements Serializable {
+public class GroceryItemDTO implements Serializable {
 
-    private int groceryBasketId;
+    private int groceryItemId;
     private int quantity;
     private double actualPrice;
-    private List<Product> products;
+    private Product product;
     private MonthlyGrocery monthlyGrocery;
 }

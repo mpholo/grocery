@@ -1,15 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" >
+<html lang="en">
 <head id="head">
     <meta charset="UTF-8">
     <title>Title</title>
-
 </head>
 <body class="sb-nav-fixed">
-
-<h2>Monthly groceries</h2>
-
+<h1>Grocery Items</h1>
 <nav id="top-nav"></nav>
 <div id="layoutSidenav">
     <div id="layoutSidenav_nav"></div>
@@ -17,43 +13,53 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid">
-                <h1 class="m-4" id="groceryYear">Monthly Grocery- 1999</h1>
+                <h1 class="m-4" id="monthlyGrocery">Monthly Grocery- 1999</h1>
                 <div class="row">
                     <div class="col-md-12 mb-4">
-                        <button class="btn btn-outline-primary btn-sm float-right" data-toggle="modal" data-target="#formModalCenter"><i class="fas fa-plus-circle" ></i> Add Monthly Grocery</button>
+                        <a class="btn btn-outline-primary btn-sm float-right" id="btn-back"><i class="fas fa-arrow-alt-circle-left"></i>  Back</a>
                     </div>
 
                 </div>
                 <div class="row">
-
-                    <div class="col-sm-2 m-3 monthlyGroceryList">
-                        <div class="card  " style="width: 18rem;">
+                    <div class="col">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table mr-1"></i>
+                                <button class="btn btn-outline-primary btn-sm float-right" data-toggle="modal" data-target="#formModalCenter"><i class="fas fa-plus-circle" ></i> Add Item</button>
+                            </div>
                             <div class="card-body">
-                                <span class="data" style="display:none" />
-                                <h5 class="card-title monthlyGroceryMonth" >Card title</h5>
-                                <h6 class="card-subtitle mb-2 text-muted dates">Card subtitle</h6>
-                                <p class="card-text totalItems">Total Items 12</p>
-                                <p class="card-text budget">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.</p>
-                                <div class="row">
-                                    <div class="col ">
-
-                                        <div class="btn-group" role="group">
-                                            <button id="btnGroupDrop1" type="button" class="btn btn-outline-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="fas fa-shopping-cart"></i> Groceries
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                <a class="dropdown-item viewMonthlygrocery" href="#" >View Items</a>
-                                                <a class="dropdown-item editMonthlyGrocery" href="#"  data-toggle="modal"  data-target="#formModalCenter" >Update</a>
-                                                <a class="dropdown-item deleteMonthlyGroceries" href="#" >Delete</a>
-                                            </div>
-                                        </div>
-
-                                    </div>
+                                <div class="table-responsive" id="grocery-item-table">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                        <tr>
+                                            <th >Id</th>
+                                            <th>Name</th>
+                                            <th>Description</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                            <th>Total Price</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr  class="groceryItems">
+                                            <td class="groceryItemId">1</td>
+                                            <td class="groceryItemName">Maize</td>
+                                            <td class="groceryItemDesc" >Maize meal</td>
+                                            <td class="estimatedPrice" >89.80</td>
+                                            <td class="quantity" >91.80</td>
+                                            <td class="totalPrice" >91.80</td>
+                                            <td class="pr-4"><a class="btn btn-outline-danger btn-sm deleteGroceryItem" href="#" ><i class="fas fa-trash-alt"></i> Delete</a>
+                                                <a  class="btn btn-outline-warning btn-sm editProduct" href="#" data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-edit"></i></i> Update</a></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+
                 </div>
 
             </div>

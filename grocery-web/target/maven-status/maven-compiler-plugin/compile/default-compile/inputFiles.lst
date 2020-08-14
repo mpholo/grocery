@@ -1,5 +1,6 @@
 /home/mpholo/repository/grocery/grocery-web/src/main/java/com/mpholo/project/grocery/controller/ProductController.java
 /home/mpholo/repository/grocery/grocery-web/src/main/java/com/mpholo/project/grocery/controller/HomeController.java
+/home/mpholo/repository/grocery/grocery-web/src/main/java/com/mpholo/project/grocery/controller/GroceryItemController.java
 /home/mpholo/repository/grocery/grocery-web/src/main/java/com/mpholo/project/grocery/controller/MothlyGroceryController.java
 /home/mpholo/repository/grocery/grocery-web/src/main/java/com/mpholo/project/grocery/GroceryApplication.java
 /home/mpholo/repository/grocery/grocery-web/src/main/java/com/mpholo/project/grocery/util/thymeleaf/DecoupledLogicSetup.java

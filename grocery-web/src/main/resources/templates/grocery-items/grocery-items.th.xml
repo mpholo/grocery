@@ -1,0 +1,52 @@
+<thlogic>
+
+    <attr sel="#top-nav"
+          th:replace="~{fragments/template::top-nav}" />
+
+    <attr sel="#layoutSidenav_nav"
+          th:replace="~{fragments/template::layoutSidenav_nav}" />
+
+    <attr sel="#head"
+          th:replace="~{fragments/template::head('Groceries items')}" />
+
+
+    <attr sel="#footer"
+          th:replace="~{fragments/template::footer('monthlyGroceries')}" />
+
+    <attr sel="#btn-back"
+          th:href="@{__${T(com.mpholo.project.grocery.util.MonthylGroceryMappings).MONTHLY_GROCERY_REDIRECT_LIST}__}" />
+
+    <attr sel=".deleteGroceryItem"
+          th:href="@{__${T(com.mpholo.project.grocery.util.GroceryItemMappings).GROCERY_ITEM_DELETE}__(groceryItemId=${groceryItem.groceryItemId},monthGroceryId=${groceryItem.monthlyGrocery.monthlyGroceryId})}" />
+
+    <attr sel="#monthlyGrocery"
+          th:text="${'Monthly Grocery - ' + monthlyGrocery.period}" />
+
+    <attr sel=".groceryItems"
+          th:each="groceryItem:${__${T(com.mpholo.project.grocery.util.GroceryItemAttributeNames).GROCERY_ITEM_LIST}__}" />
+
+    <attr sel=".groceryItemId"
+     th:text="${groceryItem.groceryItemId}" />
+
+    <attr sel=".groceryItemId"
+          th:text="${groceryItem.groceryItemId}" />
+
+    <attr sel=".groceryItemName"
+          th:text="${groceryItem.product.productName}" />
+
+    <attr sel=".groceryItemDesc"
+          th:text="${groceryItem.product.productDescription}" />
+
+    <attr sel=".estimatedPrice"
+          th:text="${groceryItem.actualPrice}" />
+
+    <attr sel=".quantity"
+          th:text="${groceryItem.quantity}" />
+
+    <attr sel=".totalPrice"
+          th:text="${ groceryItem.actualPrice * groceryItem.quantity }" />
+
+
+
+
+</thlogic>

@@ -1,7 +1,7 @@
 package com.mpholo.project.grocery.mapper;
 
-import com.mpholo.project.grocery.domain.GroceryBasket;
-import com.mpholo.project.grocery.model.GroceryBasketDTO;
+import com.mpholo.project.grocery.domain.GroceryItem;
+import com.mpholo.project.grocery.model.GroceryItemDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -10,8 +10,8 @@ public interface GroceryBasketMapper {
 
     GroceryBasketMapper INSTANCE = Mappers.getMapper(GroceryBasketMapper.class);
 
-    GroceryBasketDTO groceryBasketToGroceryBasketDTO(GroceryBasket groceryBasket);
-    GroceryBasket groceryBasketDTOToGroceryBasket(GroceryBasketDTO groceryBasketDTO);
+    GroceryItemDTO groceryBasketToGroceryBasketDTO(GroceryItem groceryBasket);
+    GroceryItem groceryBasketDTOToGroceryBasket(GroceryItemDTO groceryBasketDTO);
 
 
 }

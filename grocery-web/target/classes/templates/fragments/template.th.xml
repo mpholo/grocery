@@ -1,6 +1,6 @@
 <thlogic>
     <attr sel="#productLink"
-          th:href="@{__${T(com.mpholo.project.grocery.util.ProductMappings).PRODUCT_LIST}__}" />
+          th:href="@{__${T(com.mpholo.project.grocery.util.ProductMappings).PRODUCT_REDIRECT_LIST}__}" />
 
     <attr sel="#monthlyGroceryLink"
           th:href="@{__${T(com.mpholo.project.grocery.util.MonthylGroceryMappings).MONTHLY_GROCERY_REDIRECT_LIST}__}" />

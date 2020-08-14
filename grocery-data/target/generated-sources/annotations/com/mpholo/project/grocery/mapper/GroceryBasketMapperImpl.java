@@ -1,49 +1,51 @@
 package com.mpholo.project.grocery.mapper;
 
-import com.mpholo.project.grocery.domain.GroceryBasket;
-import com.mpholo.project.grocery.model.GroceryBasketDTO;
+import com.mpholo.project.grocery.domain.GroceryItem;
+import com.mpholo.project.grocery.model.GroceryItemDTO;
 import javax.annotation.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-08-02T21:26:07+0200",
+    date = "2020-08-14T18:14:54+0200",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 11.0.4 (Oracle Corporation)"
 )
 @Component
 public class GroceryBasketMapperImpl implements GroceryBasketMapper {
 
     @Override
-    public GroceryBasketDTO groceryBasketToGroceryBasketDTO(GroceryBasket groceryBasket) {
+    public GroceryItemDTO groceryBasketToGroceryBasketDTO(GroceryItem groceryBasket) {
         if ( groceryBasket == null ) {
             return null;
         }
 
-        GroceryBasketDTO groceryBasketDTO = new GroceryBasketDTO();
+        GroceryItemDTO groceryItemDTO = new GroceryItemDTO();
 
-        if ( groceryBasket.getGroceryBasketId() != null ) {
-            groceryBasketDTO.setGroceryBasketId( groceryBasket.getGroceryBasketId() );
+        if ( groceryBasket.getGroceryItemId() != null ) {
+            groceryItemDTO.setGroceryItemId( groceryBasket.getGroceryItemId() );
         }
-        groceryBasketDTO.setQuantity( groceryBasket.getQuantity() );
-        groceryBasketDTO.setActualPrice( groceryBasket.getActualPrice() );
-        groceryBasketDTO.setMonthlyGrocery( groceryBasket.getMonthlyGrocery() );
+        groceryItemDTO.setQuantity( groceryBasket.getQuantity() );
+        groceryItemDTO.setActualPrice( groceryBasket.getActualPrice() );
+        groceryItemDTO.setProduct( groceryBasket.getProduct() );
+        groceryItemDTO.setMonthlyGrocery( groceryBasket.getMonthlyGrocery() );
 
-        return groceryBasketDTO;
+        return groceryItemDTO;
     }
 
     @Override
-    public GroceryBasket groceryBasketDTOToGroceryBasket(GroceryBasketDTO groceryBasketDTO) {
+    public GroceryItem groceryBasketDTOToGroceryBasket(GroceryItemDTO groceryBasketDTO) {
         if ( groceryBasketDTO == null ) {
             return null;
         }
 
-        GroceryBasket groceryBasket = new GroceryBasket();
+        GroceryItem groceryItem = new GroceryItem();
 
-        groceryBasket.setGroceryBasketId( groceryBasketDTO.getGroceryBasketId() );
-        groceryBasket.setQuantity( groceryBasketDTO.getQuantity() );
-        groceryBasket.setActualPrice( groceryBasketDTO.getActualPrice() );
-        groceryBasket.setMonthlyGrocery( groceryBasketDTO.getMonthlyGrocery() );
+        groceryItem.setGroceryItemId( groceryBasketDTO.getGroceryItemId() );
+        groceryItem.setQuantity( groceryBasketDTO.getQuantity() );
+        groceryItem.setActualPrice( groceryBasketDTO.getActualPrice() );
+        groceryItem.setProduct( groceryBasketDTO.getProduct() );
+        groceryItem.setMonthlyGrocery( groceryBasketDTO.getMonthlyGrocery() );
 
-        return groceryBasket;
+        return groceryItem;
     }
 }

@@ -1,7 +1,7 @@
 package com.mpholo.project.grocery.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.mpholo.project.grocery.domain.GroceryBasket;
+import com.mpholo.project.grocery.domain.GroceryItem;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,5 +21,5 @@ public class ProductDTO implements Serializable {
     private double productPrice;
     @JsonProperty("product_url")
     private String productUrl;
-    private Set<GroceryBasket> groceryBasketSet = new HashSet<>();
+    private Set<GroceryItem> groceryBasketSet = new HashSet<>();
 }

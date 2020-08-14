@@ -1,7 +1,7 @@
 package com.mpholo.project.grocery.mapper;
 
-import com.mpholo.project.grocery.domain.GroceryBasket;
-import com.mpholo.project.grocery.model.GroceryBasketDTO;
+import com.mpholo.project.grocery.domain.GroceryItem;
+import com.mpholo.project.grocery.model.GroceryItemDTO;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,15 +18,15 @@ class GroceryBasketMapperTest {
     void groceryBasketToGroceryBasketDTO() {
 
         //given
-        GroceryBasket groceryBasket = new GroceryBasket();
-        groceryBasket.setGroceryBasketId(ID);
+        GroceryItem groceryBasket = new GroceryItem();
+        groceryBasket.setGroceryItemId(ID);
         groceryBasket.setActualPrice(ACTUAL_AMOUNT);
 
         //when
-        GroceryBasketDTO groceryBasketDTO=groceryBasketMapper.groceryBasketToGroceryBasketDTO(groceryBasket);
+        GroceryItemDTO groceryBasketDTO=groceryBasketMapper.groceryBasketToGroceryBasketDTO(groceryBasket);
 
         //then
-        assertEquals(Integer.valueOf(ID),groceryBasketDTO.getGroceryBasketId());
+        assertEquals(Integer.valueOf(ID),groceryBasketDTO.getGroceryItemId());
         assertEquals(ACTUAL_AMOUNT,groceryBasketDTO.getActualPrice());
     }
 
@@ -34,15 +34,15 @@ class GroceryBasketMapperTest {
     void groceryBasketDTOToGroceryBasket() {
 
         //given
-        GroceryBasketDTO groceryBasketDTO = new GroceryBasketDTO();
-        groceryBasketDTO.setGroceryBasketId(ID);
+        GroceryItemDTO groceryBasketDTO = new GroceryItemDTO();
+        groceryBasketDTO.setGroceryItemId(ID);
         groceryBasketDTO.setActualPrice(ACTUAL_AMOUNT);
 
         //when
-        GroceryBasket groceryBasket = groceryBasketMapper.groceryBasketDTOToGroceryBasket(groceryBasketDTO);
+        GroceryItem groceryBasket = groceryBasketMapper.groceryBasketDTOToGroceryBasket(groceryBasketDTO);
 
         //then
-        assertEquals(Integer.valueOf(ID),groceryBasket.getGroceryBasketId());
+        assertEquals(Integer.valueOf(ID),groceryBasket.getGroceryItemId());
         assertEquals(ACTUAL_AMOUNT,groceryBasket.getActualPrice());
 
     }

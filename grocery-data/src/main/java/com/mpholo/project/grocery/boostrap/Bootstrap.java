@@ -1,9 +1,9 @@
 package com.mpholo.project.grocery.boostrap;
 
-import com.mpholo.project.grocery.domain.GroceryBasket;
+import com.mpholo.project.grocery.domain.GroceryItem;
 import com.mpholo.project.grocery.domain.MonthlyGrocery;
 import com.mpholo.project.grocery.domain.Product;
-import com.mpholo.project.grocery.repositories.GroceryBasketRepository;
+import com.mpholo.project.grocery.repositories.GroceryItemRepository;
 import com.mpholo.project.grocery.repositories.MonthlyGroceryRepository;
 import com.mpholo.project.grocery.repositories.ProductRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -17,14 +17,14 @@ public class Bootstrap implements CommandLineRunner {
 
     private ProductRepository productRepository;
     private MonthlyGroceryRepository monthlyGroceryRepository;
-    private GroceryBasketRepository groceryBasketRepository;
+    private GroceryItemRepository groceryBasketRepository;
 
     private List<Product> products = new ArrayList<>();
     private  List<MonthlyGrocery> monthlyGroceries = new ArrayList<>();
 
     public Bootstrap(ProductRepository productRepository,
                      MonthlyGroceryRepository monthlyGroceryRepository,
-                     GroceryBasketRepository groceryBasketRepository) {
+                     GroceryItemRepository groceryBasketRepository) {
 
         this.productRepository = productRepository;
         this.monthlyGroceryRepository = monthlyGroceryRepository;
@@ -163,36 +163,36 @@ public class Bootstrap implements CommandLineRunner {
 
     private void createGroceryBasket() {
 
-        GroceryBasket item1 =new GroceryBasket();
-        item1.setGroceryBasketId(1);
+        GroceryItem item1 =new GroceryItem();
+        item1.setGroceryItemId(1);
         item1.setActualPrice(5.0);
         item1.setQuantity(2);
         item1.setMonthlyGrocery(monthlyGroceries.get(0));
         item1.setProduct(products.get(0));
 
-        GroceryBasket item2 =new GroceryBasket();
-        item2.setGroceryBasketId(2);
+        GroceryItem item2 =new GroceryItem();
+        item2.setGroceryItemId(2);
         item2.setActualPrice(10.0);
         item2.setQuantity(1);
         item2.setMonthlyGrocery(monthlyGroceries.get(0));
         item2.setProduct(products.get(1));
 
 
-        GroceryBasket item3 =new GroceryBasket();
-        item3.setGroceryBasketId(3);
+        GroceryItem item3 =new GroceryItem();
+        item3.setGroceryItemId(3);
         item3.setActualPrice(15.0);
         item3.setQuantity(1);
         item3.setMonthlyGrocery(monthlyGroceries.get(0));
         item3.setProduct(products.get(2));
 
-        GroceryBasket item4 =new GroceryBasket();
-        item4.setGroceryBasketId(4);
+        GroceryItem item4 =new GroceryItem();
+        item4.setGroceryItemId(4);
         item4.setActualPrice(50.0);
         item4.setQuantity(3);
         item4.setMonthlyGrocery(monthlyGroceries.get(0));
         item4.setProduct(products.get(3));
 
-        List<GroceryBasket>  groceryBasketList = Arrays.asList(item1,item2,item3,item4);
+        List<GroceryItem>  groceryBasketList = Arrays.asList(item1,item2,item3,item4);
 
         groceryBasketRepository.save(item1);
         groceryBasketRepository.save(item2);

@@ -26,6 +26,6 @@ public class MonthlyGrocery  {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="monthly_grocery_id")
-    private Set<GroceryBasket> groceryBasket = new HashSet<>();
+    private Set<GroceryItem> groceryBasket = new HashSet<>();
 
 }

@@ -4,7 +4,7 @@ import com.mpholo.project.grocery.boostrap.Bootstrap;
 import com.mpholo.project.grocery.domain.Product;
 import com.mpholo.project.grocery.mapper.ProductMapper;
 import com.mpholo.project.grocery.model.ProductDTO;
-import com.mpholo.project.grocery.repositories.GroceryBasketRepository;
+import com.mpholo.project.grocery.repositories.GroceryItemRepository;
 import com.mpholo.project.grocery.repositories.MonthlyGroceryRepository;
 import com.mpholo.project.grocery.repositories.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,7 +31,7 @@ class ProductServiceTestIT {
      MonthlyGroceryRepository monthlyGroceryRepository;
 
     @Autowired
-     GroceryBasketRepository groceryBasketRepository;
+    GroceryItemRepository groceryBasketRepository;
 
 
      ProductService productService;

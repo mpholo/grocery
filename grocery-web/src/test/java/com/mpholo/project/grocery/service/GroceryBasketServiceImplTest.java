@@ -1,9 +1,10 @@
 package com.mpholo.project.grocery.service;
 
-import com.mpholo.project.grocery.domain.GroceryBasket;
+import com.mpholo.project.grocery.domain.GroceryItem;
 import com.mpholo.project.grocery.mapper.GroceryBasketMapper;
-import com.mpholo.project.grocery.model.GroceryBasketDTO;
-import com.mpholo.project.grocery.repositories.GroceryBasketRepository;
+import com.mpholo.project.grocery.mapper.MonthlyGroceryMapper;
+import com.mpholo.project.grocery.model.GroceryItemDTO;
+import com.mpholo.project.grocery.repositories.GroceryItemRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -23,16 +24,16 @@ class GroceryBasketServiceImplTest {
     public static final double ACTUAL_AMOUNT=5500.00;
 
 
-    GroceryBasketService groceryBasketService;
+    GroceryItemService groceryBasketService;
 
     @Mock
-    GroceryBasketRepository groceryBasketRepository;
+    GroceryItemRepository groceryBasketRepository;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        groceryBasketService = new GroceryBasketServiceImpl(groceryBasketRepository, GroceryBasketMapper.INSTANCE);
+        groceryBasketService = new GroceryItemServiceImpl(groceryBasketRepository, GroceryBasketMapper.INSTANCE, MonthlyGroceryMapper.INSTACE);
 
     }
 
@@ -41,17 +42,17 @@ class GroceryBasketServiceImplTest {
     void testCreateGroceryBasketItem() {
 
         //given
-        GroceryBasket groceryBasket = new GroceryBasket();
-        groceryBasket.setGroceryBasketId(ID);
+        GroceryItem groceryBasket = new GroceryItem();
+        groceryBasket.setGroceryItemId(ID);
         groceryBasket.setActualPrice(ACTUAL_AMOUNT);
 
         when(groceryBasketRepository.findById(anyInt())).thenReturn(Optional.of(groceryBasket));
 
         //when
-        Optional<GroceryBasketDTO> groceryBasketDTO = groceryBasketService.findById(ID);
+        Optional<GroceryItemDTO> groceryBasketDTO = groceryBasketService.findById(ID);
 
         //then
-        assertEquals(ID,groceryBasketDTO.get().getGroceryBasketId());
+        assertEquals(ID,groceryBasketDTO.get().getGroceryItemId());
     }
 
 
@@ -59,13 +60,13 @@ class GroceryBasketServiceImplTest {
     void getGroceryBasketLis() {
 
         //given
-        List<GroceryBasket> groceryBasketList = Arrays.asList(new GroceryBasket(),new GroceryBasket(),new GroceryBasket());
+        List<GroceryItem> groceryBasketList = Arrays.asList(new GroceryItem(),new GroceryItem(),new GroceryItem());
 
         when(groceryBasketRepository.findAll()).thenReturn(groceryBasketList);
 
 
         //when
-        List<GroceryBasketDTO> groceryBasketDTOS = groceryBasketService.findAll();
+        List<GroceryItemDTO> groceryBasketDTOS = groceryBasketService.findAll();
 
         //then
         assertEquals(3,groceryBasketDTOS.size());

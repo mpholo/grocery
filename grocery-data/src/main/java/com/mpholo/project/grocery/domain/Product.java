@@ -20,7 +20,7 @@ public class Product  {
     private double productPrice;
     @OneToMany
     @JoinColumn(name="product_id")
-    private Set<GroceryBasket> groceryBasket = new HashSet<>();
+    private Set<GroceryItem> groceryBasket = new HashSet<>();
 
 
 

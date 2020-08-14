@@ -1,4 +1,4 @@
 <thlogic>
 <attr sel="#footer"
-      th:replace="~{fragments/template::footer}" />
+      th:replace="~{fragments/template::footer('')}" />
 </thlogic>

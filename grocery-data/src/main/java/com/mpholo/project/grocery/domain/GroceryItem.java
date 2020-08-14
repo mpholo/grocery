@@ -12,11 +12,11 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"product","monthlyGrocery"})
-public class GroceryBasket {
+public class GroceryItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer groceryBasketId;
+    private Integer groceryItemId;
     private int quantity;
     private double actualPrice;
 
