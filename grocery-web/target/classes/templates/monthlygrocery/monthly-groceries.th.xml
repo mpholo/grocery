@@ -42,7 +42,7 @@
           th:href="@{__${T(com.mpholo.project.grocery.util.MonthylGroceryMappings).MONTHLY_GROCERY_DELETE}__(monthlyGroceryId=${monthlyGrocery.monthlyGroceryId})}" />
 
     <attr sel=".viewMonthlygrocery"
-          th:href="@{__${T(com.mpholo.project.grocery.util.GroceryItemMappings).GROCERY_ITEM_REDIRECT_LIST}__(monthlyGroceryId=${monthlyGrocery.monthlyGroceryId})}" />
+          th:href="@{__${T(com.mpholo.project.grocery.util.GroceryItemMappings).GROCERY_ITEM_REDIRECT_ROOT}__(monthlyGroceryId=${monthlyGrocery.monthlyGroceryId})}" />
 
     <attr sel=".data"
           th:text="${monthlyGrocery.monthlyGroceryId +','+monthlyGrocery.period+','
