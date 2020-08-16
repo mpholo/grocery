@@ -71,31 +71,28 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="formModalCenterTitle">New Monthly Grocery</h5>
+                        <h5 class="modal-title" id="formModalCenterTitle">New Grocery Item</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form method="post" id="saveMonthlyGrocery" action="#">
-                            <input type="hidden" id="formMonmthlyGroceryId">
-                            <div class="form-group">
-                                <label for="formperiod">Period</label>
-                                <input type="text" class="form-control formStartDate" id="formperiod">
+                        <form method="post" id="saveGroceryItem" action="#">
+                            <input type="hidden" id="monthlyGroceryId">
+                          <div class="form-group">
+                                <label for="formproduct">Product</label>
+                                <select class="form-control " id="formproduct" >
+                                    <option class="formProductList">Maize</option>
+                                </select>
                             </div>
                             <div class="form-group">
-                                <label for="formStartDate">Start Date</label>
-                                <input type="date" class="form-control formStartDate" id="formStartDate"
-                                       placeholder="Enter Start Date">
+                                <label for="formPrice">Price</label>
+                                <input type="number" class="form-control" id="formPrice"
+                                       placeholder="Enter Price">
                             </div>
                             <div class="form-group">
-                                <label for="formEndDate">End Date</label>
-                                <input type="date" class="form-control" id="formEndDate" placeholder="Enter End Date">
-                            </div>
-                            <div class="form-group">
-                                <label for="formbudget">Budget</label>
-                                <input type="number" class="form-control" id="formbudget"
-                                       placeholder="Enter Monthly Budget">
+                                <label for="formQuantity">Quantity</label>
+                                <input type="number" class="form-control" id="formQuantity" placeholder="Enter Quantity">
                             </div>
 
                         </form>

@@ -22,6 +22,7 @@ com/mpholo/project/grocery/util/MonthlyGroceryAttributeNames.class
 com/mpholo/project/grocery/model/MonthlyGroceryListDTO.class
 com/mpholo/project/grocery/security/service/UserSecurityService.class
 com/mpholo/project/grocery/mapper/ProductMapper.class
+com/mpholo/project/grocery/model/GroceryItemUpdateDTO.class
 com/mpholo/project/grocery/mapper/GroceryBasketMapper.class
 com/mpholo/project/grocery/util/ProductMappings.class
 com/mpholo/project/grocery/util/ProductAttributeNames.class

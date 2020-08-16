@@ -1,7 +1,8 @@
 package com.mpholo.project.grocery.domain;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -10,8 +11,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Data
-@EqualsAndHashCode(exclude = {"groceryBasket"})
+@Setter
+@Getter
+@EqualsAndHashCode(exclude = {"groceryItem"})
 public class MonthlyGrocery  {
 
     @Id
@@ -26,6 +28,6 @@ public class MonthlyGrocery  {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="monthly_grocery_id")
-    private Set<GroceryItem> groceryBasket = new HashSet<>();
+    private Set<GroceryItem> groceryItem = new HashSet<>();
 
 }

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-08-14T18:14:54+0200",
+    date = "2020-08-16T07:39:12+0200",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 11.0.4 (Oracle Corporation)"
 )
 @Component
@@ -29,9 +29,9 @@ public class MonthlyGroceryMapperImpl implements MonthlyGroceryMapper {
         monthlyGroceryDTO.setPeriod( monthlyGrocery.getPeriod() );
         monthlyGroceryDTO.setStartDate( monthlyGrocery.getStartDate() );
         monthlyGroceryDTO.setEndDate( monthlyGrocery.getEndDate() );
-        Set<GroceryItem> set = monthlyGrocery.getGroceryBasket();
+        Set<GroceryItem> set = monthlyGrocery.getGroceryItem();
         if ( set != null ) {
-            monthlyGroceryDTO.setGroceryBasket( new HashSet<GroceryItem>( set ) );
+            monthlyGroceryDTO.setGroceryItem( new HashSet<GroceryItem>( set ) );
         }
 
         return monthlyGroceryDTO;
@@ -50,9 +50,9 @@ public class MonthlyGroceryMapperImpl implements MonthlyGroceryMapper {
         monthlyGrocery.setPeriod( monthlyGroceryDTO.getPeriod() );
         monthlyGrocery.setStartDate( monthlyGroceryDTO.getStartDate() );
         monthlyGrocery.setEndDate( monthlyGroceryDTO.getEndDate() );
-        Set<GroceryItem> set = monthlyGroceryDTO.getGroceryBasket();
+        Set<GroceryItem> set = monthlyGroceryDTO.getGroceryItem();
         if ( set != null ) {
-            monthlyGrocery.setGroceryBasket( new HashSet<GroceryItem>( set ) );
+            monthlyGrocery.setGroceryItem( new HashSet<GroceryItem>( set ) );
         }
 
         return monthlyGrocery;

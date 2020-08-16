@@ -39,4 +39,5 @@
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/mapper/MonthlyGroceryMapper.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/util/GroceryItemViewNames.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/model/MonthlyGroceryDTO.java
+/home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/model/GroceryItemUpdateDTO.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/security/SecurityConfig.java

@@ -17,7 +17,7 @@ public class GroceryItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer groceryItemId;
-    private int quantity;
+    private int quantity=1;
     private double actualPrice;
 
     @ManyToOne(fetch=FetchType.EAGER)

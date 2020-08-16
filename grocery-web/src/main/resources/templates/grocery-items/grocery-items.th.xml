@@ -47,6 +47,31 @@
           th:text="${ groceryItem.actualPrice * groceryItem.quantity }" />
 
 
+<!--form fields-->
+
+    <attr sel="#saveGroceryItem"
+          th:action="@{__${T(com.mpholo.project.grocery.util.GroceryItemMappings).GROCERY_ITEM_SAVE}__}"
+          th:object="${groceryItem}" />
+
+
+    <attr sel="#monthlyGroceryId"
+          th:field="${monthlyGrocery.monthlyGroceryId}" />
+
+    <attr sel="#formPrice"
+          th:field="${groceryItem.actualPrice}" />
+
+    <attr sel="#formproduct"
+          th:field="*{productId}" />
+
+    <attr sel="#formQuantity"
+          th:field="*{quantity}" />
+
+    <attr sel=".formProductList"
+          th:each="product:${__${T(com.mpholo.project.grocery.util.ProductAttributeNames).PRODUCT_LIST}__}"
+          th:value="${product.productId}"
+          th:text="${product.productName}" />
+
+
 
 
 </thlogic>

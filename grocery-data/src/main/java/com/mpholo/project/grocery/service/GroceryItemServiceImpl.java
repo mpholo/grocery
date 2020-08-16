@@ -1,10 +1,15 @@
 package com.mpholo.project.grocery.service;
 
 import com.mpholo.project.grocery.domain.GroceryItem;
+import com.mpholo.project.grocery.domain.MonthlyGrocery;
+import com.mpholo.project.grocery.domain.Product;
 import com.mpholo.project.grocery.mapper.GroceryBasketMapper;
 import com.mpholo.project.grocery.mapper.MonthlyGroceryMapper;
+import com.mpholo.project.grocery.mapper.ProductMapper;
 import com.mpholo.project.grocery.model.GroceryItemDTO;
+import com.mpholo.project.grocery.model.GroceryItemUpdateDTO;
 import com.mpholo.project.grocery.model.MonthlyGroceryDTO;
+import com.mpholo.project.grocery.model.ProductDTO;
 import com.mpholo.project.grocery.repositories.GroceryItemRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +23,21 @@ public class GroceryItemServiceImpl implements GroceryItemService {
     private final GroceryItemRepository groceryBasketRepository;
     private GroceryBasketMapper groceryBasketMapper;
     private MonthlyGroceryMapper monthlyGroceryMapper;
+    private final ProductService productService;
+    private ProductMapper productMapper;
+    private MonthlyGroceryService monthlyGroceryService;
 
 
-    public GroceryItemServiceImpl(GroceryItemRepository groceryBasketRepository, GroceryBasketMapper groceryBasketMapper, MonthlyGroceryMapper monthlyGroceryMapper) {
+    public GroceryItemServiceImpl(GroceryItemRepository groceryBasketRepository,
+                                  GroceryBasketMapper groceryBasketMapper,
+                                  MonthlyGroceryMapper monthlyGroceryMapper, ProductService productService, ProductMapper productMapper, MonthlyGroceryService monthlyGroceryService) {
+
         this.groceryBasketRepository = groceryBasketRepository;
         this.groceryBasketMapper = groceryBasketMapper;
         this.monthlyGroceryMapper = monthlyGroceryMapper;
+        this.productService = productService;
+        this.productMapper = productMapper;
+        this.monthlyGroceryService = monthlyGroceryService;
     }
 
     @Override
@@ -62,6 +76,29 @@ public class GroceryItemServiceImpl implements GroceryItemService {
 
         GroceryItem groceryBasket=groceryBasketMapper.groceryBasketDTOToGroceryBasket(groceryBasketDTO) ;
         return saveAndReturnDTO(groceryBasket);
+    }
+
+    public GroceryItemDTO save(GroceryItemUpdateDTO groceryItemUpdateDTO) {
+
+        Optional<ProductDTO> productDTO = productService.findById(groceryItemUpdateDTO.getProductId());
+        Optional<MonthlyGroceryDTO> monthlyGroceryDTO=monthlyGroceryService.findById(groceryItemUpdateDTO.getMonthlyGroceryId());
+
+        if (!productDTO.isPresent() && !monthlyGroceryDTO.isPresent()) {
+
+           throw  new RuntimeException("Product or monthly grocery not found");
+        }
+
+        Product product = productMapper.ProductDTOToProduct(productDTO.get());
+        MonthlyGrocery monthlyGrocery=monthlyGroceryMapper.monthlyGroceryDTOToMonthlyGrocery(monthlyGroceryDTO.get());
+
+        GroceryItem groceryItem = new GroceryItem();
+        groceryItem.setActualPrice(groceryItemUpdateDTO.getActualPrice());
+        groceryItem.setMonthlyGrocery(monthlyGrocery);
+        groceryItem.setProduct(product);
+        groceryItem.setQuantity(groceryItemUpdateDTO.getQuantity());
+
+        return saveAndReturnDTO(groceryItem);
+
     }
 
 

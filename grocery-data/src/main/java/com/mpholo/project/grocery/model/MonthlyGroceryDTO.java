@@ -1,9 +1,7 @@
 package com.mpholo.project.grocery.model;
 
 import com.mpholo.project.grocery.domain.GroceryItem;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -11,9 +9,11 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(exclude = {"groceryItem"})
 public class MonthlyGroceryDTO implements Serializable  {
 
     private int monthlyGroceryId;
@@ -23,7 +23,7 @@ public class MonthlyGroceryDTO implements Serializable  {
     private LocalDate startDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private  LocalDate endDate;
-    private Set<GroceryItem> groceryBasket = new HashSet<>();
+    private Set<GroceryItem> groceryItem = new HashSet<>();
 
 
 }
