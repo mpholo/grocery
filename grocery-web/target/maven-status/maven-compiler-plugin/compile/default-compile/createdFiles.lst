@@ -1,6 +1,6 @@
 com/mpholo/project/grocery/controller/GroceryItemController.class
+com/mpholo/project/grocery/controller/MothlyGroceryController.class
 com/mpholo/project/grocery/controller/ProductController.class
 com/mpholo/project/grocery/util/thymeleaf/DecoupledLogicSetup.class
-com/mpholo/project/grocery/controller/MothlyGroceryController.class
 com/mpholo/project/grocery/GroceryApplication.class
 com/mpholo/project/grocery/controller/HomeController.class
