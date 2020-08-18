@@ -50,6 +50,7 @@ public class ProductController {
         return  productService.edit(Integer.valueOf(productId),productDTO);
     }
 
+
     @PatchMapping("/{productId}")
     @ResponseStatus(HttpStatus.OK)
     public ProductDTO patchProduct(@PathVariable Integer productId,@RequestBody ProductDTO productDTO ) {
