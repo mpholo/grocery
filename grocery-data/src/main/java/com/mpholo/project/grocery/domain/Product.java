@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Data
 @Entity
-@EqualsAndHashCode(exclude = {"groceryItem"})
+@EqualsAndHashCode(exclude = {"groceryItem","category"})
 public class Product  {
 
     @Id
@@ -18,11 +18,12 @@ public class Product  {
     private String productName;
     private String productDescription;
     private double productPrice;
+
     @OneToMany
     @JoinColumn(name="product_id")
     private Set<GroceryItem> groceryItem = new HashSet<>();
 
-
-
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Category category;
 
 }
