@@ -13,6 +13,8 @@
 
       var allValues =$(this).closest(".card-body").find(".data").text().split(',');
 
+      $("#formModalCenterTitle").text("Update Monthly Grocery")
+
       var id =allValues[0];
       var monthlyGroceryMonth=allValues[1];
       var startDate =allValues[2];
@@ -33,5 +35,9 @@
        console.log("budget "+budget);
 
     });
+
+     $("#addItem").on("click",function() {
+            $("#formModalCenterTitle").text("Add Monthly Grocery");
+        });
 
 })(jQuery);

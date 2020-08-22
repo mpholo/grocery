@@ -1,11 +1,6 @@
 (function($) {
     "use strict";
 
-    //show modal window
-//    $('#myModal').on('shown.bs.modal', function () {
-//      $('#myInput').trigger('focus')
-//    })
-
     $('#submitButton').on('click',function(){
        $("form").submit();
     });
@@ -15,6 +10,8 @@
     $(".editGroceryItem").on("click",function() {
 
       console.log("update clicked");
+
+      $("#formModalCenterTitle").text("Update Grocery Item")
 
       var id =$(this).closest("tr").find("td").eq(0).text();
       //var name =$(this).closest("tr").find("td").eq(1).text();
@@ -31,6 +28,10 @@
       console.log("product id "+productId);
 
 
+    });
+
+    $("#addItem").on("click",function() {
+        $("#formModalCenterTitle").text("Add Grocery Item");
     });
 
 })(jQuery);

@@ -16,6 +16,8 @@
 
       console.log("update clicked");
 
+       $("#formModalCenterTitle").text("Update Product");
+
       var id =$(this).closest("tr").find("td").eq(0).text();
       var name =$(this).closest("tr").find("td").eq(1).text();
       var desc =$(this).closest("tr").find("td").eq(2).text();
@@ -27,5 +29,9 @@
       $("#formProductPrice").val(price);
 
     });
+
+     $("#addItem").on("click",function() {
+            $("#formModalCenterTitle").text("Add Product");
+     });
 
 })(jQuery);
