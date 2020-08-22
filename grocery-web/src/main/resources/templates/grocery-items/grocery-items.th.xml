@@ -11,7 +11,7 @@
 
 
     <attr sel="#footer"
-          th:replace="~{fragments/template::footer('monthlyGroceries')}" />
+          th:replace="~{fragments/template::footer('groceryItem')}" />
 
     <attr sel="#btn-back"
           th:href="@{__${T(com.mpholo.project.grocery.util.MonthylGroceryMappings).MONTHLY_GROCERY_REDIRECT_LIST}__}" />
@@ -46,6 +46,9 @@
     <attr sel=".totalPrice"
           th:text="${ groceryItem.actualPrice * groceryItem.quantity }" />
 
+    <attr sel=".productId"
+          th:value="${groceryItem.product.productId}" />
+
 
 <!--form fields-->
 
@@ -56,6 +59,9 @@
 
     <attr sel="#monthlyGroceryId"
           th:field="${monthlyGrocery.monthlyGroceryId}" />
+
+    <attr sel="#groceryItemId"
+          th:field="${groceryItem.groceryItemId}" />
 
     <attr sel="#formPrice"
           th:field="${groceryItem.actualPrice}" />

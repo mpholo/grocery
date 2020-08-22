@@ -44,13 +44,15 @@
                                         <tbody>
                                         <tr  class="groceryItems">
                                             <td class="groceryItemId">1</td>
-                                            <td class="groceryItemName">Maize</td>
+                                            <td><span class="groceryItemName"></span>
+                                            <input type="hidden" class="productId" />
+                                            </td>
                                             <td class="groceryItemDesc" >Maize meal</td>
                                             <td class="estimatedPrice" >89.80</td>
                                             <td class="quantity" >91.80</td>
                                             <td class="totalPrice" >91.80</td>
                                             <td class="pr-4"><a class="btn btn-outline-danger btn-sm deleteGroceryItem" href="#" ><i class="fas fa-trash-alt"></i> Delete</a>
-                                                <a  class="btn btn-outline-warning btn-sm editProduct" href="#" data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-edit"></i></i> Update</a></td>
+                                                <a  class="btn btn-outline-warning btn-sm editGroceryItem" href="#" data-toggle="modal" data-target="#formModalCenter"><i class="fas fa-edit"></i></i> Update</a></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -79,6 +81,7 @@
                     <div class="modal-body">
                         <form method="post" id="saveGroceryItem" action="#">
                             <input type="hidden" id="monthlyGroceryId">
+                            <input type="hidden" id="groceryItemId">
                           <div class="form-group">
                                 <label for="formproduct">Product</label>
                                 <select class="form-control " id="formproduct" >

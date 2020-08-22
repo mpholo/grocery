@@ -18,7 +18,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(exclude = {"product","monthlyGrocery"})
 public class GroceryItemUpdateDTO implements Serializable {
 
-    private int groceryItemId;
+    private Integer groceryItemId;
     private int quantity=1;
     private double actualPrice;
     private int productId;

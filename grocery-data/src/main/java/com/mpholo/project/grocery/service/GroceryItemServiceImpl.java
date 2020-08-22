@@ -92,6 +92,12 @@ public class GroceryItemServiceImpl implements GroceryItemService {
         MonthlyGrocery monthlyGrocery=monthlyGroceryMapper.monthlyGroceryDTOToMonthlyGrocery(monthlyGroceryDTO.get());
 
         GroceryItem groceryItem = new GroceryItem();
+        //when updating grocery item
+        if(groceryItemUpdateDTO.getGroceryItemId()!=null)
+        {
+            groceryItem.setGroceryItemId(groceryItemUpdateDTO.getGroceryItemId());
+        }
+
         groceryItem.setActualPrice(groceryItemUpdateDTO.getActualPrice());
         groceryItem.setMonthlyGrocery(monthlyGrocery);
         groceryItem.setProduct(product);
