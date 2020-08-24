@@ -34,4 +34,5 @@
             $("#formModalCenterTitle").text("Add Product");
      });
 
+
 })(jQuery);

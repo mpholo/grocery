@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+
+
+    <link  rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" />
+    <script type="text/javascript" src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready( function () {
+
+			$('#myTable').DataTable();
+		} );
+
+    </script>
+</head>
+<body>
+<!--<div class="container">-->
+<!--    <div class="row">-->
+<!--        <div class="col-md-12 mt-10">-->
+<!--            <table id="myTable" >-->
+<!--                <thead>-->
+<!--                <tr>-->
+<!--                    <th scope="col">#</th>-->
+<!--                    <th scope="col">First</th>-->
+<!--                    <th scope="col">Last</th>-->
+<!--                    <th scope="col">Handle</th>-->
+<!--                </tr>-->
+<!--                </thead>-->
+<!--                <tbody>-->
+<!--                <tr>-->
+<!--                    <td scope="row">1</td>-->
+<!--                    <td>Mark</td>-->
+<!--                    <td>Otto</td>-->
+<!--                    <td>@mdo</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr> <tr>-->
+<!--                    <td scope="row">2</td>-->
+<!--                    <td>Jacob</td>-->
+<!--                    <td>Thornton</td>-->
+<!--                    <td>@fat</td>-->
+<!--                </tr>-->
+
+<!--                </tbody>-->
+<!--            </table>-->
+
+
+<table class="table table-bordered" id="myTable" width="100%" cellspacing="0">
+    <thead>
+    <tr>
+        <th >Id</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Operations</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr  class="productList">
+        <td id="productId">1</td>
+        <td id="productName">Salt</td>
+        <td id="productDesc">Himalayan salts</td>
+        <td id="productPrice">23.87</td>
+        <td class="pr-4"><a class="btn btn-outline-danger btn-sm" href="delete?productId=1" id="deleteProduct"><i class="fas fa-trash-alt"></i> Delete</a>
+            <a  class="btn btn-outline-warning btn-sm editProduct" href="#" data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-edit"></i></i> Update</a></td>
+    </tr>
+    <tr  class="productList">
+        <td id="productId">2</td>
+        <td id="productName">Milk</td>
+        <td id="productDesc">Fresh milk</td>
+        <td id="productPrice">22.88</td>
+        <td class="pr-4"><a class="btn btn-outline-danger btn-sm" href="delete?productId=2" id="deleteProduct"><i class="fas fa-trash-alt"></i> Delete</a>
+            <a  class="btn btn-outline-warning btn-sm editProduct" href="#" data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-edit"></i></i> Update</a></td>
+    </tr>
+    <tr  class="productList">
+        <td id="productId">3</td>
+        <td id="productName">Cheese</td>
+        <td id="productDesc">Cheddar Cheese</td>
+        <td id="productPrice">78.0</td>
+        <td class="pr-4"><a class="btn btn-outline-danger btn-sm" href="delete?productId=3" id="deleteProduct"><i class="fas fa-trash-alt"></i> Delete</a>
+            <a  class="btn btn-outline-warning btn-sm editProduct" href="#" data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-edit"></i></i> Update</a></td>
+    </tr>
+    <tr  class="productList">
+        <td id="productId">4</td>
+        <td id="productName">Coffee</td>
+        <td id="productDesc">Jacobs coffee</td>
+        <td id="productPrice">102.5</td>
+        <td class="pr-4"><a class="btn btn-outline-danger btn-sm" href="delete?productId=4" id="deleteProduct"><i class="fas fa-trash-alt"></i> Delete</a>
+            <a  class="btn btn-outline-warning btn-sm editProduct" href="#" data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-edit"></i></i> Update</a></td>
+    </tr>
+    <tr  class="productList">
+        <td id="productId">5</td>
+        <td id="productName">Rice</td>
+        <td id="productDesc">Tastic brown rice</td>
+        <td id="productPrice">30.5</td>
+        <td class="pr-4"><a class="btn btn-outline-danger btn-sm" href="delete?productId=5" id="deleteProduct"><i class="fas fa-trash-alt"></i> Delete</a>
+            <a  class="btn btn-outline-warning btn-sm editProduct" href="#" data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-edit"></i></i> Update</a></td>
+    </tr>
+    </tbody>
+</table>
+<!--        </div>-->
+<!--    </div>-->
+
+<!--</div>-->
+
+<!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">-->
+<!--<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>-->
+<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>-->
+
+
+</body>
+</html>
