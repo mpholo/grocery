@@ -23,5 +23,7 @@
        $("#dataTable").DataTable();
           $('.dataTables_length').addClass('bs-select');
 
+     // Initialize select2
+      $("#formproduct").select2();
 
 })(jQuery);

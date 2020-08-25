@@ -22,6 +22,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
 
 
+    <!-- Script -->
+    <script th:src="@{~/js/select2.min.js}" type="text/javascript"></script>
+
+    <!-- CSS -->
+    <link th:href="@{~/css/select2.min.css}" rel="stylesheet" type="text/css">
+
 </head>
 <body class="sb-nav-fixed">
 <nav th:fragment="top-nav" class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -698,6 +704,7 @@
             <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
 <!--            <script src="assets/demo/datatables-demo.js"></script>-->
             <script th:src="@{~/js/scripts.js}"></script>
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
 
             <!--page specific scripts-->
             <script th:if="${page == 'monthlyGroceries'}" th:src="@{~/js/monthlyGroceries.js}"></script>

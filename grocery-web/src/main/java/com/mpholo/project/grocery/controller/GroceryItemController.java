@@ -15,7 +15,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.mpholo.project.grocery.util.GroceryItemMappings.GROCERY_ITEM_REDIRECT_LIST;
 
@@ -54,7 +56,10 @@ public class GroceryItemController {
         GroceryItemUpdateDTO item=new GroceryItemUpdateDTO();
         model.addAttribute(GroceryItemAttributeNames.GROCERY_ITEM,item);
 
-        List<ProductDTO> productList = productService.findAll();
+        List<ProductDTO> productList = productService.findAll()
+                .stream()
+                .sorted(Comparator.comparing( p->p.getProductName()))
+                .collect(Collectors.toList());
         log.info("displaying all products: "+productList.size());
         model.addAttribute(ProductAttributeNames.PRODUCT_LIST,productList);
 
