@@ -70,7 +70,7 @@ local.properties
 /log/
 /target/
 target/
-grocery-data/target/
+grocery-data/target/*
 
 ######################
 # Gradle

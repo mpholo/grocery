@@ -19,7 +19,8 @@
       var quantity =$(this).closest("tr").find("td").eq(4).text();
 
       $("#groceryItemId").val(id);
-      $("select#formproduct").val(productId);
+      $("select#formproduct").val(productId); // Select the option with a value of productId
+      $("select#formproduct").trigger("change"); // Notify any JS components that the value changed
       $("#formPrice").val(price);
       $("#formQuantity").val(quantity);
 

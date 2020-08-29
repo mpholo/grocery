@@ -252,12 +252,65 @@ public class Bootstrap implements CommandLineRunner {
         item4.setMonthlyGrocery(monthlyGroceries.get(0));
         item4.setProduct(products.get(3));
 
-        List<GroceryItem>  groceryBasketList = Arrays.asList(item1,item2,item3,item4);
+        GroceryItem item5 =new GroceryItem();
+        item5.setGroceryItemId(5);
+        item5.setActualPrice(50.0);
+        item5.setQuantity(3);
+        item5.setMonthlyGrocery(monthlyGroceries.get(0));
+        item5.setProduct(products.get(5));
 
-        groceryBasketRepository.save(item1);
-        groceryBasketRepository.save(item2);
-        groceryBasketRepository.save(item3);
-        groceryBasketRepository.save(item4);
+        GroceryItem item6 =new GroceryItem();
+        item6.setGroceryItemId(6);
+        item6.setActualPrice(50.0);
+        item6.setQuantity(3);
+        item6.setMonthlyGrocery(monthlyGroceries.get(0));
+        item6.setProduct(products.get(6));
+
+        GroceryItem item7 =new GroceryItem();
+        item7.setGroceryItemId(7);
+        item7.setActualPrice(50.0);
+        item7.setQuantity(3);
+        item7.setMonthlyGrocery(monthlyGroceries.get(0));
+        item7.setProduct(products.get(7));
+
+
+        GroceryItem item8 =new GroceryItem();
+        item8.setGroceryItemId(8);
+        item8.setActualPrice(50.0);
+        item8.setQuantity(3);
+        item8.setMonthlyGrocery(monthlyGroceries.get(0));
+        item8.setProduct(products.get(7));
+
+        GroceryItem item9 =new GroceryItem();
+        item9.setGroceryItemId(9);
+        item9.setActualPrice(50.0);
+        item9.setQuantity(3);
+        item9.setMonthlyGrocery(monthlyGroceries.get(0));
+        item9.setProduct(products.get(9));
+
+        GroceryItem item10 =new GroceryItem();
+        item10.setGroceryItemId(10);
+        item10.setActualPrice(50.0);
+        item10.setQuantity(3);
+        item10.setMonthlyGrocery(monthlyGroceries.get(0));
+        item10.setProduct(products.get(10));
+
+        GroceryItem item11 =new GroceryItem();
+        item11.setGroceryItemId(11);
+        item11.setActualPrice(50.0);
+        item11.setQuantity(3);
+        item11.setMonthlyGrocery(monthlyGroceries.get(0));
+        item11.setProduct(products.get(10));
+
+
+        List<GroceryItem>  groceryBasketList = Arrays.asList(item1,item2,item3,item4,item5,item6,
+                                                             item7,item8,item9,item10,item11);
+
+        groceryBasketRepository.saveAll(groceryBasketList);
+//        groceryBasketRepository.save(item1);
+//        groceryBasketRepository.save(item2);
+//        groceryBasketRepository.save(item3);
+//        groceryBasketRepository.save(item4);
         System.out.println("Number of MonthlyGrocery items "+groceryBasketRepository.count());
     }
 }
