@@ -1,6 +1,7 @@
 com/mpholo/project/grocery/service/ProductService.class
 com/mpholo/project/grocery/domain/MonthlyGrocery.class
 com/mpholo/project/grocery/security/domain/Authority.class
+com/mpholo/project/grocery/exceptions/NotFoundException.class
 com/mpholo/project/grocery/domain/GroceryItem.class
 com/mpholo/project/grocery/util/GroceryItemViewNames.class
 com/mpholo/project/grocery/mapper/ProductMapperImpl.class

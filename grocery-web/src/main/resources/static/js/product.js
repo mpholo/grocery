@@ -12,7 +12,7 @@
 
 
     //==populate form fields for update ==//
-    $(".editProduct").on("click",function() {
+    $("#product-table").on("click",".editProduct",function() {
 
       console.log("update clicked");
 

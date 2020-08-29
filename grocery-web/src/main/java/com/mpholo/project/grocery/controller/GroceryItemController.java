@@ -1,6 +1,7 @@
 package com.mpholo.project.grocery.controller;
 
 import com.mpholo.project.grocery.domain.MonthlyGrocery;
+import com.mpholo.project.grocery.exceptions.NotFoundException;
 import com.mpholo.project.grocery.mapper.MonthlyGroceryMapper;
 import com.mpholo.project.grocery.model.GroceryItemDTO;
 import com.mpholo.project.grocery.model.GroceryItemUpdateDTO;
@@ -11,9 +12,11 @@ import com.mpholo.project.grocery.service.MonthlyGroceryService;
 import com.mpholo.project.grocery.service.ProductService;
 import com.mpholo.project.grocery.util.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Comparator;
 import java.util.List;
@@ -44,7 +47,7 @@ public class GroceryItemController {
     @GetMapping(GroceryItemMappings.GROCERY_ITEM_LIST)
     public String displayGroceryItems(Model model, @RequestParam(name="monthlyGroceryId") int monthlyGroceryId ) {
 
-        MonthlyGroceryDTO monthlyGroceryDTO = monthlyGroceryService.findById(monthlyGroceryId).get();
+        MonthlyGroceryDTO monthlyGroceryDTO = monthlyGroceryService.findById(Integer.valueOf(monthlyGroceryId)).get();
         List<GroceryItemDTO> groceryItemList = groceryItemService.findByMonthlyGrocery(monthlyGroceryDTO);
         log.info("Total number of monthly grocery items for {} {}",monthlyGroceryDTO.getPeriod(),groceryItemList.size());
 
@@ -80,5 +83,35 @@ public class GroceryItemController {
         GroceryItemDTO savedGroceryItemDTO = groceryItemService.save(groceryItemUpdateDTO);
         log.info("grocery item {} saved successfully",savedGroceryItemDTO.getProduct().getProductName());
         return "redirect:"+GROCERY_ITEM_REDIRECT_LIST+savedGroceryItemDTO.getMonthlyGrocery().getMonthlyGroceryId();
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(NumberFormatException.class)
+    public ModelAndView handleNumberFormat(Exception exception) {
+
+        log.error("Handle Number Format Exception");
+        log.error(exception.getMessage());
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.setViewName("400error");
+        modelAndView.addObject("exception",exception);
+
+        return modelAndView;
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NotFoundException.class)
+    public ModelAndView notFound(Exception exception) {
+
+        log.error("Handling not found Exception");
+        log.error(exception.getMessage());
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.setViewName("404error");
+        modelAndView.addObject("exception",exception);
+
+        return modelAndView;
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static com.mpholo.project.grocery.util.MonthylGroceryMappings.MONTHLY_GROCERY_REDIRECT_LIST;
@@ -41,7 +42,11 @@ public class MothlyGroceryController {
         //create new monthly grocery and set period
         MonthlyGroceryDTO newMonthlyGrocery = new MonthlyGroceryDTO();
 
-        int grocery_year = monthlyGroceryDTOs.get(0).getEndDate().getYear();
+        int grocery_year= LocalDate.now().getYear();
+
+        if (monthlyGroceryDTOs.size() > 0) {
+            grocery_year = monthlyGroceryDTOs.get(0).getEndDate().getYear();
+        }
         model.addAttribute("year",grocery_year);
         model.addAttribute(MonthlyGroceryAttributeNames.MONTHLY_GROCERY,newMonthlyGrocery);
 

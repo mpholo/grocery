@@ -20,6 +20,8 @@
 
     <attr sel=".budget"
           th:text="${'Budget R '+#numbers.formatDecimal(monthlyGrocery.budgetAmount,3,2)}" />
+    <attr sel=".totalItems"
+          th:text="${'Total Items '+#numbers.formatDecimal(monthlyGrocery.groceryItem.size(),3,0)}" />
 
     <attr sel="#groceryYear"
           th:text="${'Monthly Groceries- '+year}" />

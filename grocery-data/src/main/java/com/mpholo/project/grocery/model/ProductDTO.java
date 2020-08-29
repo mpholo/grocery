@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,6 +19,7 @@ import java.util.Set;
 public class ProductDTO implements Serializable {
 
     private int productId;
+
     private String productName;
     private String productDescription;
     private double productPrice;

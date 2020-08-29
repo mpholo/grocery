@@ -1,6 +1,7 @@
 package com.mpholo.project.grocery.service;
 
 import com.mpholo.project.grocery.domain.MonthlyGrocery;
+import com.mpholo.project.grocery.exceptions.NotFoundException;
 import com.mpholo.project.grocery.mapper.MonthlyGroceryMapper;
 import com.mpholo.project.grocery.model.MonthlyGroceryDTO;
 import com.mpholo.project.grocery.repositories.MonthlyGroceryRepository;
@@ -29,7 +30,7 @@ public class MonthlyGroceryServiceImpl  implements  MonthlyGroceryService {
     public Optional<MonthlyGroceryDTO> findById(Integer id) {
         return Optional.of(monthlyGroceryRepository.findById(id)
                 .map(monthlyGroceryMapper::monthlyGroceryToMonthlyGroceryDTO)
-                .orElseThrow(RuntimeException::new));
+                .orElseThrow(()->new NotFoundException("monthly grocery not found with ID: "+id.toString() )));
     }
 
     @Override

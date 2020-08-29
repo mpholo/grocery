@@ -6,14 +6,20 @@ import com.mpholo.project.grocery.domain.Product;
 import com.mpholo.project.grocery.repositories.GroceryItemRepository;
 import com.mpholo.project.grocery.repositories.MonthlyGroceryRepository;
 import com.mpholo.project.grocery.repositories.ProductRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.*;
 
+@Slf4j
 @Component
 public class Bootstrap implements CommandLineRunner {
+
+    @Value("${spring.profiles.active}")
+    private String activeProfile;
 
     private ProductRepository productRepository;
     private MonthlyGroceryRepository monthlyGroceryRepository;
@@ -33,6 +39,11 @@ public class Bootstrap implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
+        log.info("Active profile {}",activeProfile);
+        if(!activeProfile.equals("h2")) {
+            return;
+        }
 
         createProductData();
         createMonthlyGrocery();
@@ -71,17 +82,66 @@ public class Bootstrap implements CommandLineRunner {
         rice.setProductDescription("Tastic brown rice");
         rice.setProductPrice(30.5);
 
+        Product toothPaste = new Product();
+        toothPaste.setProductId(6);
+        toothPaste.setProductName("Tooth Paste");
+        toothPaste.setProductDescription("Tooth Paste");
+        toothPaste.setProductPrice(10.5);
+
+        Product dettolFloorCleaner = new Product();
+        dettolFloorCleaner.setProductId(7);
+        dettolFloorCleaner.setProductName("Dettol Floor Cleaner");
+        dettolFloorCleaner.setProductDescription("Dettol Floor Cleaner");
+        dettolFloorCleaner.setProductPrice(60.98);
+
+        Product rollon = new Product();
+        rollon.setProductId(8);
+        rollon.setProductName("Roll on");
+        rollon.setProductDescription("Roll on");
+        rollon.setProductPrice(16.85);
+
+        Product niveaBodylotion = new Product();
+        niveaBodylotion.setProductId(9);
+        niveaBodylotion.setProductName("Nivea Body lotion");
+        niveaBodylotion.setProductDescription("NiveaBodylotion");
+        niveaBodylotion.setProductPrice(30.5);
+
+
+        Product sunlightDishwash = new Product();
+        sunlightDishwash.setProductId(10);
+        sunlightDishwash.setProductName("Sunlight Dishwash");
+        sunlightDishwash.setProductDescription("Sunlight Dishwash");
+        sunlightDishwash.setProductPrice(89.5);
+
+        Product fish = new Product();
+        fish.setProductId(11);
+        fish.setProductName("Fish");
+        fish.setProductPrice(30.5);
+        
+
         products.add(salt);
         products.add(milk);
         products.add(cheese);
         products.add(coffee);
         products.add(rice);
+        products.add(toothPaste);
+        products.add(dettolFloorCleaner);
+        products.add(rollon);
+        products.add(niveaBodylotion);
+        products.add(sunlightDishwash);
+        products.add(fish);
 
         productRepository.save(salt);
         productRepository.save(milk);
         productRepository.save(cheese);
         productRepository.save(coffee);
         productRepository.save(rice);
+        productRepository.save(toothPaste);
+        productRepository.save(dettolFloorCleaner);
+        productRepository.save(rollon);
+        productRepository.save(niveaBodylotion);
+        productRepository.save(sunlightDishwash);
+        productRepository.save(fish);
 
         System.out.println("Products Loaded = "+productRepository.count());
     }
@@ -199,7 +259,5 @@ public class Bootstrap implements CommandLineRunner {
         groceryBasketRepository.save(item3);
         groceryBasketRepository.save(item4);
         System.out.println("Number of MonthlyGrocery items "+groceryBasketRepository.count());
-
-
     }
 }

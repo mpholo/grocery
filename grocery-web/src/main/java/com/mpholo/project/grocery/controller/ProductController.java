@@ -57,16 +57,5 @@ public class ProductController {
 
     }
 
-//    @GetMapping(ProductMappings.PRODUCT_EDIT)
-//    public String editProduct(@RequestParam(name="productId") int productId,
-//                                Model model) {
-//        log.info("Editing product with productId {}",productId);
-//        Optional<ProductDTO> productDTO= productService.findById(productId);
-//
-//        model.addAttribute(ProductAttributeNames.PRODUCT,productDTO.get());
-//
-//        return "redirect:/product/"+ProductMappings.PRODUCT_LIST;
-//
-//    }
 
 }
