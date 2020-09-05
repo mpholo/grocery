@@ -54,5 +54,11 @@
           deleteItem($(this),"td");
    });
 
+//set price of select product
+  $("select#formproduct").on("change",function() {
+       var price = $(this).children("option:selected").data("price");
+       console.log("price = "+price);
+       $("#formPrice").val(price);
+  });
 
 })(jQuery);

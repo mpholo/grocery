@@ -77,7 +77,9 @@
     <attr sel=".formProductList"
           th:each="product:${__${T(com.mpholo.project.grocery.util.ProductAttributeNames).PRODUCT_LIST}__}"
           th:value="${product.productId}"
-          th:text="${product.productName}" />
+          th:text="${product.productName}"
+          th:attr="data-price=${product.productPrice}"
+    />
 
 
 
