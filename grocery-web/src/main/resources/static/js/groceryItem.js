@@ -50,4 +50,9 @@
     $("table tfoot tr").find("td").eq(5).text("R "+parseFloat(totalPrice2).toFixed(2));
 
 
+    $("#grocery-item-table").on("click",".deleteGroceryItem",function() {
+          deleteItem($(this),"td");
+   });
+
+
 })(jQuery);

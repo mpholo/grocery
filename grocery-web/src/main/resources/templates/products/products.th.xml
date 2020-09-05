@@ -11,6 +11,9 @@
     <attr sel="#footer"
           th:replace="~{fragments/template::footer('product')}" />
 
+    <attr sel="#delete-confirmation"
+          th:replace="~{fragments/delete-confirmation::delete-confirmation}" />
+
     <attr sel=".productList"
           th:each="product:${__${T(com.mpholo.project.grocery.util.ProductAttributeNames).PRODUCT_LIST}__}" />
 
@@ -23,7 +26,7 @@
     <attr sel="#productPrice"
           th:text="${product.productPrice}" />
 
-    <attr sel="#deleteProduct"
+    <attr sel=".deleteUrl"
           th:href="@{__${T(com.mpholo.project.grocery.util.ProductMappings).PRODUCT_DELETE}__(productId=${product.productId})}" />
 
     <!--form fields-->

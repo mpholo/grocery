@@ -40,4 +40,8 @@
             $("#formModalCenterTitle").text("Add Monthly Grocery");
         });
 
+     $(".btn-group").on("click",".deleteMonthlyGroceries",function() {
+         deleteItem($(this),"div");
+     });
+
 })(jQuery);

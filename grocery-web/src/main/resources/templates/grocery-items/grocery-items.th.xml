@@ -9,6 +9,8 @@
     <attr sel="#head"
           th:replace="~{fragments/template::head('Groceries items')}" />
 
+    <attr sel="#delete-confirmation"
+          th:replace="~{fragments/delete-confirmation::delete-confirmation}" />
 
     <attr sel="#footer"
           th:replace="~{fragments/template::footer('groceryItem')}" />
@@ -16,7 +18,7 @@
     <attr sel="#btn-back"
           th:href="@{__${T(com.mpholo.project.grocery.util.MonthylGroceryMappings).MONTHLY_GROCERY_REDIRECT_LIST}__}" />
 
-    <attr sel=".deleteGroceryItem"
+    <attr sel=".deleteUrl"
           th:href="@{__${T(com.mpholo.project.grocery.util.GroceryItemMappings).GROCERY_ITEM_DELETE}__(groceryItemId=${groceryItem.groceryItemId},monthGroceryId=${groceryItem.monthlyGrocery.monthlyGroceryId})}" />
 
     <attr sel="#monthlyGrocery"

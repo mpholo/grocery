@@ -34,7 +34,9 @@
             $("#formModalCenterTitle").text("Add Product");
      });
 
-
+     $("#product-table").on("click",".deleteProduct",function() {
+       deleteItem($(this),"td");
+     });
 
 
 })(jQuery);

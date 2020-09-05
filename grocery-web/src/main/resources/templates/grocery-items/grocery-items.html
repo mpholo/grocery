@@ -51,7 +51,9 @@
                                             <td class="estimatedPrice" >89.80</td>
                                             <td class="quantity" >91.80</td>
                                             <td class="totalPrice" >91.80</td>
-                                            <td class="pr-4"><a class="btn btn-outline-danger btn-sm deleteGroceryItem" href="#" ><i class="fas fa-trash-alt"></i> Delete</a>
+                                            <td class="pr-4">
+                                                <a href="#" class="deleteUrl"></a>
+                                                <a class="btn btn-outline-danger btn-sm deleteGroceryItem" href="#myModal" data-toggle="modal"><i class="fas fa-trash-alt"></i> Delete</a>
                                                 <a  class="btn btn-outline-warning btn-sm editGroceryItem" href="#" data-toggle="modal" data-target="#formModalCenter"><i class="fas fa-edit"></i></i> Update</a>
                                             </td>
                                         </tr>
@@ -119,6 +121,9 @@
                 </div>
             </div>
         </div>
+
+        <!--        model Delete-->
+        <div id="delete-confirmation" ></div>
 
         </main>
     </div>

@@ -26,4 +26,16 @@
      // Initialize select2
       $("#formproduct").select2();
 
+
+     //confirmation
+      $('[data-toggle="popover"]').popover();
+      $('[data-toggle=confirmation]').confirmation();
+      $('[data-toggle=confirmation-singleton]').confirmation({ singleton: true });
+     $('[data-toggle=confirmation-popout]').confirmation({ popout: true });
+
 })(jQuery);
+
+function deleteItem(control,container) {
+     var url=$(control).closest(container).find("a.deleteUrl").attr("href");
+           $("a#delete").attr("href",url);
+   }

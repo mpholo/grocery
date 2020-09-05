@@ -68,10 +68,16 @@
         <version>${font-awesome.version}</version>
     </dependency>
 
+
     <dependency>
         <groupId>org.webjars.npm</groupId>
         <artifactId>bootstrap-confirmation2</artifactId>
-        <version>${bootstrap-confirmation.version}</version>
+        <version>4.1.0</version>
+    </dependency>
+    <dependency>
+        <groupId>org.webjars.bowergithub.maciej-gurban</groupId>
+        <artifactId>responsive-bootstrap-toolkit</artifactId>
+        <version>2.6.3</version>
     </dependency>
 
 </dependencies>

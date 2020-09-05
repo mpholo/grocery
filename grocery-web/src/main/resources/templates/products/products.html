@@ -40,8 +40,12 @@
                                         <td id="productName"></td>
                                         <td id="productDesc" ></td>
                                         <td id="productPrice" ></td>
-                                        <td class="pr-4"><a class="btn btn-outline-danger btn-sm" href="#" id="deleteProduct"><i class="fas fa-trash-alt"></i> Delete</a>
-                                        <a  class="btn btn-outline-warning btn-sm editProduct" href="#" data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-edit"></i></i> Update</a></td>
+<!--                                        <td class="pr-4"><a class="btn btn-outline-danger btn-sm" href="#" id="deleteProduct"><i class="fas fa-trash-alt"></i> Delete</a>-->
+                                        <td class="pr-4">
+                                        <a href="#" class="deleteUrl"></a>
+                                        <a class="btn btn-outline-danger btn-sm deleteProduct" href="#myModal"  data-toggle="modal"><i class="fas fa-trash-alt"></i> Delete</a>
+                                        <a  class="btn btn-outline-warning btn-sm editProduct" href="#" data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-edit"></i></i> Update</a>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -87,6 +91,9 @@
                     </div>
                 </div>
             </div>
+
+<!--        model Delete-->
+  <div id="delete-confirmation" ></div>
 
         </main>
     </div>
