@@ -46,6 +46,15 @@
           th:text="${groceryItem.quantity}" />
 
     <attr sel=".totalPrice"
+          th:text="${'R '+__${T(com.mpholo.project.grocery.util.GroceryItemAttributeNames).TOTAL_PRICE}__}" />
+
+    <attr sel=".finalTotalPrice"
+          th:text="${'R '+ __${T(com.mpholo.project.grocery.util.GroceryItemAttributeNames).FINAL_TOTAL_PRICE}__}" />
+
+    <attr sel=".totalQuantity"
+          th:text="${__${T(com.mpholo.project.grocery.util.GroceryItemAttributeNames).TOTAL_QUANTITY}__}" />
+
+    <attr sel=".finalPriceWithQuantity"
           th:text="${ groceryItem.actualPrice * groceryItem.quantity }" />
 
     <attr sel=".productId"

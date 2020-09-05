@@ -45,9 +45,9 @@
     })
 
     //displaying total in the footer of table
-    $("table tfoot tr").find("td").eq(3).text("R "+parseFloat(totalPrice1).toFixed(2));
-    $("table tfoot tr").find("td").eq(4).text(totalQuantity);
-    $("table tfoot tr").find("td").eq(5).text("R "+parseFloat(totalPrice2).toFixed(2));
+//    $("table tfoot tr").find("td").eq(3).text("R "+parseFloat(totalPrice1).toFixed(2));
+//    $("table tfoot tr").find("td").eq(4).text(totalQuantity);
+//    $("table tfoot tr").find("td").eq(5).text("R "+parseFloat(totalPrice2).toFixed(2));
 
 
     $("#grocery-item-table").on("click",".deleteGroceryItem",function() {

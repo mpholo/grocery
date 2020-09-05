@@ -49,22 +49,38 @@ public class GroceryItemController {
 
         MonthlyGroceryDTO monthlyGroceryDTO = monthlyGroceryService.findById(Integer.valueOf(monthlyGroceryId)).get();
         List<GroceryItemDTO> groceryItemList = groceryItemService.findByMonthlyGrocery(monthlyGroceryDTO);
+
         log.info("Total number of monthly grocery items for {} {}",monthlyGroceryDTO.getPeriod(),groceryItemList.size());
 
-        model.addAttribute(MonthlyGroceryAttributeNames.MONTHLY_GROCERY,monthlyGroceryDTO);
-        model.addAttribute(GroceryItemAttributeNames.GROCERY_ITEM_LIST,groceryItemList);
-
         MonthlyGrocery monthlyGrocery = MonthlyGroceryMapper.INSTACE.monthlyGroceryDTOToMonthlyGrocery(monthlyGroceryDTO);
-
         GroceryItemUpdateDTO item=new GroceryItemUpdateDTO();
-        model.addAttribute(GroceryItemAttributeNames.GROCERY_ITEM,item);
 
-        List<ProductDTO> productList = productService.findAll()
+       List<ProductDTO> productList = productService.findAll()
                 .stream()
                 .sorted(Comparator.comparing( p->p.getProductName()))
                 .collect(Collectors.toList());
         log.info("displaying all products: "+productList.size());
+
+        double totalPrice=0.0;
+        int totalQuanty=0;
+        double finalTotalPrice=0.0;
+
+        for (GroceryItemDTO i:groceryItemList) {
+            totalPrice+=i.getActualPrice();
+            totalQuanty+=i.getQuantity();
+            finalTotalPrice+=totalPrice;
+        }
+        log.info("calculated totals totalprice {} totalQuantity {} finalTotalPrice {}",totalPrice,totalQuanty,finalTotalPrice);
+
+        model.addAttribute(MonthlyGroceryAttributeNames.MONTHLY_GROCERY,monthlyGroceryDTO);
+        model.addAttribute(GroceryItemAttributeNames.GROCERY_ITEM_LIST,groceryItemList);
         model.addAttribute(ProductAttributeNames.PRODUCT_LIST,productList);
+        model.addAttribute(GroceryItemAttributeNames.GROCERY_ITEM,item);
+
+        model.addAttribute(GroceryItemAttributeNames.TOTAL_PRICE,totalPrice);
+        model.addAttribute(GroceryItemAttributeNames.TOTAL_QUANTITY,totalQuanty);
+        model.addAttribute(GroceryItemAttributeNames.FINAL_TOTAL_PRICE,finalTotalPrice);
+
 
         return GroceryItemViewNames.GROCERY_ITEMS;
     }
