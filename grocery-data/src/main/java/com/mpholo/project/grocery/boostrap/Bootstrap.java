@@ -45,9 +45,9 @@ public class Bootstrap implements CommandLineRunner {
             return;
         }
 
-        createProductData();
-        createMonthlyGrocery();
-        createGroceryBasket();
+//        createProductData();
+//        createMonthlyGrocery();
+//        createGroceryBasket();
 
     }
 

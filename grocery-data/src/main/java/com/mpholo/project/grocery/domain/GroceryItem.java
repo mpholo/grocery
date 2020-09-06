@@ -23,13 +23,14 @@ public class GroceryItem {
     @NotNull
     private double actualPrice;
 
+    @NotNull
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="product_id")
-    @NotNull
     private Product product;
+
+    @NotNull
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="monthly_grocery_id")
-    @NotNull
     private MonthlyGrocery monthlyGrocery;
 
 }
