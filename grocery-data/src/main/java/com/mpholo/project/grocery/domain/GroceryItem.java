@@ -23,6 +23,7 @@ public class GroceryItem {
     @NotNull
     private double actualPrice;
 
+
     @NotNull
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="product_id")

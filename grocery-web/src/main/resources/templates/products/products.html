@@ -40,9 +40,10 @@
                                         <td id="productPrice" ></td>
 <!--                                        <td class="pr-4"><a class="btn btn-outline-danger btn-sm" href="#" id="deleteProduct"><i class="fas fa-trash-alt"></i> Delete</a>-->
                                         <td class="pr-4">
-                                        <a href="#" class="deleteUrl"></a>
-                                        <a class="btn btn-outline-danger btn-sm deleteProduct" href="#myModal"  data-toggle="modal"><i class="fas fa-trash-alt"></i> Delete</a>
-                                        <a  class="btn btn-outline-warning btn-sm editProduct" href="#" data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-edit"></i></i> Update</a>
+                                            <a href="#" class="deleteUrl"></a>
+                                            <a class="btn btn-outline-danger btn-sm deleteProduct" href="#myModal"  data-toggle="modal"><i class="fas fa-trash-alt"></i> Delete</a>
+                                            <a  class="btn btn-outline-warning btn-sm editProduct" href="#" data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-edit"></i></i> Update</a>
+                                            <input type="hidden" id="productId" />
                                         </td>
                                     </tr>
                                     </tbody>
@@ -67,7 +68,6 @@
                             <form method="post"  id="saveProduct" action="#">
                                 <input type="hidden" id="formProductId">
                                 <div class="form-group">
-                                    <input type="hidden" id="fromProductId">
                                     <label for="formProductName">Product Name</label>
                                     <input type="text" class="form-control formProductName" id="formProductName"  placeholder="Enter Product Name">
                                 </div>

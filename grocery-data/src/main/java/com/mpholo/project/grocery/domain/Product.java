@@ -22,8 +22,7 @@ public class Product  {
     @NotNull
     private double productPrice;
 
-    @OneToMany
-    @JoinColumn(name="product_id")
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
     private Set<GroceryItem> groceryItem = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.EAGER)

@@ -18,7 +18,7 @@
           th:each="product:${__${T(com.mpholo.project.grocery.util.ProductAttributeNames).PRODUCT_LIST}__}" />
 
     <attr sel="#productId"
-          th:text="${product.productId}" />
+          th:value="${product.productId}" />
     <attr sel="#productName"
           th:text="${product.productName}" />
     <attr sel="#productDesc"

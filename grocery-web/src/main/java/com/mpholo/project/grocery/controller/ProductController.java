@@ -44,7 +44,7 @@ public class ProductController {
 
     @PostMapping(ProductMappings.PRODUCT_SAVE)
     public String saveProduct(@Valid @ModelAttribute("product") ProductDTO productDTO,
-                              BindingResult bindingResult,Model model) {
+                              BindingResult bindingResult) {
 
         if(bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(objectError ->

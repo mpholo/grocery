@@ -27,17 +27,11 @@
     <attr sel=".groceryItems"
           th:each="groceryItem:${__${T(com.mpholo.project.grocery.util.GroceryItemAttributeNames).GROCERY_ITEM_LIST}__}" />
 
-    <attr sel=".groceryItemId"
-     th:text="${groceryItem.groceryItemId}" />
-
-    <attr sel=".groceryItemId"
-          th:text="${groceryItem.groceryItemId}" />
-
     <attr sel=".groceryItemName"
           th:text="${groceryItem.product.productName}" />
 
     <attr sel=".groceryItemDesc"
-          th:text="${groceryItem.product.productDescription}" />
+          th:text="${groceryItem?.product?.productDescription}" />
 
     <attr sel=".estimatedPrice"
           th:text="${#numbers.formatDecimal(groceryItem.actualPrice,2,2)}" />
