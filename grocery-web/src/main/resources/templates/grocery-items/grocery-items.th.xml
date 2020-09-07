@@ -40,22 +40,22 @@
           th:text="${groceryItem.product.productDescription}" />
 
     <attr sel=".estimatedPrice"
-          th:text="${#numbers.formatCurrency(groceryItem.actualPrice)}" />
+          th:text="${#numbers.formatDecimal(groceryItem.actualPrice,2,2)}" />
 
     <attr sel=".quantity"
           th:text="${groceryItem.quantity}" />
 
     <attr sel=".totalPriceQuantity"
-          th:text="${#numbers.formatCurrency(groceryItem.actualPrice * groceryItem.quantity)}" />
+          th:text="${#numbers.formatDecimal(groceryItem.actualPrice * groceryItem.quantity,2,2)}" />
 
     <attr sel="#totalPrice"
-          th:text="${#numbers.formatCurrency(__${T(com.mpholo.project.grocery.util.GroceryItemAttributeNames).TOTAL_PRICE}__)}" />
+          th:text="${#numbers.formatDecimal(__${T(com.mpholo.project.grocery.util.GroceryItemAttributeNames).TOTAL_PRICE}__,2,2)}" />
 
     <attr sel="#totalQuantity"
           th:text="${__${T(com.mpholo.project.grocery.util.GroceryItemAttributeNames).TOTAL_QUANTITY}__}" />
 
     <attr sel="#finalPrice"
-          th:text="${#numbers.formatCurrency(__${T(com.mpholo.project.grocery.util.GroceryItemAttributeNames).FINAL_TOTAL_PRICE}__)}" />
+          th:text="${#numbers.formatDecimal(__${T(com.mpholo.project.grocery.util.GroceryItemAttributeNames).FINAL_TOTAL_PRICE}__,2,2)}" />
 
     <attr sel=".productId"
           th:value="${groceryItem.product.productId}" />

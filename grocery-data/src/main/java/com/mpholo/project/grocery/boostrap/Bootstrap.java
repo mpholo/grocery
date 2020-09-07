@@ -41,6 +41,7 @@ public class Bootstrap implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         log.info("Active profile {}",activeProfile);
+        log.info("locale {} country {}",Locale.getDefault(),Locale.getDefault().getCountry());
         if(!activeProfile.equals("h2")) {
             return;
         }

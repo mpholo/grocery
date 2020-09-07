@@ -8,8 +8,10 @@ import com.mpholo.project.grocery.util.ProductViewNames;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static com.mpholo.project.grocery.util.ProductMappings.PRODUCT_REDIRECT_LIST;
@@ -41,7 +43,15 @@ public class ProductController {
     }
 
     @PostMapping(ProductMappings.PRODUCT_SAVE)
-    public String saveProduct(@ModelAttribute ProductDTO productDTO) {
+    public String saveProduct(@Valid @ModelAttribute("product") ProductDTO productDTO,
+                              BindingResult bindingResult,Model model) {
+
+        if(bindingResult.hasErrors()) {
+            bindingResult.getAllErrors().forEach(objectError ->
+                    log.debug(objectError.toString())
+                    );
+            return "redirect:"+PRODUCT_REDIRECT_LIST+"/error";
+        }
 
         productService.save(productDTO);
         log.info("Product from form = {} saved successfully",productDTO);
