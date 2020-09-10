@@ -6,9 +6,9 @@
 //      $('#myInput').trigger('focus')
 //    })
 
-    $('#submitButton').on('click',function(){
-       $("form").submit();
-    });
+//    $('#submitButton').on('click',function(){
+//       $("form").submit();
+//    });
 
 
     //==populate form fields for update ==//

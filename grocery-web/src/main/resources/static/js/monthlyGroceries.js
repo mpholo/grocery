@@ -12,6 +12,7 @@
     console.log("update clicked");
 
       var allValues =$(this).closest(".card-body").find(".data").text().split(',');
+      var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
       $("#formModalCenterTitle").text("Update Monthly Grocery")
 
@@ -20,19 +21,26 @@
       var startDate =allValues[2];
       var endDate =allValues[3];
       var budget =allValues[4];
-
+      var month = monthlyGroceryMonth.split(' ')[0];
+      var year = monthlyGroceryMonth.split(' ')[1];
+      var monthNumber;
+      console.log("Month to update "+month);
+      for(var i=0;i<months.length;i++) {
+         console.log(i+" Month "+months[i]);
+         if(months[i]==month) {
+           console.log("month number "+i);
+           var number=i+1;
+           monthNumber=number<10?'0'+number:number;
+         }
+      }
 
       $("#formMonmthlyGroceryId").val(id);
-      $("#formperiod").val(monthlyGroceryMonth);
-      $("#formStartDate").val(startDate);
-      $("#formEndDate").val(endDate);
+      $("#formperiod").val(year+'-'+monthNumber);
       $("#formbudget").val(budget);
 
-       console.log("allValues "+$(this).closest(".card-body").find(".data").text());
-       console.log("monthlyGroceryMonth "+monthlyGroceryMonth);
-       console.log("startDate "+startDate);
-       console.log("endDate "+endDate);
-       console.log("budget "+budget);
+      console.log("allValues "+$(this).closest(".card-body").find(".data").text());
+      console.log("monthlyGroceryMonth "+monthlyGroceryMonth);
+      console.log("budget "+budget);
 
     });
 

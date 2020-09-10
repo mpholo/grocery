@@ -64,28 +64,35 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
-                            <form method="post"  id="saveProduct" action="#">
+                        <form method="post"  id="saveProduct" action="#" class="needs-validation" novalidate>
+                            <div class="modal-body">
                                 <input type="hidden" id="formProductId">
-                                <div class="form-group">
-                                    <label for="formProductName">Product Name</label>
-                                    <input type="text" class="form-control formProductName" id="formProductName"  placeholder="Enter Product Name">
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="formProductName">Product Name</label>
+                                        <input type="text" class="form-control formProductName" id="formProductName"  placeholder="Enter Product Name" required min="3" max="50">
+                                        <div class="invalid-feedback">Product name is required.</div>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="formProductDescription">Product Description</label>
-                                    <input type="text" class="form-control" id="formProductDescription"  placeholder="Enter Product Description">
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="formProductDescription">Product Description</label>
+                                        <input type="text" class="form-control" id="formProductDescription"  placeholder="Enter Product Description">
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="formProductPrice">Price</label>
-                                    <input type="text" class="form-control" id="formProductPrice"  placeholder="Enter Product Price">
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="formProductPrice">Price</label>
+                                        <input type="number" class="form-control" id="formProductPrice"  placeholder="Enter Product Price" required>
+                                        <div class="invalid-feedback">Product price is required.</div>
+                                    </div>
                                 </div>
-
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" id="submitButton">Save changes</button>
-                        </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button  class="btn btn-primary"  >Save changes</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

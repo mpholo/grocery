@@ -11,7 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.format.TextStyle;
 import java.util.List;
+import java.util.Locale;
 
 import static com.mpholo.project.grocery.util.MonthylGroceryMappings.MONTHLY_GROCERY_REDIRECT_LIST;
 
@@ -56,6 +59,20 @@ public class MothlyGroceryController {
 
     @PostMapping(MonthylGroceryMappings.MONTHLY_GROCERY_SAVE)
     public String saveMonthlyGrocery(@ModelAttribute MonthlyGroceryDTO monthlyGroceryDTO) {
+        //period from calender is in format 2020-02
+        //we are converting it to February 2020
+        String[] period = monthlyGroceryDTO.getPeriod().split("-");
+        String year = period[0];
+        String month = period[1];
+        Month monthName =Month.of(Integer.parseInt(month));
+
+        LocalDate endDate = LocalDate.of(Integer.parseInt(year),Integer.parseInt(month),monthName.maxLength());
+        LocalDate startDate = LocalDate.of(Integer.parseInt(year),Integer.parseInt(month),1);
+
+        monthlyGroceryDTO.setStartDate(startDate);
+        monthlyGroceryDTO.setEndDate(endDate);
+        monthlyGroceryDTO.setPeriod(monthName.getDisplayName( TextStyle.FULL_STANDALONE, Locale.getDefault()) +" "+year );
+
         monthlyGroceryService.save(monthlyGroceryDTO);
         return "redirect:"+MONTHLY_GROCERY_REDIRECT_LIST;
     }
