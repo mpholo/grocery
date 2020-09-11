@@ -68,10 +68,12 @@ public class MothlyGroceryController {
 
         LocalDate endDate = LocalDate.of(Integer.parseInt(year),Integer.parseInt(month),monthName.maxLength());
         LocalDate startDate = LocalDate.of(Integer.parseInt(year),Integer.parseInt(month),1);
+        String newPeriod =monthName.getDisplayName( TextStyle.FULL_STANDALONE, Locale.getDefault()) +" "+year;
+        log.info("New/Update Period to save {}",newPeriod);
 
         monthlyGroceryDTO.setStartDate(startDate);
         monthlyGroceryDTO.setEndDate(endDate);
-        monthlyGroceryDTO.setPeriod(monthName.getDisplayName( TextStyle.FULL_STANDALONE, Locale.getDefault()) +" "+year );
+        monthlyGroceryDTO.setPeriod(newPeriod);
 
         monthlyGroceryService.save(monthlyGroceryDTO);
         return "redirect:"+MONTHLY_GROCERY_REDIRECT_LIST;
