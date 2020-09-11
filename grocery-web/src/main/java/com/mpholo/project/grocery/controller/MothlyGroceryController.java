@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.time.format.TextStyle;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Locale;
 
 import static com.mpholo.project.grocery.util.MonthylGroceryMappings.MONTHLY_GROCERY_REDIRECT_LIST;
 
@@ -68,7 +67,8 @@ public class MothlyGroceryController {
 
         LocalDate endDate = LocalDate.of(Integer.parseInt(year),Integer.parseInt(month),monthName.maxLength());
         LocalDate startDate = LocalDate.of(Integer.parseInt(year),Integer.parseInt(month),1);
-        String newPeriod =monthName.getDisplayName( TextStyle.FULL_STANDALONE, Locale.getDefault()) +" "+year;
+
+        String newPeriod = endDate.format(DateTimeFormatter.ofPattern("MMMM yyyy"));
         log.info("New/Update Period to save {}",newPeriod);
 
         monthlyGroceryDTO.setStartDate(startDate);
