@@ -68,7 +68,7 @@ public class GroceryItemController {
         for (GroceryItemDTO i:groceryItemList) {
             totalPrice+=i.getActualPrice();
             totalQuanty+=i.getQuantity();
-            finalTotalPrice+=totalPrice;
+            finalTotalPrice+=(i.getActualPrice()*i.getQuantity());
         }
         log.info("calculated totals totalprice {} totalQuantity {} finalTotalPrice {}",totalPrice,totalQuanty,finalTotalPrice);
 
