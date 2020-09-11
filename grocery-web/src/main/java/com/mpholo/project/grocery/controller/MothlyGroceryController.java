@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.mpholo.project.grocery.util.MonthylGroceryMappings.MONTHLY_GROCERY_REDIRECT_LIST;
 
@@ -38,7 +39,10 @@ public class MothlyGroceryController {
     public String displayMonthlyGroceries(Model model, @RequestParam(name="year",required = false) Integer year ) {
 
         log.info("getting monthly groceries");
-        List<MonthlyGroceryDTO> monthlyGroceryDTOs= monthlyGroceryService.findByYear(year);
+        List<MonthlyGroceryDTO> monthlyGroceryDTOs= monthlyGroceryService.findByYear(year)
+                .stream()
+                .sorted((a,b) -> a.getStartDate().compareTo(b.getStartDate()))
+                .collect(Collectors.toList());
         model.addAttribute(MonthlyGroceryAttributeNames.MONTHLY_GROCERY_LIST,monthlyGroceryDTOs);
 
         //create new monthly grocery and set period
