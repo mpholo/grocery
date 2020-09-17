@@ -2,10 +2,7 @@ package com.mpholo.project.grocery.model;
 
 import com.mpholo.project.grocery.domain.MonthlyGrocery;
 import com.mpholo.project.grocery.domain.Product;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -20,4 +17,11 @@ public class GroceryItemDTO implements Serializable {
     private double actualPrice;
     private Product product;
     private MonthlyGrocery monthlyGrocery;
+
+    @Override
+    public String toString() {
+        return  product.getProductName() +","+
+                quantity +","+
+                actualPrice;
+    }
 }

@@ -54,6 +54,8 @@
     <attr sel=".productId"
           th:value="${groceryItem.product.productId}" />
 
+    <attr sel="#exporitems"
+          th:href="@{__${T(com.mpholo.project.grocery.util.GroceryItemMappings).GROCERY_ITEMS_EXPORT}__(monthGroceryId=${monthlyGrocery.monthlyGroceryId})}" />
 
 <!--form fields-->
 

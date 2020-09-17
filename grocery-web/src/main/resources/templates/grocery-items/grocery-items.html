@@ -24,8 +24,15 @@
                     <div class="col">
                         <div class="card mb-4">
                             <div class="card-header">
-                                <i class="fas fa-table mr-1"></i>
-                                <button class="btn btn-outline-primary btn-sm float-right" data-toggle="modal" data-target="#formModalCenter" id="addItem"><i class="fas fa-plus-circle" ></i> Add Item</button>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <i class="fas fa-table mr-1"></i>
+                                    </div>
+                                    <div class="col-md-8 text-right">
+                                        <a class="btn btn-outline-primary btn-sm" id="exporitems" href="#"><i class="fas fa-download"></i> Export</a>
+                                        <button class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#formModalCenter" id="addItem"><i class="fas fa-plus-circle" ></i> Add Item</button>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive" id="grocery-item-table">

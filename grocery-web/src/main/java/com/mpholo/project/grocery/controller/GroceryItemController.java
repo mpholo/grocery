@@ -37,11 +37,13 @@ public class GroceryItemController {
     private final GroceryItemService groceryItemService;
     private final MonthlyGroceryService monthlyGroceryService;
     private final ProductService productService;
+    private final ExportData exportData;
 
-    public GroceryItemController(GroceryItemService groceryItemService, MonthlyGroceryService monthlyGroceryService, ProductService productService) {
+    public GroceryItemController(GroceryItemService groceryItemService, MonthlyGroceryService monthlyGroceryService, ProductService productService, ExportData exportData) {
         this.groceryItemService = groceryItemService;
         this.monthlyGroceryService = monthlyGroceryService;
         this.productService = productService;
+        this.exportData = exportData;
     }
 
     @GetMapping(GroceryItemMappings.GROCERY_ITEM_LIST)
@@ -99,6 +101,19 @@ public class GroceryItemController {
         GroceryItemDTO savedGroceryItemDTO = groceryItemService.save(groceryItemUpdateDTO);
         log.info("grocery item {} saved successfully",savedGroceryItemDTO.getProduct().getProductName());
         return "redirect:"+GROCERY_ITEM_REDIRECT_LIST+savedGroceryItemDTO.getMonthlyGrocery().getMonthlyGroceryId();
+    }
+
+
+
+    @GetMapping(GroceryItemMappings.GROCERY_ITEMS_EXPORT)
+    public String exportGroceryItems(@RequestParam(name="monthGroceryId") int monthlyGroceryId) {
+
+        MonthlyGroceryDTO monthlyGroceryDTO = monthlyGroceryService.findById(Integer.valueOf(monthlyGroceryId)).get();
+        List<GroceryItemDTO> groceryItemList = groceryItemService.findByMonthlyGrocery(monthlyGroceryDTO);
+
+        exportData.writeToFile(groceryItemList);
+
+        return "redirect:"+GROCERY_ITEM_REDIRECT_LIST+monthlyGroceryId;
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
