@@ -13,17 +13,17 @@ import java.util.Set;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"groceryItem"})
+@EqualsAndHashCode(exclude = {"groceryItems"})
 public class MonthlyGroceryDTO implements Serializable  {
 
-    private int monthlyGroceryId;
+    private Integer monthlyGroceryId;
     private double budgetAmount;
     private String period;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private  LocalDate endDate;
-    private Set<GroceryItem> groceryItem = new HashSet<>();
+    private Set<GroceryItem> groceryItems= new HashSet<>();
 
 
 }

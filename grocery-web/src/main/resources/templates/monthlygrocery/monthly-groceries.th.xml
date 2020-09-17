@@ -24,7 +24,7 @@
     <attr sel=".budget"
           th:text="${'Budget R '+#numbers.formatDecimal(monthlyGrocery.budgetAmount,3,2)}" />
     <attr sel=".totalItems"
-          th:text="${'Total Items '+#numbers.formatDecimal(monthlyGrocery.groceryItem.size(),3,0)}" />
+          th:text="${'Total Items '+#numbers.formatDecimal(monthlyGrocery.groceryItems.size(),3,0)}" />
 
     <attr sel="#groceryYear"
           th:text="${'Monthly Groceries- '+year}" />
@@ -45,6 +45,10 @@
 
     <attr sel=".deleteUrl"
           th:href="@{__${T(com.mpholo.project.grocery.util.MonthylGroceryMappings).MONTHLY_GROCERY_DELETE}__(monthlyGroceryId=${monthlyGrocery.monthlyGroceryId})}" />
+
+    <attr sel=".copyMonthlygrocery"
+          th:href="@{__${T(com.mpholo.project.grocery.util.MonthylGroceryMappings).MONTHLY_GROCERY_COPY}__(monthlyGroceryId=${monthlyGrocery.monthlyGroceryId})}" />
+
 
     <attr sel=".viewMonthlygrocery"
           th:href="@{__${T(com.mpholo.project.grocery.util.GroceryItemMappings).GROCERY_ITEM_REDIRECT_ROOT}__(monthlyGroceryId=${monthlyGrocery.monthlyGroceryId})}" />

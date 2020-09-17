@@ -13,4 +13,6 @@ public final class MonthylGroceryMappings {
     public final static String MONTHLY_GROCERY_SAVE= "save";
     public static final String MONTHLY_GROCERY_DELETE="delete";
     public static final String MONTHLY_GROCERY_EDIT="edit";
+    public static final String MONTHLY_GROCERY_COPY="copy";
+
 }

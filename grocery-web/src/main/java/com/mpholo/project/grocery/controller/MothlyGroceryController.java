@@ -90,6 +90,14 @@ public class MothlyGroceryController {
 
     }
 
+    @GetMapping(MonthylGroceryMappings.MONTHLY_GROCERY_COPY)
+    public String copyMonthlyGrocery(@RequestParam(name="monthlyGroceryId") int monthlyGroceryId) {
+
+        monthlyGroceryService.copy(monthlyGroceryId);
+        return "redirect:"+MONTHLY_GROCERY_REDIRECT_LIST;
+
+    }
+
 
 
 }

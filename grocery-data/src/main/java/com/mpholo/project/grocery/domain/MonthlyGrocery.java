@@ -14,7 +14,7 @@ import java.util.Set;
 @Entity
 @Setter
 @Getter
-@EqualsAndHashCode(exclude = {"groceryItem"})
+@EqualsAndHashCode(exclude = {"groceryItems"})
 public class MonthlyGrocery  {
 
     @Id
@@ -33,6 +33,12 @@ public class MonthlyGrocery  {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="monthly_grocery_id")
-    private Set<GroceryItem> groceryItem = new HashSet<>();
+    private Set<GroceryItem> groceryItems = new HashSet<>();
+
+    public void addItems(Set<GroceryItem> groceryItems) {
+        for(GroceryItem item:groceryItems) {
+            this.groceryItems.add(item);
+        }
+    }
 
 }

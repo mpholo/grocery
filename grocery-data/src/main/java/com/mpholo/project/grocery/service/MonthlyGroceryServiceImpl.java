@@ -9,6 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiPredicate;
@@ -91,6 +94,38 @@ public class MonthlyGroceryServiceImpl  implements  MonthlyGroceryService {
         return monthlyGroceryDTOList;
 
 
+    }
+
+    @Override
+    public Optional<MonthlyGroceryDTO> copy(Integer monthlyGroceryId) {
+
+        Optional<MonthlyGrocery> monthlyGrocery  = monthlyGroceryRepository.findById(monthlyGroceryId);
+
+       if(monthlyGrocery.isPresent()) {
+
+
+           //get last monthly grocery
+           Optional<MonthlyGrocery> monthlyGroceries = monthlyGroceryRepository.findAll()
+                   .stream()
+                   .sorted(Comparator.comparing((MonthlyGrocery m) -> m.getStartDate()).reversed())
+                   .findFirst();
+
+           if (monthlyGroceries.isPresent()) {
+               MonthlyGrocery lastMonthGrocery = monthlyGroceries.get();
+               MonthlyGrocery newMonthlyGrocery = new MonthlyGrocery();
+               newMonthlyGrocery.setStartDate(lastMonthGrocery.getStartDate().plusMonths(1));
+               newMonthlyGrocery.setEndDate(lastMonthGrocery.getEndDate().plusMonths(1));
+               Month monthName = newMonthlyGrocery.getEndDate().getMonth();
+               String newPeriod = newMonthlyGrocery.getStartDate().format(DateTimeFormatter.ofPattern("MMMM yyyy"));
+               newMonthlyGrocery.setPeriod(newPeriod);
+               newMonthlyGrocery.setBudgetAmount(monthlyGrocery.get().getBudgetAmount());
+               newMonthlyGrocery.addItems(monthlyGrocery.get().getGroceryItems());
+
+               return Optional.of(saveAndReturn(newMonthlyGrocery));
+           }
+       }
+
+        return Optional.empty();
     }
 
     private MonthlyGroceryDTO saveAndReturn(MonthlyGrocery monthlyGrocery) {

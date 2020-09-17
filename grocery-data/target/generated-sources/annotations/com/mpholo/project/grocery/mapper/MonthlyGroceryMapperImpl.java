@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-09-17T03:40:26+0200",
+    date = "2020-09-17T08:12:51+0200",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 11.0.4 (Oracle Corporation)"
 )
 @Component
@@ -29,9 +29,9 @@ public class MonthlyGroceryMapperImpl implements MonthlyGroceryMapper {
         monthlyGroceryDTO.setPeriod( monthlyGrocery.getPeriod() );
         monthlyGroceryDTO.setStartDate( monthlyGrocery.getStartDate() );
         monthlyGroceryDTO.setEndDate( monthlyGrocery.getEndDate() );
-        Set<GroceryItem> set = monthlyGrocery.getGroceryItem();
+        Set<GroceryItem> set = monthlyGrocery.getGroceryItems();
         if ( set != null ) {
-            monthlyGroceryDTO.setGroceryItem( new HashSet<GroceryItem>( set ) );
+            monthlyGroceryDTO.setGroceryItems( new HashSet<GroceryItem>( set ) );
         }
 
         return monthlyGroceryDTO;
@@ -45,14 +45,16 @@ public class MonthlyGroceryMapperImpl implements MonthlyGroceryMapper {
 
         MonthlyGrocery monthlyGrocery = new MonthlyGrocery();
 
-        monthlyGrocery.setMonthlyGroceryId( monthlyGroceryDTO.getMonthlyGroceryId() );
+        if ( monthlyGroceryDTO.getMonthlyGroceryId() != null ) {
+            monthlyGrocery.setMonthlyGroceryId( monthlyGroceryDTO.getMonthlyGroceryId() );
+        }
         monthlyGrocery.setBudgetAmount( monthlyGroceryDTO.getBudgetAmount() );
         monthlyGrocery.setPeriod( monthlyGroceryDTO.getPeriod() );
         monthlyGrocery.setStartDate( monthlyGroceryDTO.getStartDate() );
         monthlyGrocery.setEndDate( monthlyGroceryDTO.getEndDate() );
-        Set<GroceryItem> set = monthlyGroceryDTO.getGroceryItem();
+        Set<GroceryItem> set = monthlyGroceryDTO.getGroceryItems();
         if ( set != null ) {
-            monthlyGrocery.setGroceryItem( new HashSet<GroceryItem>( set ) );
+            monthlyGrocery.setGroceryItems( new HashSet<GroceryItem>( set ) );
         }
 
         return monthlyGrocery;
