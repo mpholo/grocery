@@ -17,11 +17,17 @@ public class GroceryItemDTO implements Serializable {
     private double actualPrice;
     private Product product;
     private MonthlyGrocery monthlyGrocery;
+    private  double totalPrice;
+
+    private double calculatedTotalPrice() {
+        return actualPrice*quantity;
+    }
 
     @Override
     public String toString() {
         return  product.getProductName() +","+
                 quantity +","+
-                actualPrice;
+                actualPrice+","
+                +calculatedTotalPrice();
     }
 }
