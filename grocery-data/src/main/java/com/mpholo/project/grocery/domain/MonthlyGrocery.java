@@ -3,6 +3,7 @@ package com.mpholo.project.grocery.domain;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+@Slf4j
 @Entity
 @Setter
 @Getter
@@ -37,7 +39,12 @@ public class MonthlyGrocery  {
 
     public void addItems(Set<GroceryItem> groceryItems) {
         for(GroceryItem item:groceryItems) {
-            this.groceryItems.add(item);
+            GroceryItem newItem = new GroceryItem(-1,item.getQuantity(),item.getActualPrice(),
+                                                  item.getProduct(),this);
+
+            if(!this.groceryItems.add(newItem)) {
+                log.warn("This item {} of grocery {} wont be added. They a duplicate",newItem.getProduct().getProductName(),this.getPeriod());
+            }
         }
     }
 

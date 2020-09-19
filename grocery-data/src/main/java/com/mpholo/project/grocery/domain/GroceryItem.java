@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"product","monthlyGrocery"})
+@EqualsAndHashCode(exclude = {"monthlyGrocery"})
 public class GroceryItem {
 
     @Id
@@ -34,4 +34,14 @@ public class GroceryItem {
     @JoinColumn(name="monthly_grocery_id")
     private MonthlyGrocery monthlyGrocery;
 
+    @Override
+    public String toString() {
+        return "GroceryItem{" +
+                "groceryItemId=" + groceryItemId +
+                ", quantity=" + quantity +
+                ", actualPrice=" + actualPrice +
+                ", product=" + product +
+                ", monthlyGrocery=" + monthlyGrocery +
+                '}';
+    }
 }

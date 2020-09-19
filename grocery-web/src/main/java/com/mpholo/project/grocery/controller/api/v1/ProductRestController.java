@@ -1,4 +1,4 @@
-package com.mpholo.project.grocery.api.v1;
+package com.mpholo.project.grocery.controller.api.v1;
 
 import com.mpholo.project.grocery.model.ProductDTO;
 import com.mpholo.project.grocery.model.ProductListDTO;
@@ -11,11 +11,11 @@ import static com.mpholo.project.grocery.util.ProductMappings.PRODUCTURL;
 
 @RestController("ProductApi")
 @RequestMapping(PRODUCTURL)
-public class ProductController {
+public class ProductRestController {
 
     private  final ProductService productService;
 
-    public ProductController(ProductService productService) {
+    public ProductRestController(ProductService productService) {
         this.productService = productService;
     }
 

@@ -28,4 +28,15 @@ public class Product  {
     @ManyToOne(fetch = FetchType.EAGER)
     private Category category;
 
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productId=" + productId +
+                ", productName='" + productName + '\'' +
+                ", productDescription='" + productDescription + '\'' +
+                ", productPrice=" + productPrice +
+                ", groceryItem=" + groceryItem +
+                ", category=" + category +
+                '}';
+    }
 }

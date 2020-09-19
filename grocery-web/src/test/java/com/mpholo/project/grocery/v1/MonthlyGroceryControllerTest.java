@@ -1,6 +1,6 @@
 package com.mpholo.project.grocery.v1;
 
-import com.mpholo.project.grocery.api.v1.MonthlyGroceryController;
+import com.mpholo.project.grocery.controller.api.v1.MonthlyGroceryRestController;
 import com.mpholo.project.grocery.model.MonthlyGroceryDTO;
 import com.mpholo.project.grocery.service.MonthlyGroceryService;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,7 +28,7 @@ class MonthlyGroceryControllerTest {
 
     public static final String JULY_2020 = "July 2020";
     @InjectMocks
-    MonthlyGroceryController monthlyGroceryController;
+    MonthlyGroceryRestController monthlyGroceryController;
 
     @Mock
     MonthlyGroceryService monthlyGroceryService;

@@ -1,4 +1,4 @@
-package com.mpholo.project.grocery.api.v1;
+package com.mpholo.project.grocery.controller.api.v1;
 
 import com.mpholo.project.grocery.model.MonthlyGroceryDTO;
 import com.mpholo.project.grocery.model.MonthlyGroceryListDTO;
@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController("MonthlyGroceryApi")
 @RequestMapping("/api/v1/monthlygroceries/")
-public class MonthlyGroceryController {
+public class MonthlyGroceryRestController {
 
     private final MonthlyGroceryService monthlyGroceryService;
 
 
-    public MonthlyGroceryController(MonthlyGroceryService monthlyGroceryService) {
+    public MonthlyGroceryRestController(MonthlyGroceryService monthlyGroceryService) {
         this.monthlyGroceryService = monthlyGroceryService;
     }
 

@@ -1,6 +1,6 @@
 package com.mpholo.project.grocery.v1;
 
-import com.mpholo.project.grocery.api.v1.RestResponseEntityExceptionHandler;
+import com.mpholo.project.grocery.controller.api.v1.RestResponseEntityExceptionHandler;
 import com.mpholo.project.grocery.controller.ProductController;
 import com.mpholo.project.grocery.model.ProductDTO;
 import com.mpholo.project.grocery.service.ProductService;

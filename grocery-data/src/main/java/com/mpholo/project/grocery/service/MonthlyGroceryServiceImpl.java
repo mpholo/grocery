@@ -119,9 +119,12 @@ public class MonthlyGroceryServiceImpl  implements  MonthlyGroceryService {
                String newPeriod = newMonthlyGrocery.getStartDate().format(DateTimeFormatter.ofPattern("MMMM yyyy"));
                newMonthlyGrocery.setPeriod(newPeriod);
                newMonthlyGrocery.setBudgetAmount(monthlyGrocery.get().getBudgetAmount());
-               newMonthlyGrocery.addItems(monthlyGrocery.get().getGroceryItems());
 
-               return Optional.of(saveAndReturn(newMonthlyGrocery));
+               MonthlyGrocery  savedMonthlyGrocery =monthlyGroceryRepository.save(newMonthlyGrocery);
+
+               savedMonthlyGrocery.addItems(monthlyGrocery.get().getGroceryItems());
+
+               return Optional.of(saveAndReturn(savedMonthlyGrocery));
            }
        }
 

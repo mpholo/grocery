@@ -1,4 +1,4 @@
-/*
+package com.mpholo.project.grocery.util;/*
 package com.mpholo.project.grocery.config;
 
 import org.springframework.context.annotation.Bean;
