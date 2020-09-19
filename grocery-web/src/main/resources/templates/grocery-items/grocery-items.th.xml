@@ -27,6 +27,9 @@
     <attr sel=".groceryItems"
           th:each="groceryItem:${__${T(com.mpholo.project.grocery.util.GroceryItemAttributeNames).GROCERY_ITEM_LIST}__}" />
 
+    <attr sel=".groceryItemId"
+          th:value="${groceryItem.groceryItemId}" />
+
     <attr sel=".groceryItemName"
           th:text="${groceryItem.product.productName}" />
 

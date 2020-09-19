@@ -13,10 +13,11 @@
 
       $("#formModalCenterTitle").text("Update Grocery Item")
 
-      var id =$(this).closest("tr").find("td").eq(0).text();
-     var productId =$(this).closest("tr").find("td").eq(1).find("input.productId").val();
-      var price =$(this).closest("tr").find("td").eq(3).text();
-      var quantity =$(this).closest("tr").find("td").eq(4).text();
+
+     var productId =$(this).closest("tr").find("td").eq(0).find("input.productId").val();
+     var price =$(this).closest("tr").find("td").eq(2).text();
+     var quantity =$(this).closest("tr").find("td").eq(3).text();
+     var id =$(this).closest("tr").find("td").eq(5).find("input.groceryItemId").val();
 
       $("#groceryItemId").val(id);
       $("select#formproduct").val(productId); // Select the option with a value of productId
