@@ -44,6 +44,8 @@
 
     console.log("Jquery loaded successfully");
 
+  $('body').bootstrapMaterialDesign();
+
 })(jQuery);
 
 function deleteItem(control,container) {

@@ -12,23 +12,30 @@
     <title th:text="${title}">Dashboard - SB Admin</title>
     <!-- Custom styles for this template -->
     <link th:href="@{~/css/styles.css}" rel="stylesheet">
+    <link th:href="@{~/css/snackbar.css}" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+    <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+
+
 
 
     <!-- Script for searchable select -->
     <script th:src="@{~/js/select2.min.js}" type="text/javascript"></script>
     <!-- CSS for searchable select -->
     <link th:href="@{~/css/select2.min.css}" rel="stylesheet" type="text/css">
+
+
 
 </head>
 <body class="sb-nav-fixed">
@@ -716,6 +723,39 @@
             <!--Webjars-->
 <!--            <script th:src="@{~/webjars/bootstrap-confirmation2/4.1.0/dist/bootstrap-confirmation.min.js}" type="text/javascript"></script>-->
 
+            <script th:src="@{~/js/snackbar.js}"></script>
+            <script>
+        $("#actionSnac").click(function(){
+  //creating a snackbar
+  let snackbar  = new SnackBar;
+  snackbar.make("action",
+  [
+    "Unable to connect to server",
+    "retry",
+    "bottom",
+    "right"
+  ], null);
+  //listening for the action
+  snackbar.action(function(state){
+    //alerting the state for testing purposes
+    if(state){
+      alert("true");
+    }
+    snackbar.close();
+  });
+});
+
+$("#messSnac").click(function(){
+   let snackbar  = new SnackBar;
+    snackbar.make("message",
+  [
+    "Unable to connect the server",
+    null,
+    "bottom",
+    "center"
+  ], 4000);
+});
+</script>
         </footer>
 </div>
 </body>
