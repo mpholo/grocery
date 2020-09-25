@@ -10297,9 +10297,7 @@ body {
 	font-size: 13px;
 	padding: 10px 15px 25px;
 }
-<!--.modal-confirm .modal-footer a {-->
-<!--	color: #999;-->
-<!--}-->
+
 .modal-confirm .icon-box {
 	width: 80px;
 	height: 80px;
@@ -10315,32 +10313,11 @@ body {
 	display: inline-block;
 	margin-top: 13px;
 }
-<!--.modal-confirm .btn, .modal-confirm .btn:active {-->
-<!--	color: #fff;-->
-<!--	border-radius: 4px;-->
-<!--	background: #60c7c1;-->
-<!--	text-decoration: none;-->
-<!--	transition: all 0.4s;-->
-<!--	line-height: normal;-->
-<!--	min-width: 120px;-->
-<!--	border: none;-->
-<!--	min-height: 40px;-->
-<!--	border-radius: 3px;-->
-<!--	margin: 0 5px;-->
-<!--}-->
-<!--.modal-confirm .btn-secondary {-->
-<!--	background: #c1c1c1;-->
-<!--}-->
-<!--.modal-confirm .btn-secondary:hover, .modal-confirm .btn-secondary:focus {-->
-<!--	background: #a8a8a8;-->
-<!--}-->
-<!--.modal-confirm .btn-danger {-->
-<!--	background: #f15e5e;-->
-<!--}-->
-<!--.modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {-->
-<!--	background: #ee3535;-->
-<!--}-->
 .trigger-btn {
 	display: inline-block;
 	margin: 100px auto;
 }
+
+.custom-snackbar {
+ color:blue;
+ }

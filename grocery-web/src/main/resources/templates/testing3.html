@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Bootstrap Delete Confirmation Modal</title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.1.1/materia/bootstrap.min.css">
+    <link rel="stylesheet" href="css/snackbar.css">
+    <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Snackbar Notification Component Example</h1>
+            <button id="actionSnac" class="btn btn-danger">Action Snackbar</button>
+            <button id="messSnac" class="btn btn-primary">Regular Snackbar</button>
+
+
+            <snackbar></snackbar>
+
+        </div>
+    </div>
+</div>
+<script src="js/snackbar.js"></script>
+<script>
+        $("#actionSnac").click(function(){
+  //creating a snackbar
+  let snackbar  = new SnackBar;
+  snackbar.make("action",
+  [
+    "Unable to connect to server",
+    "retry",
+    "bottom",
+    "right"
+  ], null);
+  //listening for the action
+  snackbar.action(function(state){
+    //alerting the state for testing purposes
+    if(state){
+      alert("true");
+    }
+    snackbar.close();
+  });
+});
+
+$("#messSnac").click(function(){
+   let snackbar  = new SnackBar;
+    snackbar.make("message",
+  [
+    "Unable to connect the server",
+    null,
+    "bottom",
+    "center"
+  ], 4000);
+});
+</script>
+</body>
+</html>

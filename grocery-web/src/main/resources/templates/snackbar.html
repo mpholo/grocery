@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" >
+<head th:replace="~{fragments/template::head('Snackbar sample')}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Bootstrap Delete Confirmation Modal</title>
+
+
+    <link rel="stylesheet" th:href="@{~/css/snackbar.min.css}" media="screen" title="no title" charset="utf-8">
+
+
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            <div class="col s12">
+                <button class="btn snackbar" data-pos="top-left">Top Left</button>
+                <button class="waves-effect waves-light btn snackbar" data-pos="top-center">Top Center</button>
+                <button class="waves-effect waves-light btn snackbar" data-pos="top-right">Top Right</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script th:src="@{~/js/jquery-2.2.0.min.js}" charset="utf-8"></script>
+<script th:src="@{~/js/materialize.min.js}" charset="utf-8"></script>
+<script th:src="@{~/js/snackbar.min.js}" charset="utf-8"></script>
+<script th:src="@{~/js/init.js}" charset="utf-8"></script>
+
+</body>
+</html>

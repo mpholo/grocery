@@ -29,6 +29,7 @@ import static com.mpholo.project.grocery.util.MonthylGroceryMappings.MONTHLY_GRO
 public class MothlyGroceryController {
 
     private final MonthlyGroceryService monthlyGroceryService;
+    private  static  String alert;
 
     public MothlyGroceryController(MonthlyGroceryService monthlyGroceryService) {
         this.monthlyGroceryService = monthlyGroceryService;
@@ -36,7 +37,8 @@ public class MothlyGroceryController {
 
 
     @GetMapping({MonthylGroceryMappings.MONTHLY_GROCERY_LIST})
-    public String displayMonthlyGroceries(Model model, @RequestParam(name="year",required = false) Integer year ) {
+    public String displayMonthlyGroceries(Model model, @RequestParam(name="year",required = false) Integer year,
+                                          @RequestParam(name="action",required = false) String action) {
 
         log.info("getting monthly groceries");
         List<MonthlyGroceryDTO> monthlyGroceryDTOs= monthlyGroceryService.findByYear(year)
@@ -55,7 +57,8 @@ public class MothlyGroceryController {
         }
         model.addAttribute("year",grocery_year);
         model.addAttribute(MonthlyGroceryAttributeNames.MONTHLY_GROCERY,newMonthlyGrocery);
-
+        model.addAttribute("alert",alert);
+        alert=null;
         return MonthylGroceryViewNames.MONTHLY_GROCERIES;
 
     }
@@ -80,13 +83,15 @@ public class MothlyGroceryController {
         monthlyGroceryDTO.setPeriod(newPeriod);
 
         monthlyGroceryService.save(monthlyGroceryDTO);
+        alert="saved";
         return "redirect:"+MONTHLY_GROCERY_REDIRECT_LIST;
     }
 
     @GetMapping(MonthylGroceryMappings.MONTHLY_GROCERY_DELETE)
     public String deleteMonthlyGrocery(@RequestParam(name="monthlyGroceryId") int monthlyGroceryId) {
         monthlyGroceryService.deleteById(monthlyGroceryId);
-        return "redirect:"+MONTHLY_GROCERY_REDIRECT_LIST;
+        alert="deleted";
+       return "redirect:"+MONTHLY_GROCERY_REDIRECT_LIST;
 
     }
 
