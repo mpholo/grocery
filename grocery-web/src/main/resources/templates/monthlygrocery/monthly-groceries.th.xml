@@ -58,7 +58,6 @@
                    +monthlyGrocery.startDate+','+monthlyGrocery.endDate+','
                    +monthlyGrocery.budgetAmount}" />
 
-
     <!--form fields-->
     <attr sel="#saveMonthlyGrocery"
           th:action="@{__${T(com.mpholo.project.grocery.util.MonthylGroceryMappings).MONTHLY_GROCERY_SAVE}__}"

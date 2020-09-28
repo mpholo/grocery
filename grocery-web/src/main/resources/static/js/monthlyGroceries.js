@@ -52,9 +52,29 @@
          deleteItem($(this),"div");
      });
 
-     $(".yearpicker").yearpicker({
-              year: 2020,
-              startYear: 2020,
-              endYear:  (new Date).getFullYear()
-            });
+      $(".yearpicker").yearpicker({
+                         year: getParameter('year')==null?parseInt((new Date).getFullYear()):parseInt(getParameter('year')),
+                         startYear: 2020,
+                         endYear:  parseInt((new Date).getFullYear())
+                       });
+
+
+      $(".yearpicker").on("change",function() {
+         console.log("selected year: "+ $(this).val());
+         console.log("url parameter year: "+getParameter('year'));
+         console.log("current year: "+(new Date).getFullYear());
+
+         window.location.href="?year="+$(this).val();
+      });
+
+
+
 })(jQuery);
+
+function getParameter(name){
+              var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+              if (results==null) {
+                 return null;
+              }
+              return decodeURI(results[1]) || 0;
+          }
