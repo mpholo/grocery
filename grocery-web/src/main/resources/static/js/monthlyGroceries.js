@@ -52,4 +52,9 @@
          deleteItem($(this),"div");
      });
 
+     $(".yearpicker").yearpicker({
+              year: 2020,
+              startYear: 2020,
+              endYear:  (new Date).getFullYear()
+            });
 })(jQuery);
