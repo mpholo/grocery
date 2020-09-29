@@ -33,8 +33,7 @@ public class MonthlyGrocery  {
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     private  LocalDate endDate;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="monthly_grocery_id")
+    @OneToMany(mappedBy = "monthlyGrocery")
     private Set<GroceryItem> groceryItems = new HashSet<>();
 
     public void addItems(Set<GroceryItem> groceryItems) {

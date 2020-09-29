@@ -30,7 +30,7 @@ public class GroceryItem {
     private Product product;
 
     @NotNull
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name="monthly_grocery_id")
     private MonthlyGrocery monthlyGrocery;
 

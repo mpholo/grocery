@@ -22,7 +22,7 @@ public class Product  {
     @NotNull
     private double productPrice;
 
-    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product")
     private Set<GroceryItem> groceryItem = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
