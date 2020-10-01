@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class MonthlyGroceryServiceImplTest {
 
@@ -40,18 +40,16 @@ class MonthlyGroceryServiceImplTest {
     void testCreateMonthlyGrocery() {
 
         //given
-        MonthlyGrocery monthlyGrocery = new MonthlyGrocery();
-        monthlyGrocery.setMonthlyGroceryId(ID);
-        monthlyGrocery.setBudgetAmount(AMOUNT);
-        monthlyGrocery.setPeriod(PERIOD);
-        when(monthlyGroceryRepository.findByPeriod(PERIOD)).thenReturn(monthlyGrocery);
+        MonthlyGrocery monthlyGrocery = getRecord();
+        when(monthlyGroceryRepository.save(any())).thenReturn(monthlyGrocery);
 
 
         //when
-        MonthlyGroceryDTO monthlyGroceryDTO = monthlyGroceryService.findByPeriod(PERIOD);
+        MonthlyGroceryDTO monthlyGroceryDTO = monthlyGroceryService.save(MonthlyGroceryMapper.INSTACE.monthlyGroceryToMonthlyGroceryDTO(monthlyGrocery));
 
         //then
         assertEquals(PERIOD,monthlyGroceryDTO.getPeriod());
+        verify(monthlyGroceryRepository,times(1)).save(any(MonthlyGrocery.class));
     }
 
     @Test
@@ -68,4 +66,50 @@ class MonthlyGroceryServiceImplTest {
         //then
         assertEquals(2,monthlyGroceryDTOS.size());
     }
+
+    @Test
+    void updateMonthlyGroceryTest() {
+
+
+        //given
+        MonthlyGrocery monthlyGrocery = getRecord();
+
+        String updatedPeriod ="December 2021";
+        monthlyGrocery.setBudgetAmount(1000.00);
+        monthlyGrocery.setPeriod(updatedPeriod);
+
+        when(monthlyGroceryRepository.save(any())).thenReturn(monthlyGrocery);
+
+        //when
+        MonthlyGroceryDTO savedMonthlyGroceryDTO = monthlyGroceryService.edit(monthlyGrocery.getMonthlyGroceryId(),
+                MonthlyGroceryMapper.INSTACE.monthlyGroceryToMonthlyGroceryDTO(monthlyGrocery));
+
+        //then
+        assertEquals(updatedPeriod,savedMonthlyGroceryDTO.getPeriod());
+       verify(monthlyGroceryRepository,times(1)).save(any(MonthlyGrocery.class));
+    }
+
+    @Test
+    void deleteMonthlyGroceryListTest() {
+
+        //given
+        Integer idToDelete = Integer.valueOf(1);
+
+        //when
+        monthlyGroceryService.deleteById(idToDelete);
+        //no, when since method returns void
+
+        //then
+        verify(monthlyGroceryRepository,times(1)).deleteById(anyInt());
+    }
+
+    private MonthlyGrocery getRecord() {
+        MonthlyGrocery monthlyGrocery = new MonthlyGrocery();
+        monthlyGrocery.setMonthlyGroceryId(ID);
+        monthlyGrocery.setBudgetAmount(AMOUNT);
+        monthlyGrocery.setPeriod(PERIOD);
+
+        return  monthlyGrocery;
+    }
+
 }

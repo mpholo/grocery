@@ -42,7 +42,7 @@ public class MonthlyGrocery  {
                                                   item.getProduct(),this);
 
             if(!this.groceryItems.add(newItem)) {
-                log.warn("This item {} of grocery {} wont be added. They a duplicate",newItem.getProduct().getProductName(),this.getPeriod());
+                log.warn("This item {} of grocery {} wont be added. It is a duplicate",newItem.getProduct().getProductName(),this.getPeriod());
             }
         }
     }

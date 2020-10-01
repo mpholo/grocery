@@ -17,7 +17,7 @@ import static com.mpholo.project.grocery.util.ProductMappings.PRODUCTURL;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class ProductServiceTest {
 
@@ -139,5 +139,17 @@ class ProductServiceTest {
         assertNull(saveProduct.getProductDescription());
     }
 
+    @Test
+    void deleteProductById() {
 
+        //given
+        Integer idToDelete = Integer.valueOf(1);
+
+        //when
+        productService.deleteById(idToDelete);
+        //no when, since method has void return type
+
+        //then
+        verify(productRepository,times(1)).deleteById(anyInt());
+    }
 }

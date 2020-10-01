@@ -25,7 +25,7 @@ class ProductMapperTest {
         ProductDTO productDTO = productMapper.ProductToProductDTO(product);
 
         //then
-        assertEquals(Long.valueOf(PRODUCT_ID),productDTO.getProductId());
+        assertEquals(PRODUCT_ID,productDTO.getProductId());
         assertEquals(NAME,productDTO.getProductName());
 
     }

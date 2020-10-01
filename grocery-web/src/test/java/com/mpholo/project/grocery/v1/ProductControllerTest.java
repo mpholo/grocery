@@ -1,7 +1,7 @@
 package com.mpholo.project.grocery.v1;
 
+import com.mpholo.project.grocery.controller.api.v1.ProductRestController;
 import com.mpholo.project.grocery.controller.api.v1.RestResponseEntityExceptionHandler;
-import com.mpholo.project.grocery.controller.ProductController;
 import com.mpholo.project.grocery.model.ProductDTO;
 import com.mpholo.project.grocery.service.ProductService;
 import com.mpholo.project.grocery.service.ResourceNotFoundException;
@@ -34,7 +34,7 @@ class ProductControllerTest {
 
 
     @InjectMocks
-    ProductController productController;
+    ProductRestController productController;
 
     @Mock
     ProductService productService;
