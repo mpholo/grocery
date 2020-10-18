@@ -23,8 +23,8 @@
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/util/GroceryItemMappings.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/security/service/UserService.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/security/service/UserServiceImpl.java
-/home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/service/MonthlyGroceryService.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/util/MonthlyGroceryAttributeNames.java
+/home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/service/MonthlyGroceryService.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/util/GroceryItemViewNames.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/service/CategoryServiceImpl.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/security/SecurityConfig.java
@@ -37,8 +37,8 @@
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/domain/Category.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/repositories/MonthlyGroceryRepository.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/mapper/CategoryMapper.java
-/home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/security/repositories/UserRepository.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/boostrap/Bootstrap.java
+/home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/security/repositories/UserRepository.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/mapper/ProductMapper.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/util/ProductAttributeNames.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/domain/GroceryItem.java

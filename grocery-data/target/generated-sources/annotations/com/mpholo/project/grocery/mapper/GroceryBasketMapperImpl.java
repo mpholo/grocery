@@ -2,13 +2,13 @@ package com.mpholo.project.grocery.mapper;
 
 import com.mpholo.project.grocery.domain.GroceryItem;
 import com.mpholo.project.grocery.model.GroceryItemDTO;
-import javax.annotation.Generated;
+import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-09-26T07:16:12+0200",
-    comments = "version: 1.3.1.Final, compiler: javac, environment: Java 11.0.4 (Oracle Corporation)"
+    date = "2020-10-18T10:23:15+0200",
+    comments = "version: 1.4.1.Final, compiler: javac, environment: Java 11.0.8 (Ubuntu)"
 )
 @Component
 public class GroceryBasketMapperImpl implements GroceryBasketMapper {
