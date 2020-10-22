@@ -4,10 +4,12 @@ import com.mpholo.project.grocery.domain.MonthlyGrocery;
 import com.mpholo.project.grocery.exceptions.NotFoundException;
 import com.mpholo.project.grocery.mapper.MonthlyGroceryMapper;
 import com.mpholo.project.grocery.model.MonthlyGroceryDTO;
+import com.mpholo.project.grocery.repositories.GroceryItemRepository;
 import com.mpholo.project.grocery.repositories.MonthlyGroceryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
@@ -22,10 +24,12 @@ import java.util.stream.Collectors;
 public class MonthlyGroceryServiceImpl  implements  MonthlyGroceryService {
 
     private final MonthlyGroceryRepository monthlyGroceryRepository;
+    private final GroceryItemRepository groceryItemRepository;
     private MonthlyGroceryMapper monthlyGroceryMapper;
 
-    public MonthlyGroceryServiceImpl(MonthlyGroceryRepository monthlyGroceryRepository, MonthlyGroceryMapper monthlyGroceryMapper) {
+    public MonthlyGroceryServiceImpl(MonthlyGroceryRepository monthlyGroceryRepository, GroceryItemRepository groceryItemRepository, MonthlyGroceryMapper monthlyGroceryMapper) {
         this.monthlyGroceryRepository = monthlyGroceryRepository;
+        this.groceryItemRepository = groceryItemRepository;
         this.monthlyGroceryMapper = monthlyGroceryMapper;
     }
 
@@ -96,6 +100,7 @@ public class MonthlyGroceryServiceImpl  implements  MonthlyGroceryService {
 
     }
 
+    @Transactional
     @Override
     public Optional<MonthlyGroceryDTO> copy(Integer monthlyGroceryId) {
 
@@ -123,7 +128,7 @@ public class MonthlyGroceryServiceImpl  implements  MonthlyGroceryService {
                MonthlyGrocery  savedMonthlyGrocery =monthlyGroceryRepository.save(newMonthlyGrocery);
 
                savedMonthlyGrocery.addItems(monthlyGrocery.get().getGroceryItems());
-
+               groceryItemRepository.saveAll(savedMonthlyGrocery.getGroceryItems());
                return Optional.of(saveAndReturn(savedMonthlyGrocery));
            }
        }

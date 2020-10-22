@@ -33,13 +33,17 @@ public class MonthlyGrocery  {
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     private  LocalDate endDate;
 
-    @OneToMany(mappedBy = "monthlyGrocery")
+    @OneToMany(cascade={CascadeType.ALL},mappedBy = "monthlyGrocery")
     private Set<GroceryItem> groceryItems = new HashSet<>();
 
     public void addItems(Set<GroceryItem> groceryItems) {
         for(GroceryItem item:groceryItems) {
-            GroceryItem newItem = new GroceryItem(-1,item.getQuantity(),item.getActualPrice(),
-                                                  item.getProduct(),this);
+
+            GroceryItem newItem= GroceryItem.builder().quantity(item.getQuantity())
+                    .actualPrice(item.getActualPrice())
+                    .product(item.getProduct())
+                    .monthlyGrocery(this).build();
+
 
             if(!this.groceryItems.add(newItem)) {
                 log.warn("This item {} of grocery {} wont be added. It is a duplicate",newItem.getProduct().getProductName(),this.getPeriod());

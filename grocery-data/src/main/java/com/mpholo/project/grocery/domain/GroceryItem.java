@@ -1,15 +1,13 @@
 package com.mpholo.project.grocery.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"monthlyGrocery"})
@@ -30,7 +28,7 @@ public class GroceryItem {
     private Product product;
 
     @NotNull
-    @ManyToOne(fetch=FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="monthly_grocery_id")
     private MonthlyGrocery monthlyGrocery;
 

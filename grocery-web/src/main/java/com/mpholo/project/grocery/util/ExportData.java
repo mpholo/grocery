@@ -33,7 +33,7 @@ public class ExportData<T> {
                 }
 
             });
-            log.info("Total items to export {}",items.size());
+            log.info("Total items exported {}",items.size());
 
         } catch (IOException e) {
             e.printStackTrace();

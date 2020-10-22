@@ -4,6 +4,7 @@ com/mpholo/project/grocery/model/GroceryItemListDTO.class
 com/mpholo/project/grocery/repositories/CategoryRepository.class
 com/mpholo/project/grocery/util/MonthylGroceryViewNames.class
 com/mpholo/project/grocery/service/GroceryItemServiceImpl.class
+com/mpholo/project/grocery/domain/GroceryItem$GroceryItemBuilder.class
 com/mpholo/project/grocery/service/ProductService.class
 com/mpholo/project/grocery/repositories/ProductRepository.class
 com/mpholo/project/grocery/repositories/GroceryItemRepository.class

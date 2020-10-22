@@ -3,6 +3,7 @@ package com.mpholo.project.grocery.service;
 import com.mpholo.project.grocery.domain.MonthlyGrocery;
 import com.mpholo.project.grocery.mapper.MonthlyGroceryMapper;
 import com.mpholo.project.grocery.model.MonthlyGroceryDTO;
+import com.mpholo.project.grocery.repositories.GroceryItemRepository;
 import com.mpholo.project.grocery.repositories.MonthlyGroceryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,13 +27,16 @@ class MonthlyGroceryServiceImplTest {
     @Mock
     MonthlyGroceryRepository monthlyGroceryRepository;
 
+    @Mock
+    GroceryItemRepository groceryItemRepository;
+
 
     @BeforeEach
     void setUp() {
 
         MockitoAnnotations.initMocks(this);
 
-        monthlyGroceryService = new MonthlyGroceryServiceImpl(monthlyGroceryRepository, MonthlyGroceryMapper.INSTACE);
+        monthlyGroceryService = new MonthlyGroceryServiceImpl(monthlyGroceryRepository, groceryItemRepository, MonthlyGroceryMapper.INSTACE);
     }
 
 
