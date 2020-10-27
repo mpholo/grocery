@@ -2,6 +2,7 @@ package com.mpholo.project.grocery.service;
 
 import com.mpholo.project.grocery.domain.Product;
 import com.mpholo.project.grocery.mapper.ProductMapper;
+import com.mpholo.project.grocery.model.GroceryItemDTO;
 import com.mpholo.project.grocery.model.ProductDTO;
 import com.mpholo.project.grocery.repositories.ProductRepository;
 import com.mpholo.project.grocery.util.ProductMappings;
@@ -113,6 +114,18 @@ public class ProductServiceImpl  implements ProductService {
 
         return  productDTO;
 
+    }
+
+    @Override
+    public List<ProductDTO> availableProducts(List<GroceryItemDTO> GroceryItemListDTO) {
+
+        List<Product> productList= productRepository.findAll();
+        for(GroceryItemDTO item:GroceryItemListDTO) {
+              productList.removeIf( p->p.equals(item.getProduct()) );
+        }
+        return productList.stream()
+                .map(productMapper::ProductToProductDTO)
+                .collect(Collectors.toList());
     }
 
     private String getProductUrl(Integer productID) {

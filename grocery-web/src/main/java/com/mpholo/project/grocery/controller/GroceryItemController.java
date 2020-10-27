@@ -57,10 +57,11 @@ public class GroceryItemController {
         MonthlyGrocery monthlyGrocery = MonthlyGroceryMapper.INSTACE.monthlyGroceryDTOToMonthlyGrocery(monthlyGroceryDTO);
         GroceryItemUpdateDTO item=new GroceryItemUpdateDTO();
 
-       List<ProductDTO> productList = productService.findAll()
+       List<ProductDTO> productList = productService.availableProducts(groceryItemList)
                 .stream()
                 .sorted(Comparator.comparing( p->p.getProductName()))
                 .collect(Collectors.toList());
+
         log.info("displaying all products: "+productList.size());
 
         double totalPrice=0.0;
