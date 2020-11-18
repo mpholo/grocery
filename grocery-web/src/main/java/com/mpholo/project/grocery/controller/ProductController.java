@@ -24,6 +24,7 @@ public class ProductController {
 
     //==field variables==
     private final ProductService productService;
+    private static String alert;
 
     //==constructor==
     public ProductController(ProductService productService) {
@@ -39,6 +40,9 @@ public class ProductController {
         model.addAttribute(ProductAttributeNames.PRODUCT_LIST,productList);
         model.addAttribute(ProductAttributeNames.PRODUCT,new ProductDTO());
 
+        model.addAttribute("alert",alert);
+        alert=null;
+
         return ProductViewNames.PRODUCTS;
     }
 
@@ -50,6 +54,7 @@ public class ProductController {
             bindingResult.getAllErrors().forEach(objectError ->
                     log.debug(objectError.toString())
                     );
+            alert="saved";
             return "redirect:"+PRODUCT_REDIRECT_LIST+"/error";
         }
 
@@ -62,7 +67,7 @@ public class ProductController {
     public String deleteProduct(@RequestParam(name="productId") int productId) {
         log.info("Deleting product with productId {}",productId);
         productService.deleteById(productId);
-
+        alert="deleted";
         return "redirect:"+PRODUCT_REDIRECT_LIST;
 
     }

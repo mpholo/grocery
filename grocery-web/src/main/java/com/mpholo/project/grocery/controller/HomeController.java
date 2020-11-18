@@ -1,12 +1,9 @@
 package com.mpholo.project.grocery.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-
-@Controller
+//@Controller
 public class HomeController {
 
-    @GetMapping({"/","index"})
+   // @GetMapping({"/","index"})
     public String home() {
         return "index";
     }
