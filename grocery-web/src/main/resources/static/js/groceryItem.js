@@ -1,9 +1,19 @@
 (function($) {
     "use strict";
 
+
+    //global variables
+    var newItem;
+
     $('#submitButton').on('click',function(){
        $("form").submit();
     });
+
+   //remove added product on form close
+    $('#formModalCenter').on('hidden.bs.modal', function (e) {
+         $("select#formproduct option[value="+newItem+"]").remove();
+          console.log("remove "+newItem+" from products");
+    })
 
 
     //==populate form fields for update ==//
@@ -14,16 +24,28 @@
       $("#formModalCenterTitle").text("Update Grocery Item")
 
 
+     var productName =$(this).closest("tr").find("td").eq(0).text();
      var productId =$(this).closest("tr").find("td").eq(0).find("input.productId").val();
      var price =$(this).closest("tr").find("td").eq(2).text();
      var quantity =$(this).closest("tr").find("td").eq(3).text();
      var id =$(this).closest("tr").find("td").eq(5).find("input.groceryItemId").val();
 
       $("#groceryItemId").val(id);
-      $("select#formproduct").val(productId); // Select the option with a value of productId
-      $("select#formproduct").trigger("change"); // Notify any JS components that the value changed
       $("#formPrice").val(price);
       $("#formQuantity").val(quantity);
+
+      // Set the value, creating a new option if necessary
+      if($("select#formproduct").find("option[value='" + productId + "']").length) {
+          $("select#formproduct").val(productName).trigger('change');
+      } else {
+        // Create a DOM Option and pre-select by default
+
+           var newOption = new Option(productName,productId,true,true);
+           newOption.setAttribute("data-price",price);
+           $("select#formproduct").append(newOption).trigger('change');
+            newItem=productId;
+      }
+
 
       console.log("groceryItemId "+id);
       console.log("product id "+productId);
@@ -44,11 +66,6 @@
       totalQuantity+=parseInt($(this).find("td").eq(4).text());
       totalPrice2+=parseFloat($(this).find("td").eq(5).text());
     })
-
-    //displaying total in the footer of table
-//    $("table tfoot tr").find("td").eq(3).text("R "+parseFloat(totalPrice1).toFixed(2));
-//    $("table tfoot tr").find("td").eq(4).text(totalQuantity);
-//    $("table tfoot tr").find("td").eq(5).text("R "+parseFloat(totalPrice2).toFixed(2));
 
 
     $("#grocery-item-table").on("click",".deleteGroceryItem",function() {

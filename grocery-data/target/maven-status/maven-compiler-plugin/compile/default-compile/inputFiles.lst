@@ -13,9 +13,11 @@
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/security/domain/User.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/model/GroceryItemDTO.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/repositories/GroceryItemRepository.java
+/home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/util/UserAttributeNames.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/security/service/UserSecurityService.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/util/MonthylGroceryViewNames.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/service/ResourceNotFoundException.java
+/home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/security/service/UserSercurityService.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/util/GroceryItemAttributeNames.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/util/MonthylGroceryMappings.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/model/MonthlyGroceryListDTO.java
@@ -36,11 +38,13 @@
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/domain/MonthlyGrocery.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/domain/Category.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/repositories/MonthlyGroceryRepository.java
+/home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/util/UserViewNames.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/mapper/CategoryMapper.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/boostrap/Bootstrap.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/security/repositories/UserRepository.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/mapper/ProductMapper.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/util/ProductAttributeNames.java
+/home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/util/UserMappings.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/domain/GroceryItem.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/repositories/CategoryRepository.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/security/domain/Authority.java

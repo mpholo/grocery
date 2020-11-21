@@ -102,9 +102,6 @@ INSERT INTO public.product
 VALUES(35, 'Harpic White and Shite Lavendar', 'Harpic White and Shite', 20.0, NULL, NULL);
 INSERT INTO public.product
 (product_id, product_description, product_name, product_price, category_category_id, category_id)
-VALUES(36, '', 'Aerial Hand Washing Power', 200.0, NULL, NULL);
-INSERT INTO public.product
-(product_id, product_description, product_name, product_price, category_category_id, category_id)
 VALUES(37, '', 'Luck Star Pilcards', 218.95, NULL, NULL);
 INSERT INTO public.product
 (product_id, product_description, product_name, product_price, category_category_id, category_id)

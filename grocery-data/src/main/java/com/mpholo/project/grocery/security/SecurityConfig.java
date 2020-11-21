@@ -2,17 +2,20 @@ package com.mpholo.project.grocery.security;
 
 //import com.mpholo.project.grocery.security.service.UserSecurityService;
 
+import com.mpholo.project.grocery.security.service.UserSecurityService;
 import com.mpholo.project.grocery.security.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import java.util.concurrent.TimeUnit;
+import java.security.SecureRandom;
 
 import static com.mpholo.project.grocery.util.MonthylGroceryMappings.MONTHLY_GROCERY_REDIRECT_LIST;
 
@@ -25,8 +28,16 @@ import static com.mpholo.project.grocery.util.MonthylGroceryMappings.MONTHLY_GRO
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final PasswordEncoder passwordEncoder;
     private final UserService userService;
+    private  Environment env;
+    private final UserSecurityService userSecurityService;
+
+    private static final String SALT="salt"; //salt should be protected careefully
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(12,new SecureRandom(SALT.getBytes()));
+    }
 
     private static final String[] PUBLIC_MATCHERS = {
             "/webjars/**",
@@ -36,54 +47,46 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/error/**/*",
             "/console/**",
             "/h2-console/**",
-            "/"
+            "/",
+            "/security/**",
+            "/grocery-items/**",
+            "/monthly-grocery/**"
     };
 
-    public SecurityConfig(PasswordEncoder passwordEncoder, UserService userService) {
-        this.passwordEncoder = passwordEncoder;
+    public SecurityConfig(UserService userService,
+                          Environment env, UserSecurityService userSecurityService1) {
         this.userService = userService;
+        this.env = env;
+        this.userSecurityService =userSecurityService1;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         //authorization  settings
-        http
-                .csrf().disable()
-                .authorizeRequests()
-                .antMatchers(PUBLIC_MATCHERS).permitAll()
-                .anyRequest()
-                .authenticated()
+         http
+                .authorizeRequests().
+                antMatchers(PUBLIC_MATCHERS).
+                permitAll().anyRequest().authenticated();
+
+           http
+                .csrf().disable().cors().disable()
+                .formLogin().failureUrl("/index?error").defaultSuccessUrl(MONTHLY_GROCERY_REDIRECT_LIST).loginPage("/login").permitAll()
                 .and()
-                .formLogin()
-                .loginPage("/login").permitAll()
-                .defaultSuccessUrl(MONTHLY_GROCERY_REDIRECT_LIST,true)
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/index?logout").deleteCookies("remember-me").permitAll()
                 .and()
-                .rememberMe()
-                .tokenValiditySeconds((int)TimeUnit.DAYS.toSeconds(28))
-                .key("verysecurekey")
-                .and()
-                .logout()
-                .logoutUrl("/logout")
-                .clearAuthentication(true)
-                .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID","remember-me")
-                .logoutSuccessUrl("/login");
+                .rememberMe();
+
+           //allow connection to h2-console
+           http.headers()
+                   .frameOptions()
+                   .sameOrigin();
 
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(daoAuthenticationProvider());
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userSecurityService).passwordEncoder(passwordEncoder());
     }
-
-    @Bean
-    public DaoAuthenticationProvider daoAuthenticationProvider() {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setPasswordEncoder(passwordEncoder);
-        provider.setUserDetailsService(userService);
-        return provider;
-    }
-
 
 }
