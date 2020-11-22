@@ -20,8 +20,8 @@
         $("body").toggleClass("sb-sidenav-toggled");
     });
 
-       $("#dataTable").DataTable();
-          $('.dataTables_length').addClass('bs-select');
+       $("#dataTable").DataTable({"pageLength": 50});
+       $('.dataTables_length').addClass('bs-select');
 
      // Initialize select2
       $("#formproduct").select2();

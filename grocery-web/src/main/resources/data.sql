@@ -258,5 +258,8 @@ INSERT INTO public.grocery_item
 (grocery_item_id, actual_price, quantity, monthly_grocery_id, product_id)
 VALUES(23, 123.0, 1, 9, 47);
 
+INSERT INTO ROLE VALUES(1,'ROLE_USER');
+INSERT INTO ROLE VALUES(2,'ROLE_ADMIN');
+
 
 

@@ -1,0 +1,25 @@
+<thlogic>
+    <attr sel="#head"
+          th:replace="~{fragments/template::head('sihngup')}"  />
+
+    <attr sel="#saveUser"
+          th:action="@{__${T(com.mpholo.project.grocery.util.UserMappings).USER_SIGNUP}__}"
+          th:object="${__${T(com.mpholo.project.grocery.util.UserAttributeNames).USER}__}"/>
+
+  <attr sel="#firstname"
+          th:field="*{firstName}"  />
+
+    <attr sel="#lastname"
+          th:field="*{lastName}"  />
+
+    <attr sel="#email"
+          th:field="*{email}"  />
+
+    <attr sel="#username"
+          th:field="*{username}"  />
+
+    <attr sel="#password"
+          th:field="*{password}"  />
+
+
+</thlogic>
