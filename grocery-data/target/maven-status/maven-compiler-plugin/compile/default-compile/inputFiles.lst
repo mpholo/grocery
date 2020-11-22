@@ -6,6 +6,7 @@
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/service/CrudService.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/model/ProductDTO.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/util/ProductMappings.java
+/home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/security/service/RoleService.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/mapper/GroceryBasketMapper.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/model/ProductListDTO.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/model/GroceryItemListDTO.java
@@ -17,7 +18,7 @@
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/security/service/UserSecurityService.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/util/MonthylGroceryViewNames.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/service/ResourceNotFoundException.java
-/home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/security/service/UserSercurityService.java
+/home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/security/service/RoleServiceImpl.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/util/GroceryItemAttributeNames.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/util/MonthylGroceryMappings.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/model/MonthlyGroceryListDTO.java
@@ -50,5 +51,6 @@
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/security/domain/Authority.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/security/domain/UserRole.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/mapper/MonthlyGroceryMapper.java
+/home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/security/repositories/RoleRepository.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/model/MonthlyGroceryDTO.java
 /home/mpholo/repository/grocery/grocery-data/src/main/java/com/mpholo/project/grocery/model/GroceryItemUpdateDTO.java

@@ -1,3 +1,5 @@
+com/mpholo/project/grocery/security/service/RoleServiceImpl.class
+com/mpholo/project/grocery/security/repositories/RoleRepository.class
 com/mpholo/project/grocery/service/ProductService.class
 com/mpholo/project/grocery/domain/MonthlyGrocery.class
 com/mpholo/project/grocery/exceptions/NotFoundException.class
@@ -35,7 +37,6 @@ com/mpholo/project/grocery/util/MonthylGroceryViewNames.class
 com/mpholo/project/grocery/service/GroceryItemServiceImpl.class
 com/mpholo/project/grocery/util/UserMappings.class
 com/mpholo/project/grocery/security/domain/Role.class
-com/mpholo/project/grocery/security/service/UserSercurityService.class
 com/mpholo/project/grocery/domain/GroceryItem$GroceryItemBuilder.class
 com/mpholo/project/grocery/repositories/ProductRepository.class
 com/mpholo/project/grocery/repositories/GroceryItemRepository.class
@@ -45,6 +46,7 @@ com/mpholo/project/grocery/util/UserAttributeNames.class
 com/mpholo/project/grocery/security/domain/User.class
 com/mpholo/project/grocery/util/MonthlyGroceryAttributeNames.class
 com/mpholo/project/grocery/util/UserViewNames.class
+com/mpholo/project/grocery/security/service/UserSecurityService.class
 com/mpholo/project/grocery/model/GroceryItemUpdateDTO.class
 com/mpholo/project/grocery/domain/Category.class
 com/mpholo/project/grocery/service/MonthlyGroceryServiceImpl.class
@@ -53,6 +55,7 @@ com/mpholo/project/grocery/service/ResourceNotFoundException.class
 com/mpholo/project/grocery/boostrap/Bootstrap.class
 com/mpholo/project/grocery/model/ProductListDTO.class
 com/mpholo/project/grocery/model/GroceryItemDTO.class
+com/mpholo/project/grocery/security/service/RoleService.class
 com/mpholo/project/grocery/domain/Product.class
 com/mpholo/project/grocery/mapper/MonthlyGroceryMapper.class
 com/mpholo/project/grocery/service/CrudService.class
