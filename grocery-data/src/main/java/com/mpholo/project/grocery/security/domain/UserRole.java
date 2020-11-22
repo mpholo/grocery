@@ -2,6 +2,7 @@ package com.mpholo.project.grocery.security.domain;
 
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ import javax.persistence.*;
 @Entity
 @Setter
 @Getter
+@NoArgsConstructor
 public class UserRole {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
