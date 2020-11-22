@@ -48,9 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/console/**",
             "/h2-console/**",
             "/",
-            "/security/**",
-            "/grocery-items/**",
-            "/monthly-grocery/**"
+            "/security/**"
     };
 
     public SecurityConfig(UserService userService,
