@@ -55,7 +55,7 @@
       $(".yearpicker").yearpicker({
                          year: getParameter('year')==null?parseInt((new Date).getFullYear()):parseInt(getParameter('year')),
                          startYear: 2020,
-                         endYear:  parseInt((new Date).getFullYear())
+                         endYear:  parseInt((new Date).getFullYear())+1
                        });
 
 
