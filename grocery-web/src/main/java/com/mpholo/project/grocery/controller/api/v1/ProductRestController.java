@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import static com.mpholo.project.grocery.util.ProductMappings.PRODUCTURL;
 
-@Api(description = "This is a list of products controller")
+@Api("This is a list of products controller")
 @RestController
 @RequestMapping(PRODUCTURL)
 public class ProductRestController {

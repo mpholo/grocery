@@ -79,6 +79,7 @@ class ProductControllerTest {
         when(productService.findAll()).thenReturn(productList);
 
         mockMvc.perform(get(PRODUCTURL)
+                .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.products", hasSize(5)));
@@ -96,6 +97,7 @@ class ProductControllerTest {
 
 
         mockMvc.perform(get(PRODUCTURL+"/milk")
+                .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.productName", equalTo(NAME)));
@@ -136,6 +138,7 @@ class ProductControllerTest {
 //        System.out.println(response);
 
         mockMvc.perform(post(PRODUCTURL)
+                .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
         .content(asJsonString(product1)))
                 .andExpect(status().isCreated())
@@ -172,6 +175,7 @@ class ProductControllerTest {
         //when/then
 
         mockMvc.perform(put(productUrl)
+                .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(product1)))
                 .andExpect(status().isOk())
@@ -198,6 +202,7 @@ class ProductControllerTest {
 
         //when/then
         mockMvc.perform(patch(productUrl)
+                .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(product1)))
                 .andExpect(status().isOk())

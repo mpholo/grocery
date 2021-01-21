@@ -53,6 +53,7 @@ class MonthlyGroceryControllerTest {
 
         //when
         mockMvc.perform(get("/api/v1/monthlygroceries/")
+                .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.monthlyGroceries",hasSize(3)));
@@ -73,6 +74,7 @@ class MonthlyGroceryControllerTest {
 
         //then
         mockMvc.perform(get("/api/v1/monthlygroceries/"+JULY_2020)
+                .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.period",equalTo(JULY_2020)));

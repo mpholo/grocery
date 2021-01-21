@@ -5,13 +5,13 @@ import com.mpholo.project.grocery.domain.MonthlyGrocery;
 import com.mpholo.project.grocery.model.MonthlyGroceryDTO;
 import java.util.HashSet;
 import java.util.Set;
-import javax.annotation.processing.Generated;
+import javax.annotation.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-11-22T08:48:46+0200",
-    comments = "version: 1.4.1.Final, compiler: javac, environment: Java 11.0.9.1 (Ubuntu)"
+    date = "2021-01-21T06:36:20+0200",
+    comments = "version: 1.4.1.Final, compiler: javac, environment: Java 1.8.0_275 (Private Build)"
 )
 @Component
 public class MonthlyGroceryMapperImpl implements MonthlyGroceryMapper {
