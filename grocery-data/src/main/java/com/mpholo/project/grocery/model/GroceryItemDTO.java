@@ -18,6 +18,7 @@ public class GroceryItemDTO implements Serializable {
     private Product product;
     private MonthlyGrocery monthlyGrocery;
     private  double totalPrice;
+    private boolean purchased;
 
     private double calculatedTotalPrice() {
         return actualPrice*quantity;

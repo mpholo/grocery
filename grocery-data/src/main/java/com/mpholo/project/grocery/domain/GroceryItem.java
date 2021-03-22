@@ -20,6 +20,7 @@ public class GroceryItem {
     private int quantity=1;
     @NotNull
     private double actualPrice;
+    private boolean purchased;
 
 
     @NotNull
