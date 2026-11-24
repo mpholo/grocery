@@ -2,6 +2,7 @@ package com.mpholo.project.grocery.controller.api.v1;
 
 import com.mpholo.project.grocery.controller.api.v1.dto.CopyMonthlyGroceryRequest;
 import com.mpholo.project.grocery.controller.api.v1.dto.MonthlyGrocerySummaryResponse;
+import com.mpholo.project.grocery.controller.api.v1.dto.UpdateMonthlyGroceryRequest;
 import com.mpholo.project.grocery.model.MonthlyGroceryDTO;
 import com.mpholo.project.grocery.model.MonthlyGroceryListDTO;
 import com.mpholo.project.grocery.service.MonthlyGroceryService;
@@ -9,6 +10,7 @@ import com.mpholo.project.grocery.service.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -64,6 +66,23 @@ public class MonthlyGroceryRestController {
                         "Monthly grocery not found for id " + monthlyGroceryId));
 
         return new ResponseEntity<>(MonthlyGrocerySummaryResponse.from(copied), HttpStatus.CREATED);
+    }
+
+    @PatchMapping("{monthlyGroceryId}")
+    public ResponseEntity<MonthlyGrocerySummaryResponse> updateMonthlyGrocery(
+            @PathVariable Integer monthlyGroceryId,
+            @RequestBody UpdateMonthlyGroceryRequest request) {
+
+        if (request.getBudgetAmount() == null || request.getBudgetAmount() < 0) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        MonthlyGroceryDTO updated = monthlyGroceryService
+                .updateBudget(monthlyGroceryId, request.getBudgetAmount())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Monthly grocery not found for id " + monthlyGroceryId));
+
+        return new ResponseEntity<>(MonthlyGrocerySummaryResponse.from(updated), HttpStatus.OK);
     }
 
     @GetMapping("{period}")

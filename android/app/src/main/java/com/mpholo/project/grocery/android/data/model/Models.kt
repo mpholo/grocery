@@ -52,6 +52,14 @@ data class CopyMonthRequest(
     val budgetAmount: Double? = null
 )
 
+/**
+ * Body for updating a month via `PATCH /api/v1/monthlygroceries/{id}`.
+ * Currently only the budget is editable.
+ */
+data class UpdateBudgetRequest(
+    val budgetAmount: Double
+)
+
 /** A product in the catalog (`GET /api/v1/products`). */
 data class Product(
     val productId: Int?,

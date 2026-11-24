@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
@@ -6,9 +7,26 @@ plugins {
     alias(libs.plugins.compose.compiler)
 }
 
+// Load release signing config from keystore.properties if present (gitignored).
+val keystorePropsFile = rootProject.file("keystore.properties")
+val keystoreProps = Properties().apply {
+    if (keystorePropsFile.exists()) keystorePropsFile.inputStream().use { load(it) }
+}
+
 android {
     namespace = "com.mpholo.project.grocery.android"
     compileSdk = 35
+
+    signingConfigs {
+        if (keystorePropsFile.exists()) {
+            create("release") {
+                storeFile = rootProject.file(keystoreProps.getProperty("storeFile"))
+                storePassword = keystoreProps.getProperty("storePassword")
+                keyAlias = keystoreProps.getProperty("keyAlias")
+                keyPassword = keystoreProps.getProperty("keyPassword")
+            }
+        }
+    }
 
     defaultConfig {
         applicationId = "com.mpholo.project.grocery.android"
@@ -39,6 +57,10 @@ android {
             )
             // Production backend, served over HTTPS behind the dliving nginx proxy.
             buildConfigField("String", "BASE_URL", "\"https://grocery.dliving.co.za/\"")
+            // Sign with the release key when keystore.properties is present.
+            if (keystorePropsFile.exists()) {
+                signingConfig = signingConfigs.getByName("release")
+            }
         }
     }
 

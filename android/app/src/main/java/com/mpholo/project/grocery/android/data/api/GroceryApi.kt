@@ -7,6 +7,7 @@ import com.mpholo.project.grocery.android.data.model.GroceryItemPatchRequest
 import com.mpholo.project.grocery.android.data.model.MonthSummary
 import com.mpholo.project.grocery.android.data.model.Product
 import com.mpholo.project.grocery.android.data.model.ProductListResponse
+import com.mpholo.project.grocery.android.data.model.UpdateBudgetRequest
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.PATCH
@@ -33,6 +34,12 @@ interface GroceryApi {
     suspend fun copyMonth(
         @Path("id") monthlyGroceryId: Int,
         @Body body: CopyMonthRequest
+    ): MonthSummary
+
+    @PATCH("api/v1/monthlygroceries/{id}")
+    suspend fun updateMonth(
+        @Path("id") monthlyGroceryId: Int,
+        @Body body: UpdateBudgetRequest
     ): MonthSummary
 
     @GET("api/v1/products")

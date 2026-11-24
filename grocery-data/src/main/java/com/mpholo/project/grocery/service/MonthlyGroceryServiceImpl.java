@@ -168,6 +168,16 @@ public class MonthlyGroceryServiceImpl  implements  MonthlyGroceryService {
         return Optional.of(saveAndReturn(savedMonthlyGrocery));
     }
 
+    @Transactional
+    @Override
+    public Optional<MonthlyGroceryDTO> updateBudget(Integer monthlyGroceryId, double budgetAmount) {
+        return monthlyGroceryRepository.findById(monthlyGroceryId)
+                .map(monthlyGrocery -> {
+                    monthlyGrocery.setBudgetAmount(budgetAmount);
+                    return saveAndReturn(monthlyGrocery);
+                });
+    }
+
     private MonthlyGroceryDTO saveAndReturn(MonthlyGrocery monthlyGrocery) {
         MonthlyGrocery savedMonthlyGrocery =monthlyGroceryRepository.save(monthlyGrocery);
         return monthlyGroceryMapper.monthlyGroceryToMonthlyGroceryDTO(savedMonthlyGrocery);

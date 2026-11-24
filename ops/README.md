@@ -19,17 +19,25 @@ git clone <your-grocery-repo-url> grocery
 # result: ./rental-rooms  ./rentalroomsapps  ./postgresql  ./grocery
 ```
 
-## 2. Create the `grocery` database in the existing Postgres
+## 2. Confirm the `grocery` database exists in Postgres
 
-The `postgres` profile connects to `grocery_db:5432/grocery`. Create that DB once:
+The `postgres` profile connects to `grocery_db:5432/grocery` (the container is named
+`grocery_db`; the database it needs is named `grocery`). This database already exists
+on the server, so there is nothing to create. Confirm with:
+
+```bash
+docker exec -it grocery_db psql -U postgres -c "\l" | grep grocery
+```
+
+If for some reason it is missing, create it once:
 
 ```bash
 docker exec -it grocery_db psql -U postgres -c "CREATE DATABASE grocery;"
 ```
 
-(If it says it already exists, you're fine.) Hibernate (`ddl-auto=update`) creates
-the tables on first start. The app begins **empty** — add months via the Android
-app, or ask to have the 265-line `data.sql` seed wired in.
+Hibernate (`ddl-auto=update`) creates the tables on first start. The app begins
+**empty** — add months via the Android app, or ask to have the 265-line `data.sql`
+seed wired in.
 
 ## 3. Add the grocery service to docker-compose.yml
 

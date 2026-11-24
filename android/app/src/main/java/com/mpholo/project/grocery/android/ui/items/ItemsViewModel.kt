@@ -17,7 +17,9 @@ data class ItemsScreenState(
     val error: String? = null,          // fatal load error (blocks the screen)
     val message: String? = null,        // transient feedback for a snackbar
     val updatingIds: Set<Int> = emptySet(),
-    val copying: Boolean = false        // a copy-to-month request is in flight
+    val copying: Boolean = false,       // a copy-to-month request is in flight
+    val budget: Double = 0.0,           // editable month budget
+    val updatingBudget: Boolean = false // a budget update is in flight
 ) {
     /** Total of every item in the month (regardless of basket state). */
     val plannedTotal: Double get() = items.sumOf { it.actualPrice * it.quantity }
@@ -30,10 +32,11 @@ data class ItemsScreenState(
 
 class ItemsViewModel(
     private val monthlyGroceryId: Int,
+    initialBudget: Double,
     private val repository: GroceryRepository = GroceryRepository()
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(ItemsScreenState())
+    private val _state = MutableStateFlow(ItemsScreenState(budget = initialBudget))
     val state: StateFlow<ItemsScreenState> = _state.asStateFlow()
 
     init {
@@ -85,6 +88,27 @@ class ItemsViewModel(
         }
     }
 
+    /** Update the month's budget amount. */
+    fun updateBudget(newBudget: Double) {
+        _state.update { it.copy(updatingBudget = true) }
+        viewModelScope.launch {
+            try {
+                val updated = repository.updateBudget(monthlyGroceryId, newBudget)
+                _state.update {
+                    it.copy(
+                        updatingBudget = false,
+                        budget = updated.budgetAmount,
+                        message = "Budget updated"
+                    )
+                }
+            } catch (e: Exception) {
+                _state.update {
+                    it.copy(updatingBudget = false, message = e.message ?: "Budget update failed")
+                }
+            }
+        }
+    }
+
     fun consumeMessage() = _state.update { it.copy(message = null) }
 
     private fun patch(itemId: Int, block: suspend () -> GroceryItem) {
@@ -110,11 +134,11 @@ class ItemsViewModel(
     }
 
     companion object {
-        fun provideFactory(monthlyGroceryId: Int): ViewModelProvider.Factory =
+        fun provideFactory(monthlyGroceryId: Int, initialBudget: Double): ViewModelProvider.Factory =
             object : ViewModelProvider.Factory {
                 @Suppress("UNCHECKED_CAST")
                 override fun <T : ViewModel> create(modelClass: Class<T>): T =
-                    ItemsViewModel(monthlyGroceryId) as T
+                    ItemsViewModel(monthlyGroceryId, initialBudget) as T
             }
     }
 }

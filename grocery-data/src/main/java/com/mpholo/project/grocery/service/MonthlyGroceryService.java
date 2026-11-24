@@ -21,4 +21,11 @@ public interface MonthlyGroceryService extends CrudService<MonthlyGroceryDTO,Int
      */
     Optional<MonthlyGroceryDTO> copyToMonth(Integer monthlyGroceryId, int month, int year, Double budgetAmount);
 
+    /**
+     * Update the budget amount of an existing monthly grocery.
+     *
+     * @return the updated month, or empty if no month exists for the given id
+     */
+    Optional<MonthlyGroceryDTO> updateBudget(Integer monthlyGroceryId, double budgetAmount);
+
 }

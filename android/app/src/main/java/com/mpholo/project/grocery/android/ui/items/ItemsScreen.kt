@@ -63,13 +63,14 @@ fun ItemsScreen(
     budget: Double,
     onBack: () -> Unit,
     viewModel: ItemsViewModel = viewModel(
-        factory = ItemsViewModel.provideFactory(monthlyGroceryId)
+        factory = ItemsViewModel.provideFactory(monthlyGroceryId, budget)
     )
 ) {
     val state by viewModel.state.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
     var editing by remember { mutableStateOf<GroceryItem?>(null) }
     var showCopyDialog by remember { mutableStateOf(false) }
+    var editingBudget by remember { mutableStateOf(false) }
 
     LaunchedEffect(state.message) {
         state.message?.let {
@@ -118,9 +119,11 @@ fun ItemsScreen(
                 SummaryCard(
                     purchased = state.purchasedCount,
                     total = itemList.size,
-                    budget = budget,
+                    budget = state.budget,
                     basketTotal = state.basketTotal,
-                    plannedTotal = state.plannedTotal
+                    plannedTotal = state.plannedTotal,
+                    updatingBudget = state.updatingBudget,
+                    onEditBudget = { editingBudget = true }
                 )
 
                 if (itemList.isEmpty()) {
@@ -190,6 +193,17 @@ fun ItemsScreen(
             }
         )
     }
+
+    if (editingBudget) {
+        EditBudgetDialog(
+            currentBudget = state.budget,
+            onDismiss = { editingBudget = false },
+            onConfirm = { newBudget ->
+                viewModel.updateBudget(newBudget)
+                editingBudget = false
+            }
+        )
+    }
 }
 
 @Composable
@@ -198,7 +212,9 @@ private fun SummaryCard(
     total: Int,
     budget: Double,
     basketTotal: Double,
-    plannedTotal: Double
+    plannedTotal: Double,
+    updatingBudget: Boolean,
+    onEditBudget: () -> Unit
 ) {
     val remaining = budget - basketTotal
     val overBudget = remaining < 0
@@ -214,7 +230,24 @@ private fun SummaryCard(
         )
     ) {
         Column(Modifier.fillMaxWidth().padding(20.dp)) {
-            Text("Basket total", style = MaterialTheme.typography.labelLarge)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text("Basket total", style = MaterialTheme.typography.labelLarge)
+                if (updatingBudget) {
+                    CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp)
+                } else {
+                    IconButton(onClick = onEditBudget, modifier = Modifier.size(28.dp)) {
+                        Icon(
+                            Icons.Filled.Edit,
+                            contentDescription = "Edit budget",
+                            modifier = Modifier.size(18.dp)
+                        )
+                    }
+                }
+            }
             Row(verticalAlignment = Alignment.Bottom) {
                 Text(
                     "%.2f".format(basketTotal),

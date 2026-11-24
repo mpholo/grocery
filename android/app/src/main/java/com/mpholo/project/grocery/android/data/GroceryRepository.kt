@@ -8,6 +8,7 @@ import com.mpholo.project.grocery.android.data.model.GroceryItem
 import com.mpholo.project.grocery.android.data.model.GroceryItemPatchRequest
 import com.mpholo.project.grocery.android.data.model.MonthSummary
 import com.mpholo.project.grocery.android.data.model.Product
+import com.mpholo.project.grocery.android.data.model.UpdateBudgetRequest
 
 /** Single point of access to the backend for the ViewModels. */
 class GroceryRepository(
@@ -37,6 +38,10 @@ class GroceryRepository(
     /** Copy a month (with its items) into [month]/[year]; items reset to not-in-basket. */
     suspend fun copyMonth(sourceMonthlyGroceryId: Int, month: Int, year: Int): MonthSummary =
         api.copyMonth(sourceMonthlyGroceryId, CopyMonthRequest(month = month, year = year))
+
+    /** Update the budget amount for a month. */
+    suspend fun updateBudget(monthlyGroceryId: Int, budgetAmount: Double): MonthSummary =
+        api.updateMonth(monthlyGroceryId, UpdateBudgetRequest(budgetAmount))
 
     suspend fun getProducts(): List<Product> = api.getProducts().products
 
