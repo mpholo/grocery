@@ -249,12 +249,21 @@ private fun SummaryCard(
     val overBudget = remaining < 0
     val progress = if (budget > 0) (basketTotal / budget).toFloat().coerceIn(0f, 1f) else 0f
     val accent = if (overBudget) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary
-    // Bar fades from green (empty basket) to red (basket total == budget).
-    val barColor = lerp(
-        MaterialTheme.colorScheme.primary,
-        MaterialTheme.colorScheme.error,
-        progress
-    )
+    // Bar fades green -> amber -> red as the basket fills: green at empty,
+    // amber around half the budget, full red once the basket reaches budget.
+    val barColor = if (progress < 0.5f) {
+        lerp(
+            MaterialTheme.colorScheme.primary,
+            MaterialTheme.colorScheme.tertiary,
+            progress / 0.5f
+        )
+    } else {
+        lerp(
+            MaterialTheme.colorScheme.tertiary,
+            MaterialTheme.colorScheme.error,
+            (progress - 0.5f) / 0.5f
+        )
+    }
 
     Card(
         modifier = Modifier.fillMaxWidth().padding(16.dp),
