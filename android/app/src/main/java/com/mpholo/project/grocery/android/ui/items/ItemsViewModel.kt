@@ -61,10 +61,37 @@ class ItemsViewModel(
         }
     }
 
-    /** Toggle the "added to basket" flag for an item. */
+    /**
+     * Toggle the "added to basket" flag. Optimistic: the item flips immediately
+     * (so it animates to the other section right away), and we reconcile with the
+     * server response in the background, reverting if the request fails.
+     */
     fun togglePurchased(item: GroceryItem) {
-        patch(item.groceryItemId) {
-            repository.setPurchased(item.groceryItemId, !item.purchased)
+        val id = item.groceryItemId
+        val target = !item.purchased
+        _state.update { current ->
+            current.copy(items = current.items.map {
+                if (it.groceryItemId == id) it.copy(purchased = target) else it
+            })
+        }
+        viewModelScope.launch {
+            try {
+                val updated = repository.setPurchased(id, target)
+                _state.update { current ->
+                    current.copy(items = current.items.map {
+                        if (it.groceryItemId == id) updated else it
+                    })
+                }
+            } catch (e: Exception) {
+                _state.update { current ->
+                    current.copy(
+                        items = current.items.map {
+                            if (it.groceryItemId == id) it.copy(purchased = !target) else it
+                        },
+                        message = e.message ?: "Update failed"
+                    )
+                }
+            }
         }
     }
 

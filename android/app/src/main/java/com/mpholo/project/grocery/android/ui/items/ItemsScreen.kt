@@ -1,6 +1,7 @@
 package com.mpholo.project.grocery.android.ui.items
 
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -185,7 +186,7 @@ fun ItemsScreen(
                     ) {
                         if (inBasket.isNotEmpty()) {
                             item(key = "hdr-basket") {
-                                SectionHeader("In basket", inBasket.size, Modifier.animateItem())
+                                SectionHeader("In basket", inBasket.size, Modifier.animateItem(placementSpec = tween(durationMillis = 320)))
                             }
                             items(inBasket, key = { it.groceryItemId }) { item ->
                                 ItemRow(
@@ -193,13 +194,13 @@ fun ItemsScreen(
                                     updating = item.groceryItemId in state.updatingIds,
                                     onToggle = { viewModel.togglePurchased(item) },
                                     onEdit = { editing = item },
-                                    modifier = Modifier.animateItem()
+                                    modifier = Modifier.animateItem(placementSpec = tween(durationMillis = 320))
                                 )
                             }
                         }
                         if (toBuy.isNotEmpty()) {
                             item(key = "hdr-tobuy") {
-                                SectionHeader("To buy", toBuy.size, Modifier.animateItem())
+                                SectionHeader("To buy", toBuy.size, Modifier.animateItem(placementSpec = tween(durationMillis = 320)))
                             }
                             items(toBuy, key = { it.groceryItemId }) { item ->
                                 ItemRow(
@@ -207,7 +208,7 @@ fun ItemsScreen(
                                     updating = item.groceryItemId in state.updatingIds,
                                     onToggle = { viewModel.togglePurchased(item) },
                                     onEdit = { editing = item },
-                                    modifier = Modifier.animateItem()
+                                    modifier = Modifier.animateItem(placementSpec = tween(durationMillis = 320))
                                 )
                             }
                         }
@@ -392,6 +393,7 @@ private fun ItemRow(
     val container by animateColorAsState(
         targetValue = if (item.purchased) MaterialTheme.colorScheme.secondaryContainer
         else MaterialTheme.colorScheme.surface,
+        animationSpec = tween(durationMillis = 320),
         label = "cardColor"
     )
     val onContainer = if (item.purchased) MaterialTheme.colorScheme.onSecondaryContainer
