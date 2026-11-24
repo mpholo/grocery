@@ -73,6 +73,18 @@ class GroceryRepository(
     suspend fun addProduct(name: String, description: String?, price: Double): Product =
         api.createProduct(CreateProductRequest(name, description, price))
 
+    /** Update an existing product's name, description and price. */
+    suspend fun updateProduct(id: Int, name: String, description: String?, price: Double): Product =
+        api.updateProduct(
+            id,
+            Product(
+                productId = id,
+                productName = name,
+                productDescription = description,
+                productPrice = price
+            )
+        )
+
     /** Delete a catalog product. Fails with a clear message if it's still used in a month. */
     suspend fun deleteProduct(productId: Int) {
         val response = api.deleteProduct(productId)

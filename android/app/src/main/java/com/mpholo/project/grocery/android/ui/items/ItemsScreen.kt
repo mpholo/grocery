@@ -20,8 +20,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
@@ -32,6 +34,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -75,6 +78,8 @@ fun ItemsScreen(
     var showCopyDialog by remember { mutableStateOf(false) }
     var editingBudget by remember { mutableStateOf(false) }
     var showAddDialog by remember { mutableStateOf(false) }
+    var searchActive by remember { mutableStateOf(false) }
+    var itemQuery by remember { mutableStateOf("") }
 
     LaunchedEffect(state.message) {
         state.message?.let {
@@ -93,6 +98,15 @@ fun ItemsScreen(
                     }
                 },
                 actions = {
+                    IconButton(onClick = {
+                        searchActive = !searchActive
+                        if (!searchActive) itemQuery = ""
+                    }) {
+                        Icon(
+                            if (searchActive) Icons.Filled.Close else Icons.Filled.Search,
+                            contentDescription = if (searchActive) "Close search" else "Search items"
+                        )
+                    }
                     IconButton(
                         onClick = {
                             viewModel.loadProducts()
@@ -125,10 +139,27 @@ fun ItemsScreen(
             onRetry = viewModel::load,
             modifier = Modifier.fillMaxSize().padding(padding)
         ) { itemList ->
-            val inBasket = itemList.filter { it.purchased }
-            val toBuy = itemList.filterNot { it.purchased }
+            val filtered = if (itemQuery.isBlank()) itemList
+            else itemList.filter {
+                (it.productName ?: "").contains(itemQuery.trim(), ignoreCase = true)
+            }
+            val inBasket = filtered.filter { it.purchased }
+            val toBuy = filtered.filterNot { it.purchased }
 
             Column(Modifier.fillMaxSize()) {
+                if (searchActive) {
+                    OutlinedTextField(
+                        value = itemQuery,
+                        onValueChange = { itemQuery = it },
+                        label = { Text("Search items") },
+                        singleLine = true,
+                        leadingIcon = { Icon(Icons.Filled.Search, contentDescription = null) },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp, vertical = 8.dp)
+                    )
+                }
+
                 SummaryCard(
                     purchased = state.purchasedCount,
                     total = itemList.size,
@@ -139,9 +170,10 @@ fun ItemsScreen(
                     onEditBudget = { editingBudget = true }
                 )
 
-                if (itemList.isEmpty()) {
+                if (filtered.isEmpty()) {
                     Text(
-                        "No items in this month.",
+                        if (itemList.isEmpty()) "No items in this month."
+                        else "No items match \"$itemQuery\".",
                         modifier = Modifier.padding(24.dp),
                         style = MaterialTheme.typography.bodyLarge
                     )

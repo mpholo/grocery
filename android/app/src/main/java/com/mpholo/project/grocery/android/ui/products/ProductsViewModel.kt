@@ -54,6 +54,20 @@ class ProductsViewModel(
         }
     }
 
+    fun editProduct(product: Product, name: String, description: String?, price: Double) {
+        val id = product.productId ?: return
+        _state.update { it.copy(adding = true) }
+        viewModelScope.launch {
+            try {
+                repository.updateProduct(id, name.trim(), description?.trim()?.ifBlank { null }, price)
+                _state.update { it.copy(adding = false, message = "Updated \"$name\"") }
+                load()
+            } catch (e: Exception) {
+                _state.update { it.copy(adding = false, message = e.message ?: "Could not update product") }
+            }
+        }
+    }
+
     fun deleteProduct(product: Product) {
         val id = product.productId ?: return
         viewModelScope.launch {

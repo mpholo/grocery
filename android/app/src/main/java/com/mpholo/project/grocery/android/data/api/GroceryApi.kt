@@ -15,6 +15,7 @@ import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -56,6 +57,9 @@ interface GroceryApi {
 
     @POST("api/v1/products")
     suspend fun createProduct(@Body body: CreateProductRequest): Product
+
+    @PUT("api/v1/products/{id}")
+    suspend fun updateProduct(@Path("id") productId: Int, @Body body: Product): Product
 
     @DELETE("api/v1/products/{id}")
     suspend fun deleteProduct(@Path("id") productId: Int): Response<Unit>

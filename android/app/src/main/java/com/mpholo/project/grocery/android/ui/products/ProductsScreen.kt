@@ -1,6 +1,7 @@
 package com.mpholo.project.grocery.android.ui.products
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -64,6 +65,7 @@ fun ProductsScreen(
     var query by remember { mutableStateOf("") }
     var sortByPrice by remember { mutableStateOf(false) }
     var productToDelete by remember { mutableStateOf<Product?>(null) }
+    var productToEdit by remember { mutableStateOf<Product?>(null) }
 
     LaunchedEffect(state.message) {
         state.message?.let {
@@ -168,7 +170,11 @@ fun ProductsScreen(
                             verticalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
                             items(visible, key = { it.productId ?: it.productName.hashCode() }) { product ->
-                                ProductCard(product, onDelete = { productToDelete = product })
+                                ProductCard(
+                                    product,
+                                    onEdit = { productToEdit = product },
+                                    onDelete = { productToDelete = product }
+                                )
                             }
                         }
                     }
@@ -183,6 +189,17 @@ fun ProductsScreen(
             onConfirm = { name, description, price ->
                 viewModel.addProduct(name, description, price)
                 showAddDialog = false
+            }
+        )
+    }
+
+    productToEdit?.let { product ->
+        EditProductDialog(
+            product = product,
+            onDismiss = { productToEdit = null },
+            onConfirm = { name, description, price ->
+                viewModel.editProduct(product, name, description, price)
+                productToEdit = null
             }
         )
     }
@@ -206,9 +223,9 @@ fun ProductsScreen(
 }
 
 @Composable
-private fun ProductCard(product: Product, onDelete: () -> Unit) {
+private fun ProductCard(product: Product, onEdit: () -> Unit, onDelete: () -> Unit) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().clickable(onClick = onEdit),
         shape = RoundedCornerShape(18.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
