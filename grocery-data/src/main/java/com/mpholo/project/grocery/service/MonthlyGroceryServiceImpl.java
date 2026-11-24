@@ -1,5 +1,6 @@
 package com.mpholo.project.grocery.service;
 
+import com.mpholo.project.grocery.domain.GroceryItem;
 import com.mpholo.project.grocery.domain.MonthlyGrocery;
 import com.mpholo.project.grocery.exceptions.NotFoundException;
 import com.mpholo.project.grocery.mapper.MonthlyGroceryMapper;
@@ -176,6 +177,24 @@ public class MonthlyGroceryServiceImpl  implements  MonthlyGroceryService {
                     monthlyGrocery.setBudgetAmount(budgetAmount);
                     return saveAndReturn(monthlyGrocery);
                 });
+    }
+
+    @Transactional
+    @Override
+    public boolean deleteIfBasketEmpty(Integer monthlyGroceryId) {
+        MonthlyGrocery monthlyGrocery = monthlyGroceryRepository.findById(monthlyGroceryId)
+                .orElseThrow(() -> new NotFoundException("Monthly grocery not found for id " + monthlyGroceryId));
+
+        boolean hasBasketItems = monthlyGrocery.getGroceryItems().stream()
+                .anyMatch(GroceryItem::isPurchased);
+        if (hasBasketItems) {
+            return false;
+        }
+
+        // Remove the month's items first to satisfy the foreign key, then the month.
+        groceryItemRepository.deleteAll(monthlyGrocery.getGroceryItems());
+        monthlyGroceryRepository.delete(monthlyGrocery);
+        return true;
     }
 
     private MonthlyGroceryDTO saveAndReturn(MonthlyGrocery monthlyGrocery) {

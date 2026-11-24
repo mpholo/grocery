@@ -60,6 +60,17 @@ class GroceryRepository(
     suspend fun updateBudget(monthlyGroceryId: Int, budgetAmount: Double): MonthSummary =
         api.updateMonth(monthlyGroceryId, UpdateBudgetRequest(budgetAmount))
 
+    /** Delete a month (and its items). Fails if the month has items in the basket. */
+    suspend fun deleteMonth(monthlyGroceryId: Int) {
+        val response = api.deleteMonth(monthlyGroceryId)
+        if (response.code() == 409) {
+            throw IllegalStateException("Can't delete — this month has items in the basket.")
+        }
+        if (!response.isSuccessful) {
+            throw IllegalStateException("Delete failed (${response.code()})")
+        }
+    }
+
     /** Remove a grocery item from its month. */
     suspend fun deleteItem(groceryItemId: Int) {
         val response = api.deleteItem(groceryItemId)

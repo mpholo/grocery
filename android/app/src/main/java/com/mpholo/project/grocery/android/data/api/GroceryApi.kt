@@ -52,6 +52,9 @@ interface GroceryApi {
         @Body body: UpdateBudgetRequest
     ): MonthSummary
 
+    @DELETE("api/v1/monthlygroceries/{id}")
+    suspend fun deleteMonth(@Path("id") monthlyGroceryId: Int): Response<Unit>
+
     @GET("api/v1/products")
     suspend fun getProducts(): ProductListResponse
 

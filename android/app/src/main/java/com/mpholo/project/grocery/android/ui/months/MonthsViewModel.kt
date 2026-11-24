@@ -17,8 +17,28 @@ class MonthsViewModel(
     private val _state = MutableStateFlow<UiState<List<MonthSummary>>>(UiState.Loading)
     val state: StateFlow<UiState<List<MonthSummary>>> = _state.asStateFlow()
 
+    private val _message = MutableStateFlow<String?>(null)
+    val message: StateFlow<String?> = _message.asStateFlow()
+
     init {
         load()
+    }
+
+    /** Delete a month; the backend refuses (and we report) if its basket isn't empty. */
+    fun deleteMonth(month: MonthSummary) {
+        viewModelScope.launch {
+            try {
+                repository.deleteMonth(month.monthlyGroceryId)
+                _message.value = "Deleted ${month.period ?: "month"}"
+                load()
+            } catch (e: Exception) {
+                _message.value = e.message ?: "Could not delete month"
+            }
+        }
+    }
+
+    fun consumeMessage() {
+        _message.value = null
     }
 
     fun load() {

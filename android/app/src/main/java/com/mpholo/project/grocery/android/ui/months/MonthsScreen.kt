@@ -16,7 +16,9 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Inventory2
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -25,12 +27,16 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -74,6 +80,16 @@ fun MonthsScreen(
         onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
     }
 
+    val snackbarHostState = remember { SnackbarHostState() }
+    val message by viewModel.message.collectAsState()
+    var monthToDelete by remember { mutableStateOf<MonthSummary?>(null) }
+    LaunchedEffect(message) {
+        message?.let {
+            snackbarHostState.showSnackbar(it)
+            viewModel.consumeMessage()
+        }
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -88,7 +104,8 @@ fun MonthsScreen(
                     titleContentColor = MaterialTheme.colorScheme.onBackground
                 )
             )
-        }
+        },
+        snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { padding ->
         StateContent(
             state = state,
@@ -129,12 +146,38 @@ fun MonthsScreen(
                         verticalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
                         items(visible, key = { it.monthlyGroceryId }) { month ->
-                            MonthCard(month = month, onClick = { onMonthClick(month) })
+                            MonthCard(
+                                month = month,
+                                onClick = { onMonthClick(month) },
+                                onDelete = { monthToDelete = month }
+                            )
                         }
                     }
                 }
             }
         }
+    }
+
+    monthToDelete?.let { month ->
+        AlertDialog(
+            onDismissRequest = { monthToDelete = null },
+            title = { Text("Delete month?") },
+            text = {
+                Text(
+                    "Delete ${month.period ?: "this month"} and all its items? " +
+                        "This only works if nothing is in the basket."
+                )
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    viewModel.deleteMonth(month)
+                    monthToDelete = null
+                }) { Text("Delete", color = MaterialTheme.colorScheme.error) }
+            },
+            dismissButton = {
+                TextButton(onClick = { monthToDelete = null }) { Text("Cancel") }
+            }
+        )
     }
 }
 
@@ -160,7 +203,7 @@ private fun YearFilter(years: List<String>, selected: String?, onSelect: (String
 }
 
 @Composable
-private fun MonthCard(month: MonthSummary, onClick: () -> Unit) {
+private fun MonthCard(month: MonthSummary, onClick: () -> Unit, onDelete: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -213,6 +256,13 @@ private fun MonthCard(month: MonthSummary, onClick: () -> Unit) {
                     style = MaterialTheme.typography.labelLarge,
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.padding(horizontal = 14.dp, vertical = 6.dp)
+                )
+            }
+            IconButton(onClick = onDelete) {
+                Icon(
+                    Icons.Filled.Delete,
+                    contentDescription = "Delete month",
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         }

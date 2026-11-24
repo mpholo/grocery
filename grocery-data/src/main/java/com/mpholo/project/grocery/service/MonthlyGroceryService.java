@@ -28,4 +28,12 @@ public interface MonthlyGroceryService extends CrudService<MonthlyGroceryDTO,Int
      */
     Optional<MonthlyGroceryDTO> updateBudget(Integer monthlyGroceryId, double budgetAmount);
 
+    /**
+     * Delete a monthly grocery (and its items) only if it has no items currently
+     * in the basket (purchased).
+     *
+     * @return true if deleted; false if it still has in-basket items
+     */
+    boolean deleteIfBasketEmpty(Integer monthlyGroceryId);
+
 }
