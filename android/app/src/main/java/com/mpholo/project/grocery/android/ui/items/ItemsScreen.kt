@@ -350,9 +350,10 @@ private fun ItemRow(
         elevation = CardDefaults.cardElevation(defaultElevation = if (item.purchased) 0.dp else 2.dp),
         // Unchecked cards share the background colour, so give them an outline —
         // otherwise they have no visible edge (most noticeable in dark mode,
-        // where elevation shadows barely register).
+        // where elevation shadows barely register). Use the higher-contrast
+        // `outline` tone so it reads clearly on the near-black dark background.
         border = if (item.purchased) null
-        else BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
+        else BorderStroke(1.5.dp, MaterialTheme.colorScheme.outline)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp, vertical = 10.dp),

@@ -55,7 +55,11 @@ fun MonthsScreen(
     viewModel: MonthsViewModel = viewModel()
 ) {
     val state by viewModel.state.collectAsState()
+    // null means "no explicit choice yet" -> fall back to the current year below.
     var selectedYear by rememberSaveable { mutableStateOf<String?>(null) }
+    val currentYear = remember {
+        java.util.Calendar.getInstance().get(java.util.Calendar.YEAR).toString()
+    }
 
     // Refresh the months list every time the screen returns to the foreground
     // (e.g. after copying a month on the items screen, or re-opening the app),
@@ -93,10 +97,14 @@ fun MonthsScreen(
                 .padding(padding)
         ) { months ->
             val years = months.mapNotNull { it.year() }.distinct().sortedDescending()
-            // Drop a stale selection if that year is no longer present.
+            // Default to the current year; fall back to the most recent year with data.
             val activeYear = selectedYear?.takeIf { years.contains(it) }
-            val visible = if (activeYear == null) months
-            else months.filter { it.year() == activeYear }
+                ?: currentYear.takeIf { years.contains(it) }
+                ?: years.firstOrNull()
+            // Only the selected year, earliest month first (Jan → Dec).
+            val visible = months
+                .filter { activeYear != null && it.year() == activeYear }
+                .sortedBy { it.startDate ?: "" }
 
             Column(Modifier.fillMaxSize()) {
                 if (years.isNotEmpty()) {
@@ -134,19 +142,12 @@ private fun MonthSummary.year(): String? = startDate?.takeIf { it.length >= 4 }?
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun YearFilter(years: List<String>, selected: String?, onSelect: (String?) -> Unit) {
+private fun YearFilter(years: List<String>, selected: String?, onSelect: (String) -> Unit) {
     LazyRow(
         modifier = Modifier.fillMaxWidth(),
         contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        item {
-            FilterChip(
-                selected = selected == null,
-                onClick = { onSelect(null) },
-                label = { Text("All") }
-            )
-        }
         items(years) { year ->
             FilterChip(
                 selected = selected == year,
