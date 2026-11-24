@@ -220,8 +220,12 @@ fun ItemsScreen(
     }
 
     if (showAddDialog) {
+        // Offer only products not already present in this month.
+        val existingProductIds = state.items.mapNotNull { it.productId }.toSet()
         AddItemDialog(
-            products = state.products,
+            products = state.products.filter {
+                it.productId != null && it.productId !in existingProductIds
+            },
             loading = state.loadingProducts,
             onDismiss = { showAddDialog = false },
             onPick = { product ->

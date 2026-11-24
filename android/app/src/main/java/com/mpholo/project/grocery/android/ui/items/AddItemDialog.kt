@@ -76,7 +76,7 @@ fun AddItemDialog(
                     ) { CircularProgressIndicator() }
 
                     visible.isEmpty() -> Text(
-                        if (products.isEmpty()) "No products in the catalog yet."
+                        if (products.isEmpty()) "No products left to add — every product is already in this month."
                         else "No products match \"$query\".",
                         modifier = Modifier.padding(top = 16.dp),
                         style = MaterialTheme.typography.bodyMedium

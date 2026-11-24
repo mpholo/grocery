@@ -1,5 +1,6 @@
 package com.mpholo.project.grocery.android.ui.products
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -189,7 +190,8 @@ private fun ProductCard(product: Product) {
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(18.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        border = BorderStroke(1.5.dp, MaterialTheme.colorScheme.outline)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth().padding(16.dp),

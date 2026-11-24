@@ -1,5 +1,6 @@
 package com.mpholo.project.grocery.android.ui.months
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -166,7 +167,9 @@ private fun MonthCard(month: MonthSummary, onClick: () -> Unit) {
             .clickable(onClick = onClick),
         shape = RoundedCornerShape(18.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        // Visible edge on the dark background (surface == background there).
+        border = BorderStroke(1.5.dp, MaterialTheme.colorScheme.outline)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth().padding(16.dp),
