@@ -20,6 +20,7 @@ public class GroceryItem {
     private int quantity=1;
     @NotNull
     private double actualPrice;
+    @Column(columnDefinition = "boolean default false")
     private boolean purchased;
 
 

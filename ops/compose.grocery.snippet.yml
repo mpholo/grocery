@@ -1,0 +1,26 @@
+# ----------------------------------------------------------------------------
+# Add this service to the SAME docker-compose.yml that runs your rental stack
+# (the one with `backend`, `web`, `grocery_db`). It attaches to the existing
+# external `my-network`, so nginx (`web`) can reach it as `grocery_backend`.
+#
+# Assumes you have cloned/copied this grocery repo on the server at ./grocery
+# (next to ./rental-rooms, ./rentalroomsapps, ./postgresql). Adjust the build
+# path if you put it elsewhere.
+# ----------------------------------------------------------------------------
+  grocery_backend:
+    build: ./grocery
+    container_name: grocery_backend
+    restart: always
+    depends_on:
+      - grocery_db
+    environment:
+      - SPRING_PROFILES_ACTIVE=postgres
+      # The postgres profile already defaults to grocery_db:5432/grocery with
+      # user/pass postgres/postgres. Uncomment to override via env instead:
+      # - SPRING_DATASOURCE_URL=jdbc:postgresql://grocery_db:5432/grocery
+      # - SPRING_DATASOURCE_USERNAME=postgres
+      # - SPRING_DATASOURCE_PASSWORD=${GROCERY_DB_PASSWORD}
+    networks:
+      - my-network
+    # No `ports:` on purpose — it is only reachable inside my-network and is
+    # published to the internet solely through the nginx `web` container.

@@ -1,0 +1,43 @@
+package com.mpholo.project.grocery.android.data.api
+
+import com.mpholo.project.grocery.android.data.model.CopyMonthRequest
+import com.mpholo.project.grocery.android.data.model.CreateProductRequest
+import com.mpholo.project.grocery.android.data.model.GroceryItem
+import com.mpholo.project.grocery.android.data.model.GroceryItemPatchRequest
+import com.mpholo.project.grocery.android.data.model.MonthSummary
+import com.mpholo.project.grocery.android.data.model.Product
+import com.mpholo.project.grocery.android.data.model.ProductListResponse
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.PATCH
+import retrofit2.http.POST
+import retrofit2.http.Path
+import retrofit2.http.Query
+
+/** Retrofit description of the grocery backend's JSON API. */
+interface GroceryApi {
+
+    @GET("api/v1/monthlygroceries/summaries")
+    suspend fun getMonths(): List<MonthSummary>
+
+    @GET("api/v1/groceryitems")
+    suspend fun getItems(@Query("monthlyGroceryId") monthlyGroceryId: Int): List<GroceryItem>
+
+    @PATCH("api/v1/groceryitems/{id}")
+    suspend fun patchItem(
+        @Path("id") groceryItemId: Int,
+        @Body body: GroceryItemPatchRequest
+    ): GroceryItem
+
+    @POST("api/v1/monthlygroceries/{id}/copy")
+    suspend fun copyMonth(
+        @Path("id") monthlyGroceryId: Int,
+        @Body body: CopyMonthRequest
+    ): MonthSummary
+
+    @GET("api/v1/products")
+    suspend fun getProducts(): ProductListResponse
+
+    @POST("api/v1/products")
+    suspend fun createProduct(@Body body: CreateProductRequest): Product
+}

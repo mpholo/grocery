@@ -125,6 +125,36 @@ public class GroceryItemServiceImpl implements GroceryItemService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<GroceryItemDTO> findByMonthlyGroceryId(Integer monthlyGroceryId) {
+
+        MonthlyGroceryDTO monthlyGroceryDTO = monthlyGroceryService.findById(monthlyGroceryId)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Monthly grocery not found for id " + monthlyGroceryId));
+
+        return findByMonthlyGrocery(monthlyGroceryDTO);
+    }
+
+    @Override
+    public GroceryItemDTO patch(Integer groceryItemId, Integer quantity, Double actualPrice, Boolean purchased) {
+
+        GroceryItem groceryItem = groceryBasketRepository.findById(groceryItemId)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Grocery item not found for id " + groceryItemId));
+
+        if (quantity != null) {
+            groceryItem.setQuantity(quantity);
+        }
+        if (actualPrice != null) {
+            groceryItem.setActualPrice(actualPrice);
+        }
+        if (purchased != null) {
+            groceryItem.setPurchased(purchased);
+        }
+
+        return saveAndReturnDTO(groceryItem);
+    }
+
     private GroceryItemDTO saveAndReturnDTO(GroceryItem groceryBasket) {
         GroceryItem savedGroceryBasket= groceryBasketRepository.save(groceryBasket);
         return  groceryBasketMapper.groceryBasketToGroceryBasketDTO(savedGroceryBasket);

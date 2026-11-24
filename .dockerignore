@@ -1,0 +1,8 @@
+# Keep the build context small and reproducible.
+android/
+**/target/
+.git/
+.idea/
+*.iml
+.vscode/
+/tmp/

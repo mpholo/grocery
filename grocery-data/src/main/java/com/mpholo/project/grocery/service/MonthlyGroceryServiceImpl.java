@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
@@ -134,6 +135,37 @@ public class MonthlyGroceryServiceImpl  implements  MonthlyGroceryService {
        }
 
         return Optional.empty();
+    }
+
+    @Transactional
+    @Override
+    public Optional<MonthlyGroceryDTO> copyToMonth(Integer monthlyGroceryId, int month, int year, Double budgetAmount) {
+
+        Optional<MonthlyGrocery> source = monthlyGroceryRepository.findById(monthlyGroceryId);
+        if (!source.isPresent()) {
+            return Optional.empty();
+        }
+
+        MonthlyGrocery src = source.get();
+        YearMonth yearMonth = YearMonth.of(year, month);
+
+        MonthlyGrocery newMonthlyGrocery = new MonthlyGrocery();
+        newMonthlyGrocery.setStartDate(yearMonth.atDay(1));
+        newMonthlyGrocery.setEndDate(yearMonth.atEndOfMonth());
+        newMonthlyGrocery.setPeriod(yearMonth.atDay(1).format(DateTimeFormatter.ofPattern("MMMM yyyy")));
+        newMonthlyGrocery.setBudgetAmount(budgetAmount != null ? budgetAmount : src.getBudgetAmount());
+
+        MonthlyGrocery savedMonthlyGrocery = monthlyGroceryRepository.save(newMonthlyGrocery);
+
+        // addItems() clones each item without the purchased flag, so copies start
+        // "not in basket" (toggle reset) as required.
+        savedMonthlyGrocery.addItems(src.getGroceryItems());
+        groceryItemRepository.saveAll(savedMonthlyGrocery.getGroceryItems());
+
+        log.info("copied monthly grocery {} into {} ({} items)",
+                monthlyGroceryId, newMonthlyGrocery.getPeriod(), savedMonthlyGrocery.getGroceryItems().size());
+
+        return Optional.of(saveAndReturn(savedMonthlyGrocery));
     }
 
     private MonthlyGroceryDTO saveAndReturn(MonthlyGrocery monthlyGrocery) {
