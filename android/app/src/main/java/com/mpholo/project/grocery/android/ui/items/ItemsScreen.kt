@@ -28,7 +28,6 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
@@ -50,6 +49,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
@@ -93,6 +93,15 @@ fun ItemsScreen(
                     }
                 },
                 actions = {
+                    IconButton(
+                        onClick = {
+                            viewModel.loadProducts()
+                            showAddDialog = true
+                        },
+                        enabled = !state.addingItem
+                    ) {
+                        Icon(Icons.Filled.Add, contentDescription = "Add product")
+                    }
                     IconButton(onClick = { showCopyDialog = true }, enabled = !state.copying) {
                         Icon(Icons.Filled.ContentCopy, contentDescription = "Copy to another month")
                     }
@@ -101,16 +110,6 @@ fun ItemsScreen(
                     containerColor = MaterialTheme.colorScheme.background,
                     titleContentColor = MaterialTheme.colorScheme.onBackground
                 )
-            )
-        },
-        floatingActionButton = {
-            ExtendedFloatingActionButton(
-                onClick = {
-                    viewModel.loadProducts()
-                    showAddDialog = true
-                },
-                icon = { Icon(Icons.Filled.Add, contentDescription = null) },
-                text = { Text("Add product") }
             )
         },
         snackbarHost = { SnackbarHost(snackbarHostState) }
@@ -250,6 +249,12 @@ private fun SummaryCard(
     val overBudget = remaining < 0
     val progress = if (budget > 0) (basketTotal / budget).toFloat().coerceIn(0f, 1f) else 0f
     val accent = if (overBudget) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary
+    // Bar fades from green (empty basket) to red (basket total == budget).
+    val barColor = lerp(
+        MaterialTheme.colorScheme.primary,
+        MaterialTheme.colorScheme.error,
+        progress
+    )
 
     Card(
         modifier = Modifier.fillMaxWidth().padding(16.dp),
@@ -295,7 +300,7 @@ private fun SummaryCard(
             LinearProgressIndicator(
                 progress = { progress },
                 modifier = Modifier.fillMaxWidth().padding(vertical = 10.dp).height(8.dp).clip(RoundedCornerShape(6.dp)),
-                color = accent,
+                color = barColor,
                 trackColor = MaterialTheme.colorScheme.surface
             )
 
