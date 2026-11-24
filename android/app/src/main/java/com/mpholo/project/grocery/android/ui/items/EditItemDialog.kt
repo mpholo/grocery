@@ -2,8 +2,10 @@ package com.mpholo.project.grocery.android.ui.items
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -25,7 +27,8 @@ import com.mpholo.project.grocery.android.data.model.GroceryItem
 fun EditItemDialog(
     item: GroceryItem,
     onDismiss: () -> Unit,
-    onConfirm: (quantity: Int, actualPrice: Double) -> Unit
+    onConfirm: (quantity: Int, actualPrice: Double) -> Unit,
+    onDelete: () -> Unit
 ) {
     var quantityText by remember { mutableStateOf(item.quantity.toString()) }
     var priceText by remember { mutableStateOf(item.actualPrice.toString()) }
@@ -64,7 +67,12 @@ fun EditItemDialog(
             ) { Text("Save") }
         },
         dismissButton = {
-            TextButton(onClick = onDismiss) { Text("Cancel") }
+            Row {
+                TextButton(onClick = onDelete) {
+                    Text("Delete", color = MaterialTheme.colorScheme.error)
+                }
+                TextButton(onClick = onDismiss) { Text("Cancel") }
+            }
         }
     )
 }

@@ -133,6 +133,28 @@ class ItemsViewModel(
         }
     }
 
+    /** Remove an item from this month. */
+    fun deleteItem(item: GroceryItem) {
+        val id = item.groceryItemId
+        _state.update { it.copy(updatingIds = it.updatingIds + id) }
+        viewModelScope.launch {
+            try {
+                repository.deleteItem(id)
+                _state.update { current ->
+                    current.copy(
+                        items = current.items.filterNot { it.groceryItemId == id },
+                        updatingIds = current.updatingIds - id,
+                        message = "Removed ${item.productName ?: "item"}"
+                    )
+                }
+            } catch (e: Exception) {
+                _state.update {
+                    it.copy(updatingIds = it.updatingIds - id, message = e.message ?: "Delete failed")
+                }
+            }
+        }
+    }
+
     /** Update the month's budget amount. */
     fun updateBudget(newBudget: Double) {
         _state.update { it.copy(updatingBudget = true) }

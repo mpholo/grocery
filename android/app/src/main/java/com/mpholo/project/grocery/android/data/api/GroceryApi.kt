@@ -9,7 +9,9 @@ import com.mpholo.project.grocery.android.data.model.MonthSummary
 import com.mpholo.project.grocery.android.data.model.Product
 import com.mpholo.project.grocery.android.data.model.ProductListResponse
 import com.mpholo.project.grocery.android.data.model.UpdateBudgetRequest
+import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.POST
@@ -34,6 +36,9 @@ interface GroceryApi {
         @Body body: GroceryItemPatchRequest
     ): GroceryItem
 
+    @DELETE("api/v1/groceryitems/{id}")
+    suspend fun deleteItem(@Path("id") groceryItemId: Int): Response<Unit>
+
     @POST("api/v1/monthlygroceries/{id}/copy")
     suspend fun copyMonth(
         @Path("id") monthlyGroceryId: Int,
@@ -51,4 +56,7 @@ interface GroceryApi {
 
     @POST("api/v1/products")
     suspend fun createProduct(@Body body: CreateProductRequest): Product
+
+    @DELETE("api/v1/products/{id}")
+    suspend fun deleteProduct(@Path("id") productId: Int): Response<Unit>
 }

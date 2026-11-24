@@ -5,7 +5,9 @@ import com.mpholo.project.grocery.model.ProductListDTO;
 import com.mpholo.project.grocery.service.ProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import static com.mpholo.project.grocery.util.ProductMappings.PRODUCTURL;
@@ -65,9 +67,13 @@ public class ProductRestController {
 
     @ApiOperation(value = "This delete a product product")
     @DeleteMapping("/{productId}")
-    @ResponseStatus(HttpStatus.OK)
-    public void  deleteProduct(@PathVariable Integer productId) {
-        productService.deleteById(Integer.valueOf(productId));
-
+    public ResponseEntity<Void> deleteProduct(@PathVariable Integer productId) {
+        try {
+            productService.deleteById(Integer.valueOf(productId));
+            return ResponseEntity.noContent().build();
+        } catch (DataIntegrityViolationException e) {
+            // Product is still referenced by grocery items in some month.
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
     }
 }

@@ -54,5 +54,18 @@ class ProductsViewModel(
         }
     }
 
+    fun deleteProduct(product: Product) {
+        val id = product.productId ?: return
+        viewModelScope.launch {
+            try {
+                repository.deleteProduct(id)
+                _state.update { it.copy(message = "Deleted \"${product.productName}\"") }
+                load()
+            } catch (e: Exception) {
+                _state.update { it.copy(message = e.message ?: "Could not delete product") }
+            }
+        }
+    }
+
     fun consumeMessage() = _state.update { it.copy(message = null) }
 }

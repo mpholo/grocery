@@ -16,7 +16,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -31,6 +33,7 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -60,6 +63,7 @@ fun ProductsScreen(
     var showAddDialog by remember { mutableStateOf(false) }
     var query by remember { mutableStateOf("") }
     var sortByPrice by remember { mutableStateOf(false) }
+    var productToDelete by remember { mutableStateOf<Product?>(null) }
 
     LaunchedEffect(state.message) {
         state.message?.let {
@@ -164,7 +168,7 @@ fun ProductsScreen(
                             verticalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
                             items(visible, key = { it.productId ?: it.productName.hashCode() }) { product ->
-                                ProductCard(product)
+                                ProductCard(product, onDelete = { productToDelete = product })
                             }
                         }
                     }
@@ -182,10 +186,27 @@ fun ProductsScreen(
             }
         )
     }
+
+    productToDelete?.let { product ->
+        AlertDialog(
+            onDismissRequest = { productToDelete = null },
+            title = { Text("Delete product?") },
+            text = { Text("Delete \"${product.productName}\" from the catalog? This can't be undone.") },
+            confirmButton = {
+                TextButton(onClick = {
+                    viewModel.deleteProduct(product)
+                    productToDelete = null
+                }) { Text("Delete", color = MaterialTheme.colorScheme.error) }
+            },
+            dismissButton = {
+                TextButton(onClick = { productToDelete = null }) { Text("Cancel") }
+            }
+        )
+    }
 }
 
 @Composable
-private fun ProductCard(product: Product) {
+private fun ProductCard(product: Product, onDelete: () -> Unit) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(18.dp),
@@ -222,6 +243,13 @@ private fun ProductCard(product: Product) {
                     style = MaterialTheme.typography.labelLarge,
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.padding(horizontal = 14.dp, vertical = 6.dp)
+                )
+            }
+            IconButton(onClick = onDelete) {
+                Icon(
+                    Icons.Filled.Delete,
+                    contentDescription = "Delete product",
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         }

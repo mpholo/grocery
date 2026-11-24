@@ -9,6 +9,7 @@ import com.mpholo.project.grocery.service.ResourceNotFoundException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -84,5 +85,12 @@ public class GroceryItemRestController {
                 request.getActualPrice(),
                 request.getPurchased());
         return GroceryItemResponse.from(updated);
+    }
+
+    @ApiOperation(value = "Remove a grocery item from its monthly grocery")
+    @DeleteMapping("/{groceryItemId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteItem(@PathVariable Integer groceryItemId) {
+        groceryItemService.deleteById(groceryItemId);
     }
 }

@@ -60,8 +60,27 @@ class GroceryRepository(
     suspend fun updateBudget(monthlyGroceryId: Int, budgetAmount: Double): MonthSummary =
         api.updateMonth(monthlyGroceryId, UpdateBudgetRequest(budgetAmount))
 
+    /** Remove a grocery item from its month. */
+    suspend fun deleteItem(groceryItemId: Int) {
+        val response = api.deleteItem(groceryItemId)
+        if (!response.isSuccessful) {
+            throw IllegalStateException("Delete failed (${response.code()})")
+        }
+    }
+
     suspend fun getProducts(): List<Product> = api.getProducts().products
 
     suspend fun addProduct(name: String, description: String?, price: Double): Product =
         api.createProduct(CreateProductRequest(name, description, price))
+
+    /** Delete a catalog product. Fails with a clear message if it's still used in a month. */
+    suspend fun deleteProduct(productId: Int) {
+        val response = api.deleteProduct(productId)
+        if (response.code() == 409) {
+            throw IllegalStateException("Can't delete — this product is used in a month.")
+        }
+        if (!response.isSuccessful) {
+            throw IllegalStateException("Delete failed (${response.code()})")
+        }
+    }
 }

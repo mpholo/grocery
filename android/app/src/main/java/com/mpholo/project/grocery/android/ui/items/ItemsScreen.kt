@@ -192,6 +192,10 @@ fun ItemsScreen(
             onConfirm = { quantity, price ->
                 viewModel.updatePriceAndQuantity(item, quantity, price)
                 editing = null
+            },
+            onDelete = {
+                viewModel.deleteItem(item)
+                editing = null
             }
         )
     }
