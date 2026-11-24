@@ -18,6 +18,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Card
@@ -26,6 +27,7 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
@@ -71,6 +73,7 @@ fun ItemsScreen(
     var editing by remember { mutableStateOf<GroceryItem?>(null) }
     var showCopyDialog by remember { mutableStateOf(false) }
     var editingBudget by remember { mutableStateOf(false) }
+    var showAddDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(state.message) {
         state.message?.let {
@@ -97,6 +100,16 @@ fun ItemsScreen(
                     containerColor = MaterialTheme.colorScheme.background,
                     titleContentColor = MaterialTheme.colorScheme.onBackground
                 )
+            )
+        },
+        floatingActionButton = {
+            ExtendedFloatingActionButton(
+                onClick = {
+                    viewModel.loadProducts()
+                    showAddDialog = true
+                },
+                icon = { Icon(Icons.Filled.Add, contentDescription = null) },
+                text = { Text("Add product") }
             )
         },
         snackbarHost = { SnackbarHost(snackbarHostState) }
@@ -201,6 +214,18 @@ fun ItemsScreen(
             onConfirm = { newBudget ->
                 viewModel.updateBudget(newBudget)
                 editingBudget = false
+            }
+        )
+    }
+
+    if (showAddDialog) {
+        AddItemDialog(
+            products = state.products,
+            loading = state.loadingProducts,
+            onDismiss = { showAddDialog = false },
+            onPick = { product ->
+                viewModel.addItem(product)
+                showAddDialog = false
             }
         )
     }

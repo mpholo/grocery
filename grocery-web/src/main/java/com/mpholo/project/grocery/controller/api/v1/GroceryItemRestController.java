@@ -3,6 +3,7 @@ package com.mpholo.project.grocery.controller.api.v1;
 import com.mpholo.project.grocery.controller.api.v1.dto.GroceryItemPatchRequest;
 import com.mpholo.project.grocery.controller.api.v1.dto.GroceryItemResponse;
 import com.mpholo.project.grocery.model.GroceryItemDTO;
+import com.mpholo.project.grocery.model.GroceryItemUpdateDTO;
 import com.mpholo.project.grocery.service.GroceryItemService;
 import com.mpholo.project.grocery.service.ResourceNotFoundException;
 import io.swagger.annotations.Api;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -48,6 +50,17 @@ public class GroceryItemRestController {
                 .stream()
                 .map(GroceryItemResponse::from)
                 .collect(Collectors.toList());
+    }
+
+    @ApiOperation(value = "Add a product to a monthly grocery as a new item")
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public GroceryItemResponse createItem(@RequestBody GroceryItemUpdateDTO request) {
+        if (request.getQuantity() <= 0) {
+            request.setQuantity(1);
+        }
+        GroceryItemDTO created = groceryItemService.save(request);
+        return GroceryItemResponse.from(created);
     }
 
     @ApiOperation(value = "Get a single grocery item")

@@ -3,6 +3,7 @@ package com.mpholo.project.grocery.android.data
 import com.mpholo.project.grocery.android.data.api.GroceryApi
 import com.mpholo.project.grocery.android.data.api.NetworkModule
 import com.mpholo.project.grocery.android.data.model.CopyMonthRequest
+import com.mpholo.project.grocery.android.data.model.CreateGroceryItemRequest
 import com.mpholo.project.grocery.android.data.model.CreateProductRequest
 import com.mpholo.project.grocery.android.data.model.GroceryItem
 import com.mpholo.project.grocery.android.data.model.GroceryItemPatchRequest
@@ -19,6 +20,22 @@ class GroceryRepository(
 
     suspend fun getItems(monthlyGroceryId: Int): List<GroceryItem> =
         api.getItems(monthlyGroceryId)
+
+    /** Add a catalog product to a month as a new grocery item. */
+    suspend fun addItemToMonth(
+        monthlyGroceryId: Int,
+        productId: Int,
+        quantity: Int,
+        actualPrice: Double
+    ): GroceryItem =
+        api.createItem(
+            CreateGroceryItemRequest(
+                monthlyGroceryId = monthlyGroceryId,
+                productId = productId,
+                quantity = quantity,
+                actualPrice = actualPrice
+            )
+        )
 
     /** Toggle the "added to basket" (purchased) flag. */
     suspend fun setPurchased(groceryItemId: Int, purchased: Boolean): GroceryItem =

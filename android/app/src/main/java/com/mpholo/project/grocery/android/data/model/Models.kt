@@ -11,7 +11,8 @@ data class MonthSummary(
     val budgetAmount: Double,
     val period: String?,
     val startDate: String?,
-    val endDate: String?
+    val endDate: String?,
+    val spent: Double = 0.0   // total of in-basket items; remaining = budget - spent
 )
 
 /**
@@ -58,6 +59,17 @@ data class CopyMonthRequest(
  */
 data class UpdateBudgetRequest(
     val budgetAmount: Double
+)
+
+/**
+ * Body for adding a product to a month as a new grocery item
+ * (`POST /api/v1/groceryitems`).
+ */
+data class CreateGroceryItemRequest(
+    val monthlyGroceryId: Int,
+    val productId: Int,
+    val quantity: Int = 1,
+    val actualPrice: Double
 )
 
 /** A product in the catalog (`GET /api/v1/products`). */

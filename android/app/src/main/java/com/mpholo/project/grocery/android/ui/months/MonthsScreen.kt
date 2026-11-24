@@ -186,6 +186,17 @@ private fun MonthCard(month: MonthSummary, onClick: () -> Unit) {
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
+                val remaining = month.budgetAmount - month.spent
+                val overBudget = remaining < 0
+                Text(
+                    text = if (overBudget) "Over by R %.2f".format(-remaining)
+                    else "R %.2f left".format(remaining),
+                    style = MaterialTheme.typography.labelMedium,
+                    fontWeight = FontWeight.SemiBold,
+                    color = if (overBudget) MaterialTheme.colorScheme.error
+                    else MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.padding(top = 2.dp)
+                )
             }
             Spacer(Modifier.width(12.dp))
             Surface(

@@ -15,13 +15,16 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -54,6 +57,8 @@ fun ProductsScreen(
     val state by viewModel.state.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
     var showAddDialog by remember { mutableStateOf(false) }
+    var query by remember { mutableStateOf("") }
+    var sortByPrice by remember { mutableStateOf(false) }
 
     LaunchedEffect(state.message) {
         state.message?.let {
@@ -104,13 +109,63 @@ fun ProductsScreen(
                     style = MaterialTheme.typography.bodyLarge
                 )
             } else {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(12.dp),
-                    verticalArrangement = Arrangement.spacedBy(10.dp)
-                ) {
-                    items(products, key = { it.productId ?: it.productName.hashCode() }) { product ->
-                        ProductCard(product)
+                val visible = remember(products, query, sortByPrice) {
+                    val q = query.trim()
+                    products
+                        .filter {
+                            q.isBlank() ||
+                                it.productName.contains(q, ignoreCase = true) ||
+                                (it.productDescription?.contains(q, ignoreCase = true) == true)
+                        }
+                        .let { list ->
+                            if (sortByPrice) list.sortedBy { it.productPrice }
+                            else list.sortedBy { it.productName.lowercase() }
+                        }
+                }
+
+                Column(Modifier.fillMaxSize()) {
+                    OutlinedTextField(
+                        value = query,
+                        onValueChange = { query = it },
+                        label = { Text("Search products") },
+                        singleLine = true,
+                        leadingIcon = { Icon(Icons.Filled.Search, contentDescription = null) },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 12.dp, vertical = 8.dp)
+                    )
+                    Row(
+                        modifier = Modifier.padding(horizontal = 12.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        FilterChip(
+                            selected = !sortByPrice,
+                            onClick = { sortByPrice = false },
+                            label = { Text("Name") }
+                        )
+                        FilterChip(
+                            selected = sortByPrice,
+                            onClick = { sortByPrice = true },
+                            label = { Text("Price") }
+                        )
+                    }
+
+                    if (visible.isEmpty()) {
+                        Text(
+                            "No products match \"$query\".",
+                            modifier = Modifier.padding(24.dp),
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                    } else {
+                        LazyColumn(
+                            modifier = Modifier.fillMaxSize(),
+                            contentPadding = PaddingValues(12.dp),
+                            verticalArrangement = Arrangement.spacedBy(10.dp)
+                        ) {
+                            items(visible, key = { it.productId ?: it.productName.hashCode() }) { product ->
+                                ProductCard(product)
+                            }
+                        }
                     }
                 }
             }

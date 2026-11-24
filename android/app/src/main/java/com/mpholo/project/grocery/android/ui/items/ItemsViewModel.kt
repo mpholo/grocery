@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.mpholo.project.grocery.android.data.GroceryRepository
 import com.mpholo.project.grocery.android.data.model.GroceryItem
+import com.mpholo.project.grocery.android.data.model.Product
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,7 +20,10 @@ data class ItemsScreenState(
     val updatingIds: Set<Int> = emptySet(),
     val copying: Boolean = false,       // a copy-to-month request is in flight
     val budget: Double = 0.0,           // editable month budget
-    val updatingBudget: Boolean = false // a budget update is in flight
+    val updatingBudget: Boolean = false, // a budget update is in flight
+    val products: List<Product> = emptyList(), // catalog, for the add-item picker
+    val loadingProducts: Boolean = false,
+    val addingItem: Boolean = false     // an add-product-to-month request is in flight
 ) {
     /** Total of every item in the month (regardless of basket state). */
     val plannedTotal: Double get() = items.sumOf { it.actualPrice * it.quantity }
@@ -84,6 +88,47 @@ class ItemsViewModel(
                 _state.update { it.copy(copying = false, message = "Copied to ${created.period}") }
             } catch (e: Exception) {
                 _state.update { it.copy(copying = false, message = e.message ?: "Copy failed") }
+            }
+        }
+    }
+
+    /** Fetch the product catalog for the add-item picker (lazy, when the dialog opens). */
+    fun loadProducts() {
+        if (state.value.products.isNotEmpty() || state.value.loadingProducts) return
+        _state.update { it.copy(loadingProducts = true) }
+        viewModelScope.launch {
+            try {
+                val products = repository.getProducts()
+                _state.update { it.copy(loadingProducts = false, products = products) }
+            } catch (e: Exception) {
+                _state.update {
+                    it.copy(loadingProducts = false, message = e.message ?: "Failed to load products")
+                }
+            }
+        }
+    }
+
+    /** Add a catalog product to this month (quantity 1, at the product's price). */
+    fun addItem(product: Product) {
+        val productId = product.productId ?: return
+        _state.update { it.copy(addingItem = true) }
+        viewModelScope.launch {
+            try {
+                val created = repository.addItemToMonth(
+                    monthlyGroceryId = monthlyGroceryId,
+                    productId = productId,
+                    quantity = 1,
+                    actualPrice = product.productPrice
+                )
+                _state.update { current ->
+                    current.copy(
+                        addingItem = false,
+                        items = current.items + created,
+                        message = "Added ${product.productName}"
+                    )
+                }
+            } catch (e: Exception) {
+                _state.update { it.copy(addingItem = false, message = e.message ?: "Add failed") }
             }
         }
     }

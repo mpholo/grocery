@@ -1,5 +1,6 @@
 package com.mpholo.project.grocery.controller.api.v1.dto;
 
+import com.mpholo.project.grocery.domain.GroceryItem;
 import com.mpholo.project.grocery.model.MonthlyGroceryDTO;
 
 import java.io.Serializable;
@@ -18,6 +19,8 @@ public class MonthlyGrocerySummaryResponse implements Serializable {
     private String period;
     private LocalDate startDate;
     private LocalDate endDate;
+    // Money spent so far = total of items currently ticked as in-basket (purchased).
+    private double spent;
 
     public MonthlyGrocerySummaryResponse() {
     }
@@ -29,6 +32,11 @@ public class MonthlyGrocerySummaryResponse implements Serializable {
         r.period = dto.getPeriod();
         r.startDate = dto.getStartDate();
         r.endDate = dto.getEndDate();
+        r.spent = dto.getGroceryItems() == null ? 0.0 :
+                dto.getGroceryItems().stream()
+                        .filter(GroceryItem::isPurchased)
+                        .mapToDouble(i -> i.getActualPrice() * i.getQuantity())
+                        .sum();
         return r;
     }
 
@@ -50,5 +58,9 @@ public class MonthlyGrocerySummaryResponse implements Serializable {
 
     public LocalDate getEndDate() {
         return endDate;
+    }
+
+    public double getSpent() {
+        return spent;
     }
 }

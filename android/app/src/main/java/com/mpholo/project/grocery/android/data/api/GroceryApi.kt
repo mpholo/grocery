@@ -1,6 +1,7 @@
 package com.mpholo.project.grocery.android.data.api
 
 import com.mpholo.project.grocery.android.data.model.CopyMonthRequest
+import com.mpholo.project.grocery.android.data.model.CreateGroceryItemRequest
 import com.mpholo.project.grocery.android.data.model.CreateProductRequest
 import com.mpholo.project.grocery.android.data.model.GroceryItem
 import com.mpholo.project.grocery.android.data.model.GroceryItemPatchRequest
@@ -23,6 +24,9 @@ interface GroceryApi {
 
     @GET("api/v1/groceryitems")
     suspend fun getItems(@Query("monthlyGroceryId") monthlyGroceryId: Int): List<GroceryItem>
+
+    @POST("api/v1/groceryitems")
+    suspend fun createItem(@Body body: CreateGroceryItemRequest): GroceryItem
 
     @PATCH("api/v1/groceryitems/{id}")
     suspend fun patchItem(
