@@ -2,6 +2,7 @@ package com.mpholo.project.grocery.android.data
 
 import com.mpholo.project.grocery.android.data.api.GroceryApi
 import com.mpholo.project.grocery.android.data.api.NetworkModule
+import com.mpholo.project.grocery.android.data.local.LocalStore
 import com.mpholo.project.grocery.android.data.model.CopyMonthRequest
 import com.mpholo.project.grocery.android.data.model.CreateGroceryItemRequest
 import com.mpholo.project.grocery.android.data.model.CreateProductRequest
@@ -10,16 +11,40 @@ import com.mpholo.project.grocery.android.data.model.GroceryItemPatchRequest
 import com.mpholo.project.grocery.android.data.model.MonthSummary
 import com.mpholo.project.grocery.android.data.model.Product
 import com.mpholo.project.grocery.android.data.model.UpdateBudgetRequest
+import com.mpholo.project.grocery.android.data.sync.ConnectivityObserver
 
-/** Single point of access to the backend for the ViewModels. */
+/**
+ * Single point of access for the ViewModels. Reads fall back to the local cache
+ * when offline; basket toggles work offline and are queued, then replayed to the
+ * server by [syncPending] the moment the device reconnects.
+ */
 class GroceryRepository(
-    private val api: GroceryApi = NetworkModule.groceryApi
+    private val api: GroceryApi = NetworkModule.groceryApi,
+    private val store: LocalStore = AppGraph.store,
+    private val connectivity: ConnectivityObserver = AppGraph.connectivity
 ) {
 
-    suspend fun getMonths(): List<MonthSummary> = api.getMonths()
+    /** Months: fresh from the server when reachable (and cached), else the cache. */
+    suspend fun getMonths(): List<MonthSummary> = try {
+        api.getMonths().also { store.saveMonths(it) }
+    } catch (e: Exception) {
+        store.loadMonths()
+    }
 
-    suspend fun getItems(monthlyGroceryId: Int): List<GroceryItem> =
-        api.getItems(monthlyGroceryId)
+    /**
+     * Items of a month: fresh when reachable (and cached), else the cache; then
+     * any pending offline toggles are overlaid so queued changes stay visible.
+     */
+    suspend fun getItems(monthlyGroceryId: Int): List<GroceryItem> {
+        val base = try {
+            api.getItems(monthlyGroceryId).also { store.saveItems(monthlyGroceryId, it) }
+        } catch (e: Exception) {
+            store.loadItems(monthlyGroceryId)
+        }
+        val pending = store.pendingMap()
+        return if (pending.isEmpty()) base
+        else base.map { it.copy(purchased = pending[it.groceryItemId] ?: it.purchased) }
+    }
 
     /** Add a catalog product to a month as a new grocery item. */
     suspend fun addItemToMonth(
@@ -37,9 +62,40 @@ class GroceryRepository(
             )
         )
 
-    /** Toggle the "added to basket" (purchased) flag. */
-    suspend fun setPurchased(groceryItemId: Int, purchased: Boolean): GroceryItem =
-        api.patchItem(groceryItemId, GroceryItemPatchRequest(purchased = purchased))
+    /**
+     * Toggle the "added to basket" (purchased) flag. Works offline: when the
+     * device is offline (or the request fails) the change is queued locally and
+     * an optimistic item is returned; it syncs on reconnect via [syncPending].
+     */
+    suspend fun setPurchased(item: GroceryItem, purchased: Boolean): GroceryItem {
+        if (connectivity.isOnline()) {
+            try {
+                val updated = api.patchItem(
+                    item.groceryItemId,
+                    GroceryItemPatchRequest(purchased = purchased)
+                )
+                store.clearToggle(item.groceryItemId)
+                return updated
+            } catch (e: Exception) {
+                // fall through to queue
+            }
+        }
+        store.queueToggle(item.groceryItemId, purchased)
+        return item.copy(purchased = purchased)
+    }
+
+    /** Replay queued offline basket toggles to the server. No-op when offline. */
+    suspend fun syncPending() {
+        if (!connectivity.isOnline()) return
+        for (op in store.pendingToggles()) {
+            try {
+                api.patchItem(op.groceryItemId, GroceryItemPatchRequest(purchased = op.purchased))
+                store.clearToggle(op.groceryItemId)
+            } catch (e: Exception) {
+                // keep it queued for the next reconnect
+            }
+        }
+    }
 
     /** Change quantity and/or unit price. Pass null to leave a field unchanged. */
     suspend fun updateItem(

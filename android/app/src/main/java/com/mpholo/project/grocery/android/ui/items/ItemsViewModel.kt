@@ -76,7 +76,7 @@ class ItemsViewModel(
         }
         viewModelScope.launch {
             try {
-                val updated = repository.setPurchased(id, target)
+                val updated = repository.setPurchased(item, target)
                 _state.update { current ->
                     current.copy(items = current.items.map {
                         if (it.groceryItemId == id) updated else it
