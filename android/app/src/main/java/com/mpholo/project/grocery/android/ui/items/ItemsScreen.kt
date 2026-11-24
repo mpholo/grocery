@@ -1,6 +1,7 @@
 package com.mpholo.project.grocery.android.ui.items
 
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -346,7 +347,12 @@ private fun ItemRow(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(18.dp),
         colors = CardDefaults.cardColors(containerColor = container, contentColor = onContainer),
-        elevation = CardDefaults.cardElevation(defaultElevation = if (item.purchased) 0.dp else 2.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = if (item.purchased) 0.dp else 2.dp),
+        // Unchecked cards share the background colour, so give them an outline —
+        // otherwise they have no visible edge (most noticeable in dark mode,
+        // where elevation shadows barely register).
+        border = if (item.purchased) null
+        else BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp, vertical = 10.dp),
