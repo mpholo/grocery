@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -33,9 +34,51 @@ public class User implements UserDetails {
 
     private boolean enabled = true;
 
+    // Self-service signup / approval / activation workflow. Null for pre-existing
+    // accounts (they remain gated solely by `enabled`).
+    @Enumerated(EnumType.STRING)
+    private AccountStatus status;
+
+    // Single-use token emailed for account activation and for password reset.
+    private String activationToken;
+    private LocalDateTime activationTokenExpires;
+    private LocalDateTime createdDate;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<UserRole> userRoles = new HashSet<>();
+
+    public AccountStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(AccountStatus status) {
+        this.status = status;
+    }
+
+    public String getActivationToken() {
+        return activationToken;
+    }
+
+    public void setActivationToken(String activationToken) {
+        this.activationToken = activationToken;
+    }
+
+    public LocalDateTime getActivationTokenExpires() {
+        return activationTokenExpires;
+    }
+
+    public void setActivationTokenExpires(LocalDateTime activationTokenExpires) {
+        this.activationTokenExpires = activationTokenExpires;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
 
 
     public Set<UserRole> getUserRoles() {

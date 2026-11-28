@@ -263,3 +263,8 @@ INSERT INTO ROLE VALUES(2,'ROLE_ADMIN');
 
 INSERT INTO APP_USER(USER_ID,EMAIL,ENABLED,FIRST_NAME,LAST_NAME,PASSWORD,PHONE,USERNAME) VALUES(1,'mpholo.leboea@gmail.com	',true,'Mpholo','Leboea','$2a$12$a8E0ib/z7XOBpF6vG2vU/OtSVkf75mloPtRMgM74VCf5kaP0kRTXC','0794417879','mpholo');
 INSERT INTO USER_ROLE(USER_ROLE_ID,ROLE_ID,USER_ID) VALUES(1,1,1);
+
+-- The rows above use explicit ids; advance the shared id generator past them so
+-- app-created rows (signups, bootstrapped superadmin) don't collide. Embedded
+-- (H2) only — data.sql does not run against the production Postgres.
+ALTER SEQUENCE IF EXISTS hibernate_sequence RESTART WITH 1000;
