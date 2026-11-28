@@ -1,5 +1,7 @@
 package com.mpholo.project.grocery.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mpholo.project.grocery.security.domain.User;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -10,7 +12,7 @@ import java.util.Set;
 
 @Data
 @Entity
-@EqualsAndHashCode(exclude = {"groceryItem","category"})
+@EqualsAndHashCode(exclude = {"groceryItem","category","owner"})
 public class Product  {
 
     @Id
@@ -27,6 +29,12 @@ public class Product  {
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Category category;
+
+    // The user who owns this product (per-user catalog).
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id")
+    @JsonIgnore
+    private User owner;
 
     @Override
     public String toString() {

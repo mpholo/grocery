@@ -10,6 +10,7 @@ import com.mpholo.project.grocery.security.service.AuthService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +23,7 @@ import java.util.Set;
  * env vars are supplied, creates an active superadmin on first run.
  */
 @Component
+@Order(1)
 @Slf4j
 public class SecurityBootstrap implements CommandLineRunner {
 

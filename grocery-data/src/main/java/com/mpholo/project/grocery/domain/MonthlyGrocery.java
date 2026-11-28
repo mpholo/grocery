@@ -1,5 +1,7 @@
 package com.mpholo.project.grocery.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mpholo.project.grocery.security.domain.User;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,12 +18,18 @@ import java.util.Set;
 @Entity
 @Setter
 @Getter
-@EqualsAndHashCode(exclude = {"groceryItems"})
+@EqualsAndHashCode(exclude = {"groceryItems", "owner"})
 public class MonthlyGrocery  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int monthlyGroceryId;
+
+    // The user who owns this month (per-user data isolation).
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id")
+    @JsonIgnore
+    private User owner;
     @NotNull
     private double budgetAmount;
     @NotNull
