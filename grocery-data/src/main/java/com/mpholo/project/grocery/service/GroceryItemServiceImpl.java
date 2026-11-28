@@ -11,6 +11,7 @@ import com.mpholo.project.grocery.model.GroceryItemUpdateDTO;
 import com.mpholo.project.grocery.model.MonthlyGroceryDTO;
 import com.mpholo.project.grocery.model.ProductDTO;
 import com.mpholo.project.grocery.repositories.GroceryItemRepository;
+import com.mpholo.project.grocery.security.service.CurrentUserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,11 +27,12 @@ public class GroceryItemServiceImpl implements GroceryItemService {
     private final ProductService productService;
     private ProductMapper productMapper;
     private MonthlyGroceryService monthlyGroceryService;
+    private final CurrentUserService currentUserService;
 
 
     public GroceryItemServiceImpl(GroceryItemRepository groceryBasketRepository,
                                   GroceryBasketMapper groceryBasketMapper,
-                                  MonthlyGroceryMapper monthlyGroceryMapper, ProductService productService, ProductMapper productMapper, MonthlyGroceryService monthlyGroceryService) {
+                                  MonthlyGroceryMapper monthlyGroceryMapper, ProductService productService, ProductMapper productMapper, MonthlyGroceryService monthlyGroceryService, CurrentUserService currentUserService) {
 
         this.groceryBasketRepository = groceryBasketRepository;
         this.groceryBasketMapper = groceryBasketMapper;
@@ -38,17 +40,23 @@ public class GroceryItemServiceImpl implements GroceryItemService {
         this.productService = productService;
         this.productMapper = productMapper;
         this.monthlyGroceryService = monthlyGroceryService;
+        this.currentUserService = currentUserService;
+    }
+
+    // An item whose month belongs to the current user, or 404.
+    private GroceryItem ownedItem(Integer id) {
+        GroceryItem item = groceryBasketRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Grocery item not found for id " + id));
+        MonthlyGrocery month = item.getMonthlyGrocery();
+        if (month == null || !currentUserService.ownedByCurrent(month.getOwner())) {
+            throw new ResourceNotFoundException("Grocery item not found for id " + id);
+        }
+        return item;
     }
 
     @Override
     public Optional<GroceryItemDTO> findById(Integer id) {
-        Optional<GroceryItem> groceryBasket=groceryBasketRepository.findById(id);
-
-        if(groceryBasket.isPresent()) {
-            return Optional.of(groceryBasketMapper.groceryBasketToGroceryBasketDTO(groceryBasket.get()));
-        }
-
-        return  Optional.empty();
+        return Optional.of(groceryBasketMapper.groceryBasketToGroceryBasketDTO(ownedItem(id)));
     }
 
     @Override
@@ -61,7 +69,7 @@ public class GroceryItemServiceImpl implements GroceryItemService {
 
     @Override
     public void deleteById(Integer id) {
-
+        ownedItem(id); // authorize
         groceryBasketRepository.deleteById(id);
     }
 
@@ -138,9 +146,7 @@ public class GroceryItemServiceImpl implements GroceryItemService {
     @Override
     public GroceryItemDTO patch(Integer groceryItemId, Integer quantity, Double actualPrice, Boolean purchased) {
 
-        GroceryItem groceryItem = groceryBasketRepository.findById(groceryItemId)
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        "Grocery item not found for id " + groceryItemId));
+        GroceryItem groceryItem = ownedItem(groceryItemId);
 
         if (quantity != null) {
             groceryItem.setQuantity(quantity);

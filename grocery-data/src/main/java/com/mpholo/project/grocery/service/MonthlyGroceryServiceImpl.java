@@ -7,6 +7,7 @@ import com.mpholo.project.grocery.mapper.MonthlyGroceryMapper;
 import com.mpholo.project.grocery.model.MonthlyGroceryDTO;
 import com.mpholo.project.grocery.repositories.GroceryItemRepository;
 import com.mpholo.project.grocery.repositories.MonthlyGroceryRepository;
+import com.mpholo.project.grocery.security.service.CurrentUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -28,23 +29,33 @@ public class MonthlyGroceryServiceImpl  implements  MonthlyGroceryService {
     private final MonthlyGroceryRepository monthlyGroceryRepository;
     private final GroceryItemRepository groceryItemRepository;
     private MonthlyGroceryMapper monthlyGroceryMapper;
+    private final CurrentUserService currentUserService;
 
-    public MonthlyGroceryServiceImpl(MonthlyGroceryRepository monthlyGroceryRepository, GroceryItemRepository groceryItemRepository, MonthlyGroceryMapper monthlyGroceryMapper) {
+    public MonthlyGroceryServiceImpl(MonthlyGroceryRepository monthlyGroceryRepository, GroceryItemRepository groceryItemRepository, MonthlyGroceryMapper monthlyGroceryMapper, CurrentUserService currentUserService) {
         this.monthlyGroceryRepository = monthlyGroceryRepository;
         this.groceryItemRepository = groceryItemRepository;
         this.monthlyGroceryMapper = monthlyGroceryMapper;
+        this.currentUserService = currentUserService;
+    }
+
+    // A month the current user owns, or 404.
+    private MonthlyGrocery ownedMonth(Integer id) {
+        MonthlyGrocery month = monthlyGroceryRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("monthly grocery not found with ID: " + id));
+        if (!currentUserService.ownedByCurrent(month.getOwner())) {
+            throw new NotFoundException("monthly grocery not found with ID: " + id);
+        }
+        return month;
     }
 
     @Override
     public Optional<MonthlyGroceryDTO> findById(Integer id) {
-        return Optional.of(monthlyGroceryRepository.findById(id)
-                .map(monthlyGroceryMapper::monthlyGroceryToMonthlyGroceryDTO)
-                .orElseThrow(()->new NotFoundException("monthly grocery not found with ID: "+id.toString() )));
+        return Optional.of(monthlyGroceryMapper.monthlyGroceryToMonthlyGroceryDTO(ownedMonth(id)));
     }
 
     @Override
     public List<MonthlyGroceryDTO> findAll() {
-        return monthlyGroceryRepository.findAll()
+        return monthlyGroceryRepository.findByOwner(currentUserService.requireCurrentUser())
                 .stream()
                 .map(monthlyGroceryMapper::monthlyGroceryToMonthlyGroceryDTO)
                 .collect(Collectors.toList());
@@ -52,6 +63,7 @@ public class MonthlyGroceryServiceImpl  implements  MonthlyGroceryService {
 
     @Override
     public void deleteById(Integer id) {
+        ownedMonth(id); // authorize
         monthlyGroceryRepository.deleteById(id);
 
     }
@@ -65,19 +77,23 @@ public class MonthlyGroceryServiceImpl  implements  MonthlyGroceryService {
     public MonthlyGroceryDTO save(MonthlyGroceryDTO monthlyGroceryDTO) {
 
         MonthlyGrocery monthlyGrocery = monthlyGroceryMapper.monthlyGroceryDTOToMonthlyGrocery(monthlyGroceryDTO);
+        monthlyGrocery.setOwner(currentUserService.requireCurrentUser());
         return  saveAndReturn(monthlyGrocery);
 
     }
 
     @Override
     public MonthlyGroceryDTO edit(Integer id, MonthlyGroceryDTO monthlyGroceryDTO) {
+        ownedMonth(id); // authorize
         MonthlyGrocery monthlyGrocery = monthlyGroceryMapper.monthlyGroceryDTOToMonthlyGrocery(monthlyGroceryDTO);
+        monthlyGrocery.setOwner(currentUserService.requireCurrentUser());
         return saveAndReturn(monthlyGrocery);
     }
 
     @Override
     public MonthlyGroceryDTO findByPeriod(String period) {
-        return monthlyGroceryMapper.monthlyGroceryToMonthlyGroceryDTO(monthlyGroceryRepository.findByPeriod(period));
+        return monthlyGroceryMapper.monthlyGroceryToMonthlyGroceryDTO(
+                monthlyGroceryRepository.findByOwnerAndPeriod(currentUserService.requireCurrentUser(), period));
     }
 
     @Override
@@ -89,7 +105,7 @@ public class MonthlyGroceryServiceImpl  implements  MonthlyGroceryService {
         BiPredicate<LocalDate, LocalDate> match =
                 (startDate,endDate)-> startDate.getYear()==searchYear && endDate.getYear()==searchYear;
 
-        List<MonthlyGroceryDTO> monthlyGroceryDTOList =  monthlyGroceryRepository.findAll()
+        List<MonthlyGroceryDTO> monthlyGroceryDTOList =  monthlyGroceryRepository.findByOwner(currentUserService.requireCurrentUser())
                 .stream()
                 .filter(record -> match.test(record.getStartDate(),record.getEndDate()))
                 .map(monthlyGroceryMapper::monthlyGroceryToMonthlyGroceryDTO)
@@ -106,13 +122,13 @@ public class MonthlyGroceryServiceImpl  implements  MonthlyGroceryService {
     @Override
     public Optional<MonthlyGroceryDTO> copy(Integer monthlyGroceryId) {
 
-        Optional<MonthlyGrocery> monthlyGrocery  = monthlyGroceryRepository.findById(monthlyGroceryId);
+        Optional<MonthlyGrocery> monthlyGrocery  = Optional.of(ownedMonth(monthlyGroceryId));
 
        if(monthlyGrocery.isPresent()) {
 
 
-           //get last monthly grocery
-           Optional<MonthlyGrocery> monthlyGroceries = monthlyGroceryRepository.findAll()
+           //get last monthly grocery (within the current user's months)
+           Optional<MonthlyGrocery> monthlyGroceries = monthlyGroceryRepository.findByOwner(currentUserService.requireCurrentUser())
                    .stream()
                    .sorted(Comparator.comparing((MonthlyGrocery m) -> m.getStartDate()).reversed())
                    .findFirst();
@@ -126,6 +142,7 @@ public class MonthlyGroceryServiceImpl  implements  MonthlyGroceryService {
                String newPeriod = newMonthlyGrocery.getStartDate().format(DateTimeFormatter.ofPattern("MMMM yyyy"));
                newMonthlyGrocery.setPeriod(newPeriod);
                newMonthlyGrocery.setBudgetAmount(monthlyGrocery.get().getBudgetAmount());
+               newMonthlyGrocery.setOwner(currentUserService.requireCurrentUser());
 
                MonthlyGrocery  savedMonthlyGrocery =monthlyGroceryRepository.save(newMonthlyGrocery);
 
@@ -142,12 +159,8 @@ public class MonthlyGroceryServiceImpl  implements  MonthlyGroceryService {
     @Override
     public Optional<MonthlyGroceryDTO> copyToMonth(Integer monthlyGroceryId, int month, int year, Double budgetAmount) {
 
-        Optional<MonthlyGrocery> source = monthlyGroceryRepository.findById(monthlyGroceryId);
-        if (!source.isPresent()) {
-            return Optional.empty();
-        }
-
-        MonthlyGrocery src = source.get();
+        // Only the current user's own month may be copied.
+        MonthlyGrocery src = ownedMonth(monthlyGroceryId);
         YearMonth yearMonth = YearMonth.of(year, month);
 
         MonthlyGrocery newMonthlyGrocery = new MonthlyGrocery();
@@ -155,6 +168,7 @@ public class MonthlyGroceryServiceImpl  implements  MonthlyGroceryService {
         newMonthlyGrocery.setEndDate(yearMonth.atEndOfMonth());
         newMonthlyGrocery.setPeriod(yearMonth.atDay(1).format(DateTimeFormatter.ofPattern("MMMM yyyy")));
         newMonthlyGrocery.setBudgetAmount(budgetAmount != null ? budgetAmount : src.getBudgetAmount());
+        newMonthlyGrocery.setOwner(currentUserService.requireCurrentUser());
 
         MonthlyGrocery savedMonthlyGrocery = monthlyGroceryRepository.save(newMonthlyGrocery);
 
@@ -172,18 +186,15 @@ public class MonthlyGroceryServiceImpl  implements  MonthlyGroceryService {
     @Transactional
     @Override
     public Optional<MonthlyGroceryDTO> updateBudget(Integer monthlyGroceryId, double budgetAmount) {
-        return monthlyGroceryRepository.findById(monthlyGroceryId)
-                .map(monthlyGrocery -> {
-                    monthlyGrocery.setBudgetAmount(budgetAmount);
-                    return saveAndReturn(monthlyGrocery);
-                });
+        MonthlyGrocery monthlyGrocery = ownedMonth(monthlyGroceryId);
+        monthlyGrocery.setBudgetAmount(budgetAmount);
+        return Optional.of(saveAndReturn(monthlyGrocery));
     }
 
     @Transactional
     @Override
     public boolean deleteIfBasketEmpty(Integer monthlyGroceryId) {
-        MonthlyGrocery monthlyGrocery = monthlyGroceryRepository.findById(monthlyGroceryId)
-                .orElseThrow(() -> new NotFoundException("Monthly grocery not found for id " + monthlyGroceryId));
+        MonthlyGrocery monthlyGrocery = ownedMonth(monthlyGroceryId);
 
         boolean hasBasketItems = monthlyGrocery.getGroceryItems().stream()
                 .anyMatch(GroceryItem::isPurchased);
